@@ -519,6 +519,203 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 .section-block.green { background: #eef8f1; border-color: #cfe9d8; }
 .section-block.yellow { background: #fff8e1; border-color: #ffe082; }
 .section-block.red { background: #fdf0f0; border-color: #f5c8c4; }
+.section-block.compact { padding: 14px 18px; }
+.section-block.compact h3 { font-size: 15px; margin-bottom: 10px; }
+
+/* Dependents row — compact inline layout */
+.dep-block {
+  margin-bottom: 12px;
+}
+.dep-block:last-child { margin-bottom: 0; }
+.dep-block-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--grey-text);
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.dependents-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.dep-mini {
+  display: inline-flex;
+  align-items: center;
+  background: white;
+  border: 1.5px solid var(--grey-line);
+  border-radius: 8px;
+  overflow: hidden;
+  height: 36px;
+}
+.dep-mini:focus-within { border-color: var(--navy); }
+.dep-mini .mini-prefix {
+  font-size: 12px;
+  color: var(--grey-text);
+  padding: 0 8px 0 10px;
+  background: #fafbfc;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  border-right: 1px solid var(--grey-line);
+  white-space: nowrap;
+}
+.dep-mini .mini-suffix {
+  font-size: 12px;
+  color: var(--grey-text);
+  padding: 0 10px 0 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.dep-mini input {
+  border: none;
+  outline: none;
+  padding: 0 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+  background: white;
+  width: 50px;
+  height: 100%;
+  font-family: inherit;
+}
+.dep-mini input[type="text"] { width: 110px; }
+.dep-mini.wide input { width: 90px; }
+.dep-mini.grow { flex: 1; min-width: 160px; }
+.dep-mini.grow input { width: 100%; }
+
+/* Children list */
+.children-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.children-empty {
+  font-size: 13px;
+  color: var(--grey-text);
+  font-style: italic;
+  padding: 8px 12px;
+  background: white;
+  border: 1px dashed var(--grey-line);
+  border-radius: 8px;
+}
+.child-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  border-radius: 8px;
+  padding: 4px;
+  border: 1px solid var(--grey-line);
+}
+.gender-toggle {
+  border: none;
+  border-radius: 6px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  font-family: inherit;
+  height: 36px;
+}
+.gender-toggle.boy { background: #e3f0fa; color: #2980b9; }
+.gender-toggle.boy:hover { background: #2980b9; color: white; }
+.gender-toggle.girl { background: #fce4ec; color: #c2185b; }
+.gender-toggle.girl:hover { background: #c2185b; color: white; }
+
+.child-row .dep-mini {
+  height: 36px;
+}
+.child-row .dep-mini input {
+  width: 50px;
+}
+.child-row .bd-remove {
+  background: white;
+  border: 1px solid var(--grey-line);
+  color: var(--red);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.child-row .bd-remove:hover { background: var(--red); color: white; border-color: var(--red); }
+
+.dep-add-btn {
+  background: white;
+  border: 1.5px dashed var(--grey-line);
+  color: var(--navy);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.dep-add-btn:hover { border-color: var(--navy); border-style: solid; background: #eef5fc; }
+
+.dep-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  border: 1.5px solid var(--grey-line);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--navy);
+  cursor: pointer;
+  height: 36px;
+  transition: all 0.15s;
+}
+.dep-check:has(input:checked) {
+  background: var(--navy);
+  color: white;
+  border-color: var(--navy);
+}
+.dep-check input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  cursor: pointer;
+}
+
+/* Pain Points compact */
+.section-block.red .pain-text {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1.5px solid #f5c8c4;
+  background: white;
+  font-family: inherit;
+  font-size: 14.5px;
+  line-height: 1.55;
+  resize: vertical;
+  min-height: 56px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.section-block.red .pain-text:focus { border-color: var(--red); }
+
+@media (max-width: 600px) {
+  .dependents-row { gap: 12px; }
+  .dep-group { width: 100%; }
+  .dep-mini.grow { width: 100%; }
+}
 
 .profile-selector {
   display: grid;
@@ -893,6 +1090,28 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 .cfh-bar-pct.good { color: var(--green-dark); }
 .cfh-bar-pct.low { color: var(--orange); }
 
+.cfh-info {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--grey-bg);
+  color: var(--grey-text);
+  font-size: 10px;
+  font-weight: 700;
+  margin-left: 4px;
+  cursor: help;
+  border: 1px solid var(--grey-line);
+  vertical-align: middle;
+}
+.cfh-info:hover {
+  background: var(--navy);
+  color: white;
+  border-color: var(--navy);
+}
+
 .cfh-bar-track {
   position: relative;
   height: 16px;
@@ -967,6 +1186,193 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 }
 @media (max-width: 600px) {
   .cfh-components { grid-template-columns: 1fr; }
+}
+
+/* === Expense breakdown — 3 categories === */
+.bd-quickadd {
+  background: white;
+  border: 1px dashed var(--grey-line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+.bd-qa-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+}
+.bd-qa-row + .bd-qa-row { border-top: 1px dashed #f0f4f8; padding-top: 8px; margin-top: 4px; }
+.bd-qa-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-right: 6px;
+  white-space: nowrap;
+  min-width: 84px;
+}
+.bd-qa-label.needs-label { color: var(--red); }
+.bd-qa-label.wants-label { color: var(--orange); }
+.bd-qa-label.savings-label { color: var(--green-dark); }
+
+.bd-qa-pill {
+  background: var(--grey-bg);
+  border: 1px solid var(--grey-line);
+  color: var(--navy);
+  padding: 5px 11px;
+  border-radius: 99px;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.bd-qa-pill.needs:hover { background: var(--red); color: white; border-color: var(--red); }
+.bd-qa-pill.wants:hover { background: var(--orange); color: white; border-color: var(--orange); }
+.bd-qa-pill.savings:hover { background: var(--green); color: white; border-color: var(--green); }
+
+/* Expense row with 5 columns */
+.breakdown-row.exp-row {
+  grid-template-columns: 2fr 1.1fr auto auto auto;
+  border-left: 3px solid transparent;
+  padding-left: 6px;
+  margin-left: -6px;
+  border-radius: 6px;
+}
+.breakdown-row.exp-row.cat-needs { border-left-color: rgba(192,57,43,0.5); }
+.breakdown-row.exp-row.cat-wants { border-left-color: rgba(230,126,34,0.5); }
+.breakdown-row.exp-row.cat-savings { border-left-color: rgba(39,174,96,0.5); }
+
+.bd-cat-btn {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 99px;
+  border: 1.5px solid;
+  cursor: pointer;
+  background: white;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.bd-cat-btn.cat-needs { color: var(--red); border-color: rgba(192,57,43,0.4); }
+.bd-cat-btn.cat-wants { color: var(--orange); border-color: rgba(230,126,34,0.4); }
+.bd-cat-btn.cat-savings { color: var(--green-dark); border-color: rgba(39,174,96,0.4); }
+.bd-cat-btn:hover { transform: translateY(-1px); }
+.bd-cat-btn.cat-needs:hover { background: var(--red); color: white; }
+.bd-cat-btn.cat-wants:hover { background: var(--orange); color: white; }
+.bd-cat-btn.cat-savings:hover { background: var(--green); color: white; }
+
+@media (max-width: 600px) {
+  .breakdown-row.exp-row {
+    grid-template-columns: 1fr 1fr auto;
+    gap: 6px;
+  }
+  .breakdown-row.exp-row .bd-cat-btn {
+    grid-column: 1 / 4;
+  }
+  .breakdown-row.exp-row .bd-flag {
+    grid-column: 1 / 3;
+  }
+  .breakdown-row.exp-row .bd-remove {
+    grid-column: 3 / 4;
+  }
+}
+
+/* === WEALTH SUMMARY (Phase 3 footer) === */
+.wealth-summary {
+  background: linear-gradient(180deg, #fafbfc 0%, white 100%);
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 20px;
+  border: 1.5px solid var(--grey-line);
+  box-shadow: var(--shadow-sm);
+}
+.ws-header { margin-bottom: 18px; }
+.ws-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.ws-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+}
+.ws-card {
+  background: white;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  border-left: 4px solid var(--grey-line);
+  box-shadow: var(--shadow-sm);
+}
+.ws-card.stock { border-left-color: var(--blue); background: linear-gradient(to right, var(--blue-soft, #e3f0fa) 0%, white 50%); }
+.ws-card.flow { border-left-color: var(--green); background: linear-gradient(to right, #e8f8ef 0%, white 50%); }
+.ws-card.cover { border-left-color: var(--gold); background: linear-gradient(to right, #fff8e1 0%, white 50%); }
+
+.ws-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.ws-card-icon { font-size: 20px; }
+.ws-card-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--grey-text);
+  text-transform: uppercase;
+}
+.ws-card-big {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--navy);
+  font-feature-settings: "tnum";
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.ws-card-big .unit {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--grey-text);
+  margin-left: 4px;
+}
+.ws-card-sub {
+  font-size: 13px;
+  color: var(--grey-text);
+  margin-top: 4px;
+}
+.ws-breakdown {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--grey-line);
+}
+.ws-bd-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  font-size: 14px;
+}
+.ws-bd-label { color: var(--grey-text); }
+.ws-bd-val { font-weight: 700; font-feature-settings: "tnum"; color: var(--navy); }
+.ws-bd-val.good { color: var(--green-dark); }
+.ws-bd-val.muted { color: var(--grey-text); }
+
+.ws-tip {
+  background: white;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--grey-text);
+  border: 1px dashed var(--grey-line);
+  margin-top: 8px;
 }
 
 .insurance-group {
@@ -1639,7 +2045,12 @@ function newCustomer() {
     finance: {
       monthlyIncome: 0, monthlyExpense: 0,
       debtHouse: 0, debtCar: 0, debtCard: 0, debtOther: 0,
-      childCount: 0, childAges: '', parentDependents: '',
+      children: [],
+      fatherCount: 0, motherCount: 0, parentNote: '',
+      // Legacy (kept for backward-compat)
+      childCount: 0, childAges: '', childBoys: 0, childGirls: 0,
+      hasFather: false, hasMother: false,
+      parentDependents: '',
       painPoints: ''
     },
     assets: [],
@@ -2278,26 +2689,106 @@ function renderPhase1(c) {
       </div>
     </div>
     
-    <div class="section-block">
+    <div class="section-block compact">
       <h3>👨‍👩‍👧 ภาระดูแลคนรอบข้าง</h3>
-      <div class="form-grid cols-2">
-        <div class="form-field"><label>จำนวนลูก</label>
-          <input type="number" value="${(c.finance||{}).childCount||''}" ${bindNumber('finance.childCount')}></div>
-        <div class="form-field"><label>อายุลูก</label>
-          <input type="text" value="${(c.finance||{}).childAges||''}" ${bindField('finance.childAges')} placeholder="เช่น 5, 8"></div>
-        <div class="form-field" style="grid-column: 1/-1"><label>พ่อแม่ / คนที่ดูแล</label>
-          <input type="text" value="${(c.finance||{}).parentDependents||''}" ${bindField('finance.parentDependents')}></div>
+      
+      <div class="dep-block">
+        <div class="dep-block-label">👶 ลูก</div>
+        <div class="children-list" id="childrenList">${renderChildrenList(c)}</div>
+        <button type="button" class="dep-add-btn" onclick="addChild()">+ เพิ่มลูก</button>
+      </div>
+      
+      <div class="dep-block">
+        <div class="dep-block-label">👴👵 พ่อแม่ที่ดูแล</div>
+        <div class="dependents-row">
+          <div class="dep-mini">
+            <span class="mini-prefix">👨 พ่อ</span>
+            <input type="number" min="0" max="2" value="${(c.finance||{}).fatherCount||''}" 
+                   ${bindNumber('finance.fatherCount')} placeholder="0">
+          </div>
+          <div class="dep-mini">
+            <span class="mini-prefix">👩 แม่</span>
+            <input type="number" min="0" max="2" value="${(c.finance||{}).motherCount||''}" 
+                   ${bindNumber('finance.motherCount')} placeholder="0">
+          </div>
+          <div class="dep-mini grow">
+            <span class="mini-prefix">หมายเหตุ</span>
+            <input type="text" value="${(c.finance||{}).parentNote||(c.finance||{}).parentDependents||''}" 
+                   ${bindField('finance.parentNote')} placeholder="เช่น ส่ง 5k/เดือน · พ่อแม่แฟนด้วย">
+          </div>
+        </div>
       </div>
     </div>
     
-    <div class="section-block red">
+    <div class="section-block red compact">
       <h3>🎯 สิ่งที่กังวล / Pain Points</h3>
-      <div class="form-field">
-        <textarea rows="3" ${bindField('finance.painPoints')} placeholder="เช่น กลัวลูกลำบาก / กลัวเงินไม่พอตอนแก่ / กลัวเป็นภาระลูก">${(c.finance||{}).painPoints||''}</textarea>
-        <span class="helper">บันทึกสิ่งที่ลูกค้าเล่าใน Opening — จะเป็น vision ที่อ้างอิงในทุก phase ที่เหลือ</span>
-      </div>
+      <textarea class="pain-text" rows="2" ${bindField('finance.painPoints')} 
+                placeholder="เช่น กลัวลูกลำบาก / กลัวเงินไม่พอตอนแก่ / กลัวเป็นภาระลูก">${(c.finance||{}).painPoints||''}</textarea>
     </div>
     ${renderPhaseFooter()}`;
+}
+
+function renderChildrenList(c) {
+  const children = (c.finance && c.finance.children) || [];
+  if (children.length === 0) {
+    return '<div class="children-empty">ยังไม่มี — กดปุ่มด้านล่าง</div>';
+  }
+  return children.map((child, i) => `
+    <div class="child-row">
+      <button type="button" class="gender-toggle ${child.gender==='boy'?'boy':'girl'}" 
+              onclick="toggleChildGender(${i})">
+        ${child.gender === 'boy' ? '👦 ชาย' : '👧 หญิง'}
+      </button>
+      <div class="dep-mini">
+        <span class="mini-prefix">อายุ</span>
+        <input type="number" min="0" max="100" value="${child.age||''}" 
+               oninput="updateChild(${i}, 'age', Number(this.value)||0)"
+               data-preserve-focus="child-age-${i}"
+               placeholder="0">
+        <span class="mini-suffix">ขวบ</span>
+      </div>
+      <button type="button" class="bd-remove" onclick="removeChild(${i})">×</button>
+    </div>
+  `).join('');
+}
+
+function addChild() {
+  const c = getActive();
+  if (!c.finance) c.finance = {};
+  if (!c.finance.children) c.finance.children = [];
+  c.finance.children.push({ gender: 'boy', age: 0 });
+  saveAndRefresh();
+  render();
+  // Focus the age field of the new child
+  setTimeout(() => {
+    const inputs = document.querySelectorAll('.child-row input[type="number"]');
+    const last = inputs[inputs.length - 1];
+    if (last) { last.focus(); last.select && last.select(); }
+  }, 50);
+}
+
+function toggleChildGender(idx) {
+  const c = getActive();
+  if (!c.finance.children[idx]) return;
+  c.finance.children[idx].gender = c.finance.children[idx].gender === 'boy' ? 'girl' : 'boy';
+  saveAndRefresh();
+  render();
+}
+
+function updateChild(idx, field, val) {
+  const c = getActive();
+  if (!c.finance.children[idx]) return;
+  c.finance.children[idx][field] = val;
+  c.updatedAt = Date.now();
+  saveAndRefresh();
+  // No re-render — preserve cursor while typing age
+}
+
+function removeChild(idx) {
+  const c = getActive();
+  c.finance.children.splice(idx, 1);
+  saveAndRefresh();
+  render();
 }
 
 function setProfileType(t) { updateField('profile.profileType', t); SFX.click(); render(); }
@@ -2438,28 +2929,67 @@ function renderExpenseBreakdown(c) {
   const total = items.reduce((s, it) => s + (Number(it.amount)||0), 0);
   
   let html = `<div class="breakdown-zone">`;
+  
+  // Quick-add pills, grouped by category
+  html += `
+    <div class="bd-quickadd">
+      <div class="bd-qa-row">
+        <span class="bd-qa-label needs-label">🔴 Needs:</span>
+        <button class="bd-qa-pill needs" onclick="quickAddExpense('ค่ากินอยู่ในบ้าน','needs')">ค่ากินอยู่</button>
+        <button class="bd-qa-pill needs" onclick="quickAddExpense('ค่าน้ำ-ค่าไฟ-ค่าเน็ต','needs')">น้ำ/ไฟ/เน็ต</button>
+        <button class="bd-qa-pill needs" onclick="quickAddExpense('ค่าน้ำมัน/เดินทาง','needs')">น้ำมัน/เดินทาง</button>
+        <button class="bd-qa-pill needs" onclick="quickAddExpense('ค่าเลี้ยงลูก (นอกค่าเทอม)','needs')">ค่าเลี้ยงลูก</button>
+        <button class="bd-qa-pill needs" onclick="quickAddExpense('ค่าเทอมลูก/เดือน','needs')">ค่าเทอม</button>
+        <button class="bd-qa-pill needs" onclick="quickAddExpense('ค่ารักษา/ยา','needs')">ค่ารักษา</button>
+        <button class="bd-qa-pill needs" onclick="quickAddExpense('ส่งให้พ่อแม่','needs',true)">⭐ ส่งพ่อแม่</button>
+      </div>
+      <div class="bd-qa-row">
+        <span class="bd-qa-label wants-label">🟡 Wants:</span>
+        <button class="bd-qa-pill wants" onclick="quickAddExpense('ข้าวนอกบ้าน/Delivery','wants')">ข้าวนอกบ้าน</button>
+        <button class="bd-qa-pill wants" onclick="quickAddExpense('Subscription (Netflix, Spotify)','wants')">Subscription</button>
+        <button class="bd-qa-pill wants" onclick="quickAddExpense('ช้อปปิ้ง/เสื้อผ้า','wants')">ช้อปปิ้ง</button>
+        <button class="bd-qa-pill wants" onclick="quickAddExpense('เที่ยว/Entertainment','wants')">เที่ยว/บันเทิง</button>
+        <button class="bd-qa-pill wants" onclick="quickAddExpense('สังสรรค์/พบเพื่อน','wants')">สังสรรค์</button>
+        <button class="bd-qa-pill wants" onclick="quickAddExpense('Gym/Spa/ดูแลตัว','wants')">ดูแลตัว</button>
+      </div>
+      <div class="bd-qa-row">
+        <span class="bd-qa-label savings-label">🟢 Savings:</span>
+        <button class="bd-qa-pill savings" onclick="quickAddExpense('เก็บฉุกเฉิน','savings')">เก็บฉุกเฉิน</button>
+        <button class="bd-qa-pill savings" onclick="quickAddExpense('ลงทุนกองทุน','savings')">ลงทุน</button>
+        <button class="bd-qa-pill savings" onclick="quickAddExpense('เก็บเป้าหมาย (ทริป/ของใหญ่)','savings')">เก็บเป้าหมาย</button>
+      </div>
+    </div>
+  `;
+  
   if (items.length === 0) {
-    html += `<div class="bd-empty">ยังไม่มีรายการ — กดปุ่มด้านล่างเพื่อเพิ่ม</div>`;
+    html += `<div class="bd-empty">ยังไม่มีรายการ — กดปุ่มข้างบนเพื่อเพิ่มเร็ว หรือ "+ เพิ่มเอง" ด้านล่าง</div>`;
   } else {
     items.forEach((it, i) => {
+      const cat = classifyExpenseItem(it);
+      const catLabel = { needs: '🔴 Needs', wants: '🟡 Wants', savings: '🟢 Savings' }[cat];
       html += `
-        <div class="breakdown-row">
-          <input type="text" value="${it.label||''}" placeholder="เช่น ค่ากินอยู่, ส่งแม่"
+        <div class="breakdown-row exp-row cat-${cat}">
+          <input type="text" value="${it.label||''}" placeholder="เช่น ค่ากินอยู่"
                  oninput="updateExpenseItem(${i}, 'label', this.value)"
                  data-preserve-focus="exp-label-${i}">
           <input type="number" class="bd-amount" value="${it.amount||''}" placeholder="บาท/เดือน"
                  oninput="updateExpenseItem(${i}, 'amount', Number(this.value)||0)"
                  data-preserve-focus="exp-amount-${i}">
+          <button type="button" class="bd-cat-btn cat-${cat}" 
+                  onclick="cycleExpenseCategory(${i})"
+                  title="กดเพื่อสลับ Needs / Wants / Savings">
+            ${catLabel}
+          </button>
           <button type="button" class="bd-flag ${it.sacred?'sacred':''}" 
                   onclick="toggleExpenseSacred(${i})"
                   title="${it.sacred?'⭐ Sacred Zone — ห้ามแตะตอน optimize':'กดเพื่อ flag เป็น sacred zone'}">
-            ${it.sacred ? '⭐ Sacred' : '○ ทั่วไป'}
+            ${it.sacred ? '⭐' : '○'}
           </button>
           <button type="button" class="bd-remove" onclick="removeExpenseItem(${i})">×</button>
         </div>`;
     });
   }
-  html += `<button type="button" class="bd-add" onclick="addExpenseItem()">+ เพิ่มรายการ</button>`;
+  html += `<button type="button" class="bd-add" onclick="addExpenseItem()">+ เพิ่มเอง (กรอกชื่อ + เลือกหมวด)</button>`;
   if (items.length > 0) {
     html += `<div class="bd-summary">
       <span>รวมรายจ่าย</span>
@@ -2471,6 +3001,38 @@ function renderExpenseBreakdown(c) {
   }
   html += `</div>`;
   return html;
+}
+
+function quickAddExpense(label, category, sacred) {
+  const c = getActive();
+  if (!c.finance) c.finance = {};
+  if (!c.finance.expenseBreakdown) c.finance.expenseBreakdown = [];
+  c.finance.expenseBreakdown.push({ 
+    label: label, 
+    amount: 0, 
+    category: category, 
+    sacred: !!sacred 
+  });
+  saveAndRefresh();
+  render();
+  // Focus on the new item's amount field
+  setTimeout(() => {
+    const inputs = document.querySelectorAll('.exp-row input.bd-amount');
+    const last = inputs[inputs.length - 1];
+    if (last) { last.focus(); last.select && last.select(); }
+  }, 50);
+}
+
+function cycleExpenseCategory(idx) {
+  const c = getActive();
+  if (!c.finance.expenseBreakdown[idx]) return;
+  const item = c.finance.expenseBreakdown[idx];
+  const current = classifyExpenseItem(item);
+  // Cycle: needs → wants → savings → needs
+  const next = current === 'needs' ? 'wants' : current === 'wants' ? 'savings' : 'needs';
+  item.category = next;
+  saveAndRefresh();
+  render();
 }
 
 function toggleBreakdown(kind) {
@@ -2596,6 +3158,10 @@ const SAVINGS_KEYWORDS = [
 ];
 
 function classifyExpenseItem(item) {
+  // 0. Explicit category set by user/quick-add takes priority
+  if (item.category && ['needs','wants','savings'].includes(item.category)) {
+    return item.category;
+  }
   // 1. Sacred = always Needs (it's emotionally important to the customer)
   if (item.sacred) return 'needs';
   const label = (item.label || '').toLowerCase();
@@ -2685,13 +3251,13 @@ function calcCashflowScore(c) {
     const cashAssets = c.assets.filter(a => 
       /ฝาก|cash|เงินสด|ฉุกเฉิน|สำรอง|ออม/i.test((a.name||'') + ' ' + (a.type||''))
     );
-    if (cashAssets.length > 0) {
-      const cashTotal = cashAssets.reduce((s, a) => s + (Number(a.amount)||0), 0);
+    const cashTotal = cashAssets.reduce((s, a) => s + (Number(a.value)||0), 0);
+    if (cashTotal > 0) {
       emergencyMonths = expense > 0 ? cashTotal / expense : 0;
       emergencyAssumed = false;
     }
   }
-  if (emergencyAssumed) emergencyMonths = 6; // assumed default
+  if (emergencyAssumed) emergencyMonths = 6; // assumed default when no Phase 3 cash data yet
   
   let emergencyScore = 0;
   if (emergencyMonths >= 6) emergencyScore = 2;
@@ -2820,7 +3386,7 @@ function renderCashflowHealth(c) {
         
         <div class="cfh-bar-row">
           <div class="cfh-bar-label">
-            <span><b>Needs</b> (จำเป็น)</span>
+            <span><b>Needs</b> (จำเป็น) <span class="cfh-info" title="ค่าใช้จ่ายที่ถ้าไม่จ่าย ชีวิตหยุดไม่ได้ — กิน บ้าน ผ่อน ค่ารักษา ค่าเลี้ยงลูก ส่งพ่อแม่. เป้าหมาย ≤ 50% ของรายได้">?</span></span>
             <span class="cfh-bar-pct ${s.needsPct > 50 ? 'over' : 'ok'}">${s.needsPct.toFixed(0)}% ${s.needsPct > 50 ? '⚠️ เกิน 50%' : '✓'}</span>
           </div>
           <div class="cfh-bar-track">
@@ -2832,7 +3398,7 @@ function renderCashflowHealth(c) {
         
         <div class="cfh-bar-row">
           <div class="cfh-bar-label">
-            <span><b>Wants</b> (อยากได้)</span>
+            <span><b>Wants</b> (อยากได้) <span class="cfh-info" title="ค่าใช้จ่ายที่ทำให้ชีวิตดีขึ้น สนุกขึ้น แต่ถ้าไม่จ่ายก็ไม่กระทบชีวิตพื้นฐาน — ข้าวนอกบ้าน ซับสคริปชั่น ช้อปปิ้ง เที่ยว สังสรรค์. เป้าหมาย ≤ 30% ของรายได้">?</span></span>
             <span class="cfh-bar-pct ${s.wantsPct > 30 ? 'over' : 'ok'}">${s.wantsPct.toFixed(0)}% ${s.wantsPct > 30 ? '⚠️' : '✓'}</span>
           </div>
           <div class="cfh-bar-track">
@@ -2844,7 +3410,7 @@ function renderCashflowHealth(c) {
         
         <div class="cfh-bar-row">
           <div class="cfh-bar-label">
-            <span><b>Savings</b> (เก็บ/ลงทุน)</span>
+            <span><b>Savings</b> (เก็บ/ลงทุน) <span class="cfh-info" title="เงินที่กันไว้สำหรับอนาคต — เก็บฉุกเฉิน ลงทุน เก็บเป้าหมายระยะยาว. รวมเงินเหลือลอยที่ยังไม่ได้ allocate. เป้าหมาย ≥ 20% ของรายได้">?</span></span>
             <span class="cfh-bar-pct ${s.savingsPct >= 20 ? 'good' : 'low'}">${s.savingsPct.toFixed(0)}% ${s.savingsPct >= 20 ? '🎯' : 'ต่ำกว่า 20%'}</span>
           </div>
           <div class="cfh-bar-track">
@@ -2962,7 +3528,112 @@ function renderPhase3(c) {
         <div id="pensionInsuranceList">${renderInsuranceList(c, 'pension')}</div>
       </div>
     </div>
+    
+    ${renderWealthSummary(c)}
     ${renderPhaseFooter()}`;
+}
+
+function renderWealthSummary(c) {
+  const assets = c.assets || [];
+  const cashFlows = c.cashFlows || [];
+  const insurance = c.insurance || { life:[], health:[], critical:[], pension:[] };
+  
+  // Stock totals
+  const totalAssets = assets.reduce((s, a) => s + (Number(a.value)||0), 0);
+  const retirementAssets = assets.filter(a => a.useForRetirement).reduce((s, a) => s + (Number(a.value)||0), 0);
+  const nonRetirementAssets = totalAssets - retirementAssets;
+  
+  // Flow totals
+  const monthlyFlow = cashFlows.filter(cf => cf.useForRetirement).reduce((s, cf) => s + (Number(cf.monthly)||0), 0);
+  const annualFlow = monthlyFlow * 12;
+  
+  // Insurance totals
+  const lifeCover = (insurance.life||[]).reduce((s, i) => s + (Number(i.sumInsured)||0), 0);
+  const criticalCover = (insurance.critical||[]).reduce((s, i) => s + (Number(i.sumInsured)||0), 0);
+  const healthCover = (insurance.health||[]).reduce((s, i) => s + (Number(i.sumInsured)||0), 0);
+  const pensionCover = (insurance.pension||[]).reduce((s, i) => s + (Number(i.sumInsured)||0), 0);
+  const totalCover = lifeCover + criticalCover;
+  
+  // Premiums  
+  const totalPremium = ['life','health','critical','pension'].reduce((s, t) => 
+    s + (insurance[t]||[]).reduce((ss, i) => ss + (Number(i.premium)||0), 0), 0);
+  
+  // Empty state
+  if (totalAssets === 0 && monthlyFlow === 0 && totalCover === 0 && healthCover === 0) {
+    return `
+      <div class="section-block" style="background:linear-gradient(135deg,#f5f6f8,#fff); border:2px dashed var(--grey-line)">
+        <div style="text-align:center; padding:30px 20px; color:var(--grey-text)">
+          <div style="font-size:32px; margin-bottom:8px">📦</div>
+          <h3 style="color:var(--navy); margin-bottom:6px">Wealth Summary</h3>
+          <p style="font-size:14px">เพิ่มสินทรัพย์/กระแสเงินสด/ประกัน เพื่อดูสรุปความมั่งคั่งของลูกค้า</p>
+        </div>
+      </div>
+    `;
+  }
+  
+  return `
+    <div class="wealth-summary">
+      <div class="ws-header">
+        <div class="ws-eyebrow">WEALTH SUMMARY</div>
+        <h3 class="ws-title">สรุปความมั่งคั่ง · สิ่งที่ลูกค้ามีอยู่</h3>
+      </div>
+      
+      <!-- Stock (Assets) -->
+      <div class="ws-card stock">
+        <div class="ws-card-header">
+          <span class="ws-card-icon">💰</span>
+          <span class="ws-card-label">STOCK · สินทรัพย์รวม</span>
+        </div>
+        <div class="ws-card-big">${fmt(totalAssets)} <span class="unit">฿</span></div>
+        ${nonRetirementAssets > 0 ? `
+          <div class="ws-breakdown">
+            <div class="ws-bd-row">
+              <span class="ws-bd-label">✓ ใช้สำหรับเกษียณ</span>
+              <span class="ws-bd-val good">${fmt(retirementAssets)} ฿</span>
+            </div>
+            <div class="ws-bd-row">
+              <span class="ws-bd-label">✗ ไม่ใช้เกษียณ (เช่น บ้านอยู่อาศัย)</span>
+              <span class="ws-bd-val muted">${fmt(nonRetirementAssets)} ฿</span>
+            </div>
+          </div>
+        ` : ''}
+      </div>
+      
+      <!-- Flow (Cashflow after retirement) -->
+      ${monthlyFlow > 0 ? `
+        <div class="ws-card flow">
+          <div class="ws-card-header">
+            <span class="ws-card-icon">💵</span>
+            <span class="ws-card-label">FLOW · กระแสเงินสดหลังเกษียณ</span>
+          </div>
+          <div class="ws-card-big">${fmt(monthlyFlow)} <span class="unit">฿/เดือน</span></div>
+          <div class="ws-card-sub">${fmt(annualFlow)} ฿/ปี</div>
+        </div>
+      ` : ''}
+      
+      <!-- Insurance Coverage -->
+      ${(totalCover > 0 || healthCover > 0 || pensionCover > 0) ? `
+        <div class="ws-card cover">
+          <div class="ws-card-header">
+            <span class="ws-card-icon">🛡️</span>
+            <span class="ws-card-label">COVER · เกราะปกป้องที่มีอยู่</span>
+          </div>
+          ${totalCover > 0 ? `
+            <div class="ws-card-big">${fmt(totalCover)} <span class="unit">฿</span></div>
+            <div class="ws-card-sub">ทุนคุ้มครองชีวิต + โรคร้าย</div>
+          ` : ''}
+          ${healthCover > 0 ? `<div class="ws-bd-row" style="margin-top:8px"><span class="ws-bd-label">+ ค่ารักษา/โรค</span><span class="ws-bd-val">${fmt(healthCover)} ฿</span></div>` : ''}
+          ${pensionCover > 0 ? `<div class="ws-bd-row"><span class="ws-bd-label">+ บำนาญ</span><span class="ws-bd-val">${fmt(pensionCover)} ฿</span></div>` : ''}
+          ${totalPremium > 0 ? `<div class="ws-bd-row" style="border-top:1px dashed var(--grey-line); margin-top:6px; padding-top:6px"><span class="ws-bd-label">เบี้ยที่จ่ายอยู่</span><span class="ws-bd-val">${fmt(totalPremium)} ฿/ปี</span></div>` : ''}
+        </div>
+      ` : ''}
+      
+      <!-- Footer tip -->
+      <div class="ws-tip">
+        💡 ใน Phase 5 (Timeline) ปุ่ม "ดึงสินทรัพย์ + ดึงกระแสเงินสด" จะใช้ตัวเลขนี้คำนวณ Gap เกษียณให้
+      </div>
+    </div>
+  `;
 }
 
 function quickAddAsset(name) {
