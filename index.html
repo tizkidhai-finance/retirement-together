@@ -387,8 +387,9 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 }
 .phase-header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 14px;
+  gap: 8px 14px;
   padding-bottom: 18px;
   border-bottom: 1.5px solid var(--grey-line);
   margin-bottom: 24px;
@@ -403,6 +404,68 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   letter-spacing: 0.5px;
 }
 .phase-header h2 { font-size: 26px; color: var(--navy); }
+.phase-subtitle {
+  flex: 0 0 100%;
+  font-size: 14px;
+  color: var(--grey-text);
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+/* Phase 3 section heads */
+.p3-section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.p3-section-head h3 {
+  margin-bottom: 4px !important;
+}
+.p3-section-head p {
+  font-size: 13px;
+  margin-top: 0;
+  line-height: 1.5;
+}
+
+/* Quick-add pills (Phase 3) */
+.quick-add-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 14px;
+  padding: 10px 12px;
+  background: white;
+  border-radius: 10px;
+  border: 1px dashed var(--grey-line);
+  align-items: center;
+}
+.quick-add-label {
+  font-size: 12px;
+  color: var(--grey-text);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-right: 4px;
+}
+.quick-pill {
+  background: var(--grey-bg);
+  border: 1px solid var(--grey-line);
+  color: var(--navy);
+  padding: 6px 12px;
+  border-radius: 99px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.quick-pill:hover {
+  background: var(--navy);
+  color: white;
+  border-color: var(--navy);
+  transform: translateY(-1px);
+}
+.quick-pill:active { transform: translateY(0); }
 
 /* FORMS */
 .form-grid {
@@ -2563,7 +2626,7 @@ function calcCashflowScore(c) {
   const breakdown = f.expenseBreakdown || [];
   let needsFromBreakdown = 0;
   let wantsFromBreakdown = 0;
-  let savingsFromBreakdown = 0;
+  let activeSavingsFromBreakdown = 0; // intentional savings (e.g., "เก็บฉุกเฉิน 4k")
   let hasBreakdown = breakdown.length > 0;
   
   if (hasBreakdown) {
@@ -2571,19 +2634,23 @@ function calcCashflowScore(c) {
       const amt = Number(item.amount) || 0;
       const cls = classifyExpenseItem(item);
       if (cls === 'needs') needsFromBreakdown += amt;
-      else if (cls === 'savings') savingsFromBreakdown += amt;
+      else if (cls === 'savings') activeSavingsFromBreakdown += amt;
       else wantsFromBreakdown += amt;
     });
   }
   
   // Total Needs = breakdown needs + ALL debt (housing/car/etc are needs)
   // Total Wants = breakdown wants
-  // Total Savings = breakdown savings + leftover surplus (income - all outflow)
+  // Active Savings = items lúc đầu flagged as savings (intentional discipline)
+  // Surplus Savings = leftover after Needs+Wants+Active+Debt is taken out
+  // Total Savings = Active + Surplus
   // If no breakdown → assume all expense is "Needs" (conservative)
   const needs = hasBreakdown ? (needsFromBreakdown + debtTotal) : (expense + debtTotal);
   const wants = hasBreakdown ? wantsFromBreakdown : 0;
-  // Savings = surplus (positive) + savings items already deducted in expense
-  const savings = Math.max(0, income - needs - wants);
+  const activeSavings = activeSavingsFromBreakdown;
+  // Surplus = income - all known outflow (needs + wants + active savings already counted in expense)
+  const surplusSavings = Math.max(0, income - needs - wants - activeSavings);
+  const savings = activeSavings + surplusSavings;
   
   // Percentages (of income)
   const needsPct = income > 0 ? (needs / income * 100) : 0;
@@ -2642,7 +2709,7 @@ function calcCashflowScore(c) {
   
   return {
     income, expense, debtTotal, totalOutflow, surplus,
-    needs, wants, savings,
+    needs, wants, savings, activeSavings, surplusSavings,
     needsPct, wantsPct, savingsPct,
     savingsRate, debtRatio, emergencyMonths, emergencyAssumed,
     savingsScore, debtScore, emergencyScore,
@@ -2784,7 +2851,14 @@ function renderCashflowHealth(c) {
             <div class="cfh-bar-fill savings" style="width:${savingsW}%"></div>
             <div class="cfh-bar-target" style="left:20%"></div>
           </div>
-          <div class="cfh-bar-meta">${fmt(s.savings)} ฿ · เป้า ≥ 20%</div>
+          <div class="cfh-bar-meta">
+            ${fmt(s.savings)} ฿ · เป้า ≥ 20%
+            ${s.activeSavings > 0 || s.surplusSavings > 0 ? `
+              <span style="color:var(--grey-text); margin-left:8px">
+                (${s.activeSavings > 0 ? `จงใจเก็บ ${fmt(s.activeSavings)}` : ''}${s.activeSavings > 0 && s.surplusSavings > 0 ? ' + ' : ''}${s.surplusSavings > 0 ? `เหลือลอย ${fmt(s.surplusSavings)}` : ''})
+              </span>
+            ` : ''}
+          </div>
         </div>
         
         ${breakdownNote}
@@ -2817,24 +2891,52 @@ function renderPhase3(c) {
   return `
     <div class="phase-header">
       <span class="phase-badge">PHASE 3</span>
-      <h2>สินทรัพย์ + กระแสเงินสด + ประกัน</h2>
+      <h2>สินทรัพย์ + ประกัน</h2>
+      <p class="phase-subtitle">"สิ่งที่ลูกค้ามีอยู่ ณ วันนี้" — ยอดเงิน + กระแสในอนาคต + ประกันที่ทำไว้แล้ว</p>
     </div>
     
     <div class="section-block blue">
-      <h3>💰 สินทรัพย์ (เงินฝาก / กองทุน / หุ้น / อสังหาฯ / ทอง / RMF / กบข.)</h3>
+      <div class="p3-section-head">
+        <div>
+          <h3>💰 สินทรัพย์ (Stock — เงินก้อนที่มีอยู่ ณ วันนี้)</h3>
+          <p class="text-grey small">ยอดเงินสะสม ที่ถ้าลูกค้าจะหยิบออกมาใช้พรุ่งนี้ก็ได้</p>
+        </div>
+      </div>
+      
+      <div class="quick-add-row">
+        <span class="quick-add-label">เพิ่มเร็ว:</span>
+        <button class="quick-pill" onclick="quickAddAsset('เงินฝาก / เงินสด')">💵 เงินฝาก/สด</button>
+        <button class="quick-pill" onclick="quickAddAsset('กองทุนรวม')">📈 กองทุนรวม</button>
+        <button class="quick-pill" onclick="quickAddAsset('หุ้น')">📊 หุ้น</button>
+        <button class="quick-pill" onclick="quickAddAsset('LTF / RMF / SSF')">🎯 LTF/RMF/SSF</button>
+        <button class="quick-pill" onclick="quickAddAsset('PVD / กบข.')">🏛️ PVD/กบข.</button>
+        <button class="quick-pill" onclick="quickAddAsset('บ้าน / ที่ดิน')">🏠 บ้าน/ที่ดิน</button>
+        <button class="quick-pill" onclick="quickAddAsset('ทองคำ')">🥇 ทอง</button>
+        <button class="quick-pill" onclick="quickAddAsset('ประกันสะสมทรัพย์')">🛡️ ประกันออม</button>
+      </div>
+      
       <div id="assetsList">${renderAssetsList(c)}</div>
-      <button class="add-btn" onclick="addAsset()">+ เพิ่มสินทรัพย์</button>
+      <button class="add-btn" onclick="addAsset()">+ เพิ่มสินทรัพย์อื่นๆ</button>
     </div>
     
     <div class="section-block green">
-      <h3>💵 กระแสเงินสดที่จะมีตอนเกษียณ</h3>
-      <p class="text-grey small mb-8">ค่าเช่า · บำนาญ · ปันผล · ดอกเบี้ย · ค่าลิขสิทธิ์ · บำนาญข้าราชการ</p>
+      <div class="p3-section-head">
+        <div>
+          <h3>💵 กระแสเงินสดหลังเกษียณ (Flow — รายได้ที่จะเข้าทุกเดือน หลังเกษียณ)</h3>
+          <p class="text-grey small">ตัวอย่าง: ค่าเช่า, บำนาญ, ปันผล, ดอกเบี้ย, ค่าลิขสิทธิ์</p>
+        </div>
+      </div>
       <div id="cashFlowList">${renderCashFlowList(c)}</div>
       <button class="add-btn" onclick="addCashFlow()">+ เพิ่มกระแสเงินสด</button>
     </div>
     
     <div class="section-block yellow">
-      <h3>🛡️ ประกันที่มี</h3>
+      <div class="p3-section-head">
+        <div>
+          <h3>🛡️ ประกันที่มีอยู่แล้ว</h3>
+          <p class="text-grey small">ทุนคุ้มครอง + เบี้ยที่จ่ายอยู่ — เพื่อใช้คำนวณ "เกราะที่มีอยู่" ใน Phase 6</p>
+        </div>
+      </div>
       
       <div class="insurance-group">
         <div class="ig-header"><h4>ประกันชีวิต</h4>
@@ -2861,6 +2963,21 @@ function renderPhase3(c) {
       </div>
     </div>
     ${renderPhaseFooter()}`;
+}
+
+function quickAddAsset(name) {
+  const c = getActive();
+  if (!c.assets) c.assets = [];
+  c.assets.push({ id: 'a_'+Date.now(), name: name, value: 0, useForRetirement: true });
+  saveAndRefresh();
+  document.getElementById('assetsList').innerHTML = renderAssetsList(c);
+  // Focus on the value field of the new item
+  setTimeout(() => {
+    const inputs = document.querySelectorAll('#assetsList input[type="number"]');
+    const last = inputs[inputs.length - 1];
+    if (last) last.focus();
+  }, 50);
+  SFX.pop();
 }
 
 function renderAssetsList(c) {
