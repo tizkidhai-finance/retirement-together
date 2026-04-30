@@ -683,6 +683,229 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   }
 }
 
+/* === CASHFLOW HEALTH CARD === */
+.cashflow-health {
+  background: linear-gradient(180deg, #fafbfc 0%, white 100%);
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 20px;
+  border: 1.5px solid var(--grey-line);
+  box-shadow: var(--shadow-sm);
+}
+.cfh-header { margin-bottom: 18px; }
+.cfh-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.cfh-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+}
+
+/* Hero block with score */
+.cfh-hero {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  align-items: center;
+  padding: 22px;
+  border-radius: 14px;
+  border: 2px solid;
+  margin-bottom: 18px;
+}
+.cfh-score-circle {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 4px solid;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cfh-score-num {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1;
+}
+.cfh-score-max {
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0.7;
+  margin-top: 2px;
+}
+.cfh-tier-info { min-width: 0; }
+.cfh-tier-emoji { font-size: 22px; margin-bottom: 2px; }
+.cfh-tier-label {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+.cfh-tier-tip {
+  font-size: 14px;
+  color: #2c3e50;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .cfh-hero { grid-template-columns: 1fr; text-align: center; gap: 14px; }
+  .cfh-score-circle { margin: 0 auto; }
+}
+
+/* Money flow */
+.cfh-flow {
+  background: white;
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+  border: 1px solid var(--grey-line);
+}
+.cfh-flow-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 0;
+  font-size: 15px;
+  color: #2c3e50;
+}
+.cfh-flow-row.total {
+  border-top: 2px solid var(--grey-line);
+  margin-top: 6px;
+  padding-top: 12px;
+  font-size: 17px;
+  font-weight: 700;
+}
+.cfh-flow-row.sub {
+  font-size: 13px;
+  color: var(--grey-text);
+  padding-top: 2px;
+}
+.cfh-flow-label { color: var(--grey-text); font-weight: 500; }
+.cfh-flow-row.total .cfh-flow-label { color: var(--navy); }
+.cfh-flow-val { font-weight: 700; font-feature-settings: "tnum"; }
+.cfh-flow-val.plus { color: var(--green-dark); }
+.cfh-flow-val.minus { color: var(--red); }
+
+/* 50/30/20 Bars */
+.cfh-rule {
+  background: white;
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 18px;
+  border: 1px solid var(--grey-line);
+}
+.cfh-rule-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 14px;
+  letter-spacing: 0.02em;
+}
+.cfh-bar-row { margin-bottom: 14px; }
+.cfh-bar-row:last-of-type { margin-bottom: 4px; }
+.cfh-bar-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #2c3e50;
+}
+.cfh-bar-pct {
+  font-weight: 700;
+  font-size: 13px;
+  font-feature-settings: "tnum";
+}
+.cfh-bar-pct.ok { color: var(--green); }
+.cfh-bar-pct.over { color: var(--red); }
+.cfh-bar-pct.good { color: var(--green-dark); }
+.cfh-bar-pct.low { color: var(--orange); }
+
+.cfh-bar-track {
+  position: relative;
+  height: 16px;
+  background: #f0f4f8;
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+.cfh-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+.cfh-bar-fill.needs { background: linear-gradient(90deg, #c0392b, #e74c3c); }
+.cfh-bar-fill.wants { background: linear-gradient(90deg, #d4af37, #f4cf5a); }
+.cfh-bar-fill.savings { background: linear-gradient(90deg, #1d8348, #27ae60); }
+.cfh-bar-target {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  background: var(--navy);
+  z-index: 2;
+}
+.cfh-bar-target::after {
+  content: '🎯';
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+}
+.cfh-bar-meta {
+  font-size: 12px;
+  color: var(--grey-text);
+  font-feature-settings: "tnum";
+}
+
+/* Score components */
+.cfh-components {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.cfh-component {
+  background: white;
+  border: 1px solid var(--grey-line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  text-align: center;
+}
+.cfh-comp-label {
+  font-size: 12px;
+  color: var(--grey-text);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.cfh-comp-score {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--navy);
+  font-feature-settings: "tnum";
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.cfh-comp-meta {
+  font-size: 11px;
+  color: var(--grey-text);
+}
+@media (max-width: 600px) {
+  .cfh-components { grid-template-columns: 1fr; }
+}
+
 .insurance-group {
   background: white;
   border: 1.5px solid var(--grey-line);
@@ -1631,6 +1854,11 @@ function updateField(path, value) {
   target[parts[parts.length-1]] = value;
   c.updatedAt = Date.now();
   saveAndRefresh();
+  // If we're in Phase 2 and the changed field is a finance field, refresh the Cashflow Health card
+  if (currentPhase === 2 && path.startsWith('finance.') && 
+      ['monthlyIncome','monthlyExpense','debtHouse','debtCar','debtCard','debtOther'].includes(parts[parts.length-1])) {
+    refreshCashflowHealth();
+  }
 }
 
 /* ============================================================
@@ -1986,6 +2214,26 @@ function renderPhase1(c) {
         </div>
       </div>
     </div>
+    
+    <div class="section-block">
+      <h3>👨‍👩‍👧 ภาระดูแลคนรอบข้าง</h3>
+      <div class="form-grid cols-2">
+        <div class="form-field"><label>จำนวนลูก</label>
+          <input type="number" value="${(c.finance||{}).childCount||''}" ${bindNumber('finance.childCount')}></div>
+        <div class="form-field"><label>อายุลูก</label>
+          <input type="text" value="${(c.finance||{}).childAges||''}" ${bindField('finance.childAges')} placeholder="เช่น 5, 8"></div>
+        <div class="form-field" style="grid-column: 1/-1"><label>พ่อแม่ / คนที่ดูแล</label>
+          <input type="text" value="${(c.finance||{}).parentDependents||''}" ${bindField('finance.parentDependents')}></div>
+      </div>
+    </div>
+    
+    <div class="section-block red">
+      <h3>🎯 สิ่งที่กังวล / Pain Points</h3>
+      <div class="form-field">
+        <textarea rows="3" ${bindField('finance.painPoints')} placeholder="เช่น กลัวลูกลำบาก / กลัวเงินไม่พอตอนแก่ / กลัวเป็นภาระลูก">${(c.finance||{}).painPoints||''}</textarea>
+        <span class="helper">บันทึกสิ่งที่ลูกค้าเล่าใน Opening — จะเป็น vision ที่อ้างอิงในทุก phase ที่เหลือ</span>
+      </div>
+    </div>
     ${renderPhaseFooter()}`;
 }
 
@@ -2065,25 +2313,16 @@ function renderPhase2(c) {
       </div>
     </div>
     
-    <div class="section-block">
-      <h3>👨‍👩‍👧 ภาระดูแลคนรอบข้าง</h3>
-      <div class="form-grid cols-2">
-        <div class="form-field"><label>จำนวนลูก</label>
-          <input type="number" value="${f.childCount||''}" ${bindNumber('finance.childCount')}></div>
-        <div class="form-field"><label>อายุลูก</label>
-          <input type="text" value="${f.childAges||''}" ${bindField('finance.childAges')} placeholder="เช่น 5, 8"></div>
-        <div class="form-field" style="grid-column: 1/-1"><label>พ่อแม่ / คนที่ดูแล</label>
-          <input type="text" value="${f.parentDependents||''}" ${bindField('finance.parentDependents')}></div>
-      </div>
-    </div>
-    
-    <div class="section-block red">
-      <h3>🎯 สิ่งที่กังวล</h3>
-      <div class="form-field">
-        <textarea rows="3" ${bindField('finance.painPoints')}>${f.painPoints||''}</textarea>
-      </div>
-    </div>
+    ${renderCashflowHealth(c)}
     ${renderPhaseFooter()}`;
+}
+
+function refreshCashflowHealth() {
+  // Targeted re-render of Cashflow Health card without disturbing input focus
+  const c = getActive();
+  if (!c) return;
+  const wrap = document.getElementById('cashflow-health-wrap');
+  if (wrap) wrap.outerHTML = renderCashflowHealth(c);
 }
 
 /* ============= BREAKDOWN HELPERS ============= */
@@ -2255,6 +2494,8 @@ function updateBreakdownSummary(kind) {
     const totalEl = document.getElementById('bd-total-expense');
     if (totalEl) totalEl.textContent = fmt(f.monthlyExpense) + ' ฿/เดือน';
   }
+  // Refresh the Cashflow Health card too
+  refreshCashflowHealth();
 }
 
 function toggleExpenseSacred(idx) {
@@ -2270,6 +2511,305 @@ function removeExpenseItem(idx) {
   c.finance.expenseBreakdown.splice(idx, 1);
   saveAndRefresh();
   render();
+}
+
+/* ============================================================
+   CASHFLOW HEALTH CHECK — 50/30/20 + Score 0-10
+   ============================================================ */
+
+// Keywords to classify expense items as "Needs"
+const NEEDS_KEYWORDS = [
+  'อาหาร','กิน','บ้าน','เช่า','ค่าน้ำ','ค่าไฟ','น้ำ','ไฟ','โทรศัพท์','มือถือ','เน็ต','internet',
+  'ค่าเดินทาง','น้ำมัน','รถเมล์','BTS','MRT','ทางด่วน','ค่ารถ',
+  'ลูก','ค่าเทอม','การศึกษา','โรงเรียน','นม','ผ้าอ้อม','child','school',
+  'แม่','พ่อ','ส่งให้','พ่อแม่','parent',
+  'หมอ','ยา','โรงพยาบาล','รักษา','สุขภาพ','health','medical','คลินิก',
+  'ประกัน','insurance'
+];
+
+// Keywords to classify as "Savings" (these are not Wants)
+const SAVINGS_KEYWORDS = [
+  'เก็บ','ออม','ลงทุน','กองทุน','ซื้อหุ้น','RMF','SSF','LTF','PVD','สำรองฉุกเฉิน','saving','invest'
+];
+
+function classifyExpenseItem(item) {
+  // 1. Sacred = always Needs (it's emotionally important to the customer)
+  if (item.sacred) return 'needs';
+  const label = (item.label || '').toLowerCase();
+  // 2. Match savings keywords first
+  for (const kw of SAVINGS_KEYWORDS) {
+    if (label.includes(kw.toLowerCase())) return 'savings';
+  }
+  // 3. Match needs keywords
+  for (const kw of NEEDS_KEYWORDS) {
+    if (label.includes(kw.toLowerCase())) return 'needs';
+  }
+  // 4. Default → Wants
+  return 'wants';
+}
+
+function calcCashflowScore(c) {
+  const f = c.finance || {};
+  const income = Number(f.monthlyIncome) || 0;
+  const expense = Number(f.monthlyExpense) || 0;
+  const debtTotal = (Number(f.debtHouse)||0) + (Number(f.debtCar)||0) + 
+                    (Number(f.debtCard)||0) + (Number(f.debtOther)||0);
+  
+  // Total outflow
+  const totalOutflow = expense + debtTotal;
+  const surplus = income - totalOutflow;
+  
+  // Classify expenses for 50/30/20
+  const breakdown = f.expenseBreakdown || [];
+  let needsFromBreakdown = 0;
+  let wantsFromBreakdown = 0;
+  let savingsFromBreakdown = 0;
+  let hasBreakdown = breakdown.length > 0;
+  
+  if (hasBreakdown) {
+    breakdown.forEach(item => {
+      const amt = Number(item.amount) || 0;
+      const cls = classifyExpenseItem(item);
+      if (cls === 'needs') needsFromBreakdown += amt;
+      else if (cls === 'savings') savingsFromBreakdown += amt;
+      else wantsFromBreakdown += amt;
+    });
+  }
+  
+  // Total Needs = breakdown needs + ALL debt (housing/car/etc are needs)
+  // Total Wants = breakdown wants
+  // Total Savings = breakdown savings + leftover surplus (income - all outflow)
+  // If no breakdown → assume all expense is "Needs" (conservative)
+  const needs = hasBreakdown ? (needsFromBreakdown + debtTotal) : (expense + debtTotal);
+  const wants = hasBreakdown ? wantsFromBreakdown : 0;
+  // Savings = surplus (positive) + savings items already deducted in expense
+  const savings = Math.max(0, income - needs - wants);
+  
+  // Percentages (of income)
+  const needsPct = income > 0 ? (needs / income * 100) : 0;
+  const wantsPct = income > 0 ? (wants / income * 100) : 0;
+  const savingsPct = income > 0 ? (savings / income * 100) : 0;
+  
+  // === SCORING ===
+  // Component 1: Savings Rate (5 pts)
+  const savingsRate = income > 0 ? ((income - totalOutflow) / income * 100) : 0;
+  let savingsScore = 0;
+  if (savingsRate >= 20) savingsScore = 5;
+  else if (savingsRate >= 15) savingsScore = 4;
+  else if (savingsRate >= 10) savingsScore = 3;
+  else if (savingsRate >= 5) savingsScore = 2;
+  else if (savingsRate > 0) savingsScore = 1;
+  else savingsScore = 0;
+  
+  // Component 2: Debt Burden (3 pts)
+  const debtRatio = income > 0 ? (debtTotal / income * 100) : 0;
+  let debtScore = 0;
+  if (debtRatio === 0) debtScore = 3;
+  else if (debtRatio <= 35) debtScore = 3;
+  else if (debtRatio <= 50) debtScore = 2;
+  else if (debtRatio <= 65) debtScore = 1;
+  else debtScore = 0;
+  
+  // Component 3: Emergency Buffer (2 pts)
+  // Pull from Phase 3 assets if available (cash/deposit type)
+  let emergencyMonths = 0;
+  let emergencyAssumed = true;
+  if (c.assets && c.assets.length > 0) {
+    const cashAssets = c.assets.filter(a => 
+      /ฝาก|cash|เงินสด|ฉุกเฉิน|สำรอง|ออม/i.test((a.name||'') + ' ' + (a.type||''))
+    );
+    if (cashAssets.length > 0) {
+      const cashTotal = cashAssets.reduce((s, a) => s + (Number(a.amount)||0), 0);
+      emergencyMonths = expense > 0 ? cashTotal / expense : 0;
+      emergencyAssumed = false;
+    }
+  }
+  if (emergencyAssumed) emergencyMonths = 6; // assumed default
+  
+  let emergencyScore = 0;
+  if (emergencyMonths >= 6) emergencyScore = 2;
+  else if (emergencyMonths >= 3) emergencyScore = 1;
+  else emergencyScore = 0;
+  
+  const totalScore = savingsScore + debtScore + emergencyScore;
+  
+  // Tier
+  let tier, tierColor, tierEmoji;
+  if (totalScore >= 8) { tier = 'Wealth Builder'; tierColor = 'green'; tierEmoji = '🟢'; }
+  else if (totalScore >= 6) { tier = 'On Track'; tierColor = 'yellow'; tierEmoji = '🟡'; }
+  else if (totalScore >= 4) { tier = 'Cash Strapped'; tierColor = 'orange'; tierEmoji = '🟠'; }
+  else { tier = 'Survival Mode'; tierColor = 'red'; tierEmoji = '🔴'; }
+  
+  return {
+    income, expense, debtTotal, totalOutflow, surplus,
+    needs, wants, savings,
+    needsPct, wantsPct, savingsPct,
+    savingsRate, debtRatio, emergencyMonths, emergencyAssumed,
+    savingsScore, debtScore, emergencyScore,
+    totalScore, tier, tierColor, tierEmoji,
+    hasBreakdown
+  };
+}
+
+function renderCashflowHealth(c) {
+  const s = calcCashflowScore(c);
+  const f = c.finance || {};
+  
+  // If income is zero or very low, show prompt
+  if (!s.income) {
+    return `
+      <div class="section-block" id="cashflow-health-wrap" style="background:linear-gradient(135deg,#f5f6f8,#fff); border:2px dashed var(--grey-line)">
+        <div style="text-align:center; padding:40px 20px; color:var(--grey-text)">
+          <div style="font-size:40px; margin-bottom:10px">📊</div>
+          <h3 style="color:var(--navy); margin-bottom:8px">Cashflow Health Check</h3>
+          <p style="font-size:14px">กรอกรายได้และรายจ่าย เพื่อดูสุขภาพการเงินของลูกค้า</p>
+        </div>
+      </div>
+    `;
+  }
+  
+  // Tier colors
+  const tierStyles = {
+    green:  { bg: '#e8f8ef', border: '#27ae60', text: '#1d8348' },
+    yellow: { bg: '#fff8e1', border: '#d4af37', text: '#9c7a1e' },
+    orange: { bg: '#fef0e0', border: '#e67e22', text: '#a85a13' },
+    red:    { bg: '#fdecea', border: '#c0392b', text: '#922b1f' }
+  };
+  const ts = tierStyles[s.tierColor];
+  
+  // Smart tip based on tier + situation
+  let tip = '';
+  if (s.totalScore >= 8) {
+    tip = '💪 สุขภาพการเงินแข็งแรง — มี runway สร้างเป้าระยะยาว ใช้โอกาสนี้สร้างเกราะปกป้องและกองทุนเกษียณ';
+  } else if (s.totalScore >= 6) {
+    tip = '✓ สุขภาพการเงินดี — แต่ยังมีจุดที่ปรับให้ดีขึ้นได้ ดูว่า component ไหนคะแนนต่ำ';
+  } else if (s.totalScore >= 4) {
+    if (s.savingsRate < 10) tip = '⚠️ Cashflow ตึง — หาวิธี reduce รายจ่าย หรือเพิ่มรายได้ก่อนสร้างแผนใหญ่';
+    else tip = '⚠️ ตึงๆ ตรงไหนตรงนึง — focus ที่ component คะแนนต่ำสุดก่อน';
+  } else {
+    tip = '🚨 Survival Mode — ต้อง stabilize cashflow ก่อนคิดเรื่องเกษียณ · มาช่วยกันดูโครงสร้างใหม่';
+  }
+  
+  // Bar widths (cap at 100% for display)
+  const needsW = Math.min(100, s.needsPct);
+  const wantsW = Math.min(100, s.wantsPct);
+  const savingsW = Math.min(100, s.savingsPct);
+  
+  const breakdownNote = s.hasBreakdown ? '' : '<div style="font-size:12px; color:var(--grey-text); padding:8px 12px; background:#fff8e1; border-radius:8px; margin-top:8px">💡 แตกย่อยรายจ่ายข้างบนเพื่อให้แอปแยก Needs/Wants ได้แม่นยำขึ้น (ตอนนี้สมมติว่าทั้งหมดคือ "จำเป็น")</div>';
+  
+  const emergencyNote = s.emergencyAssumed 
+    ? `<span style="color:var(--grey-text); font-size:12px"> · สมมติ 6 เดือน (ยังไม่ได้กรอก Phase 3)</span>`
+    : '';
+  
+  return `
+    <div class="cashflow-health" id="cashflow-health-wrap">
+      <div class="cfh-header">
+        <div class="cfh-eyebrow">CASHFLOW HEALTH CHECK</div>
+        <h3 class="cfh-title">สรุปสถานะการเงิน · 50/30/20 Method</h3>
+      </div>
+      
+      <!-- Big Score -->
+      <div class="cfh-hero" style="background:${ts.bg}; border-color:${ts.border}">
+        <div class="cfh-score-circle" style="border-color:${ts.border}; color:${ts.text}">
+          <div class="cfh-score-num">${s.totalScore.toFixed(1)}</div>
+          <div class="cfh-score-max">/ 10</div>
+        </div>
+        <div class="cfh-tier-info">
+          <div class="cfh-tier-emoji">${s.tierEmoji}</div>
+          <div class="cfh-tier-label" style="color:${ts.text}">${s.tier}</div>
+          <div class="cfh-tier-tip">${tip}</div>
+        </div>
+      </div>
+      
+      <!-- Money flow summary -->
+      <div class="cfh-flow">
+        <div class="cfh-flow-row">
+          <span class="cfh-flow-label">📥 รายได้</span>
+          <span class="cfh-flow-val plus">+ ${fmt(s.income)} ฿</span>
+        </div>
+        <div class="cfh-flow-row">
+          <span class="cfh-flow-label">📤 รายจ่าย</span>
+          <span class="cfh-flow-val minus">− ${fmt(s.expense)} ฿</span>
+        </div>
+        ${s.debtTotal > 0 ? `
+          <div class="cfh-flow-row">
+            <span class="cfh-flow-label">🏠 ผ่อน</span>
+            <span class="cfh-flow-val minus">− ${fmt(s.debtTotal)} ฿</span>
+          </div>
+        ` : ''}
+        <div class="cfh-flow-row total">
+          <span class="cfh-flow-label">💰 เหลือเก็บ / เดือน</span>
+          <span class="cfh-flow-val ${s.surplus < 0 ? 'minus' : 'plus'}">${s.surplus < 0 ? '' : '+ '}${fmt(s.surplus)} ฿</span>
+        </div>
+        <div class="cfh-flow-row sub">
+          <span class="cfh-flow-label">เหลือเก็บ / ปี</span>
+          <span class="cfh-flow-val ${s.surplus < 0 ? 'minus' : 'plus'}">${s.surplus < 0 ? '' : '+ '}${fmt(s.surplus * 12)} ฿</span>
+        </div>
+      </div>
+      
+      <!-- 50/30/20 Breakdown -->
+      <div class="cfh-rule">
+        <div class="cfh-rule-title">📐 50 / 30 / 20 Breakdown</div>
+        
+        <div class="cfh-bar-row">
+          <div class="cfh-bar-label">
+            <span><b>Needs</b> (จำเป็น)</span>
+            <span class="cfh-bar-pct ${s.needsPct > 50 ? 'over' : 'ok'}">${s.needsPct.toFixed(0)}% ${s.needsPct > 50 ? '⚠️ เกิน 50%' : '✓'}</span>
+          </div>
+          <div class="cfh-bar-track">
+            <div class="cfh-bar-fill needs" style="width:${needsW}%"></div>
+            <div class="cfh-bar-target" style="left:50%"></div>
+          </div>
+          <div class="cfh-bar-meta">${fmt(s.needs)} ฿ · เป้า ≤ 50%</div>
+        </div>
+        
+        <div class="cfh-bar-row">
+          <div class="cfh-bar-label">
+            <span><b>Wants</b> (อยากได้)</span>
+            <span class="cfh-bar-pct ${s.wantsPct > 30 ? 'over' : 'ok'}">${s.wantsPct.toFixed(0)}% ${s.wantsPct > 30 ? '⚠️' : '✓'}</span>
+          </div>
+          <div class="cfh-bar-track">
+            <div class="cfh-bar-fill wants" style="width:${wantsW}%"></div>
+            <div class="cfh-bar-target" style="left:30%"></div>
+          </div>
+          <div class="cfh-bar-meta">${fmt(s.wants)} ฿ · เป้า ≤ 30%</div>
+        </div>
+        
+        <div class="cfh-bar-row">
+          <div class="cfh-bar-label">
+            <span><b>Savings</b> (เก็บ/ลงทุน)</span>
+            <span class="cfh-bar-pct ${s.savingsPct >= 20 ? 'good' : 'low'}">${s.savingsPct.toFixed(0)}% ${s.savingsPct >= 20 ? '🎯' : 'ต่ำกว่า 20%'}</span>
+          </div>
+          <div class="cfh-bar-track">
+            <div class="cfh-bar-fill savings" style="width:${savingsW}%"></div>
+            <div class="cfh-bar-target" style="left:20%"></div>
+          </div>
+          <div class="cfh-bar-meta">${fmt(s.savings)} ฿ · เป้า ≥ 20%</div>
+        </div>
+        
+        ${breakdownNote}
+      </div>
+      
+      <!-- Score Components -->
+      <div class="cfh-components">
+        <div class="cfh-component">
+          <div class="cfh-comp-label">💵 Savings Rate</div>
+          <div class="cfh-comp-score">${s.savingsScore} / 5</div>
+          <div class="cfh-comp-meta">${s.savingsRate >= 0 ? s.savingsRate.toFixed(1) : '−' + Math.abs(s.savingsRate).toFixed(1)}% ของรายได้</div>
+        </div>
+        <div class="cfh-component">
+          <div class="cfh-comp-label">⚖️ Debt Burden</div>
+          <div class="cfh-comp-score">${s.debtScore} / 3</div>
+          <div class="cfh-comp-meta">${s.debtRatio.toFixed(1)}% ของรายได้</div>
+        </div>
+        <div class="cfh-component">
+          <div class="cfh-comp-label">🚨 Emergency Buffer</div>
+          <div class="cfh-comp-score">${s.emergencyScore} / 2</div>
+          <div class="cfh-comp-meta">${s.emergencyMonths.toFixed(1)} เดือน${emergencyNote}</div>
+        </div>
+      </div>
+    </div>
+  `;
 }
 
 /* PHASE 3 */
