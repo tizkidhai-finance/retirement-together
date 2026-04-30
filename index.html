@@ -522,6 +522,167 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 }
 .use-checkbox input { transform: scale(1.3); }
 
+/* === Breakdown UI (Phase 2 income/expense + Phase 3 cashflows) === */
+.amount-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.amount-input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.amount-input-row input.amount-main {
+  flex: 1;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 12px 14px;
+}
+.amount-input-row input.amount-main:disabled {
+  background: #f0f4f8;
+  color: var(--navy);
+  cursor: not-allowed;
+}
+.breakdown-toggle {
+  background: white;
+  border: 1.5px dashed var(--navy);
+  color: var(--navy);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.breakdown-toggle:hover { background: #eef5fc; }
+.breakdown-toggle.active {
+  background: var(--navy);
+  color: white;
+  border-style: solid;
+}
+.breakdown-zone {
+  background: #fafbfc;
+  border: 1.5px solid var(--grey-line);
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 8px;
+}
+.breakdown-zone .bd-empty {
+  text-align: center;
+  color: var(--grey-text);
+  padding: 12px 0;
+  font-size: 14px;
+}
+.breakdown-row {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr auto auto;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--grey-line);
+}
+.breakdown-row:last-of-type { border-bottom: none; }
+.breakdown-row input {
+  padding: 8px 10px;
+  border: 1px solid var(--grey-line);
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+}
+.breakdown-row input.bd-amount {
+  text-align: right;
+  font-weight: 600;
+  color: var(--navy);
+}
+.bd-flag {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 99px;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1.5px solid var(--grey-line);
+  background: white;
+  color: var(--grey-text);
+  font-weight: 600;
+  transition: all 0.15s;
+}
+.bd-flag.active {
+  background: var(--green);
+  color: white;
+  border-color: var(--green);
+}
+.bd-flag.sacred {
+  background: #fff8e1;
+  color: var(--navy);
+  border-color: var(--gold);
+}
+.bd-remove {
+  background: white;
+  border: 1px solid var(--grey-line);
+  color: var(--red);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+.bd-remove:hover { background: var(--red); color: white; border-color: var(--red); }
+.bd-add {
+  background: white;
+  border: 1.5px dashed var(--grey-line);
+  color: var(--navy);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  width: 100%;
+  transition: all 0.15s;
+}
+.bd-add:hover { border-color: var(--navy); border-style: solid; background: #eef5fc; }
+.bd-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 4px 4px;
+  margin-top: 6px;
+  border-top: 2px solid var(--grey-line);
+  font-size: 14px;
+  color: var(--navy);
+}
+.bd-summary .bd-total {
+  font-size: 18px;
+  font-weight: 700;
+}
+.bd-summary .bd-total.regular { color: var(--green-dark); }
+.bd-tip {
+  font-size: 12px;
+  color: var(--grey-text);
+  font-style: italic;
+  padding: 4px 6px;
+}
+
+@media (max-width: 600px) {
+  .breakdown-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .breakdown-row .bd-flag {
+    grid-column: 1 / -1;
+  }
+  .breakdown-row .bd-remove {
+    grid-column: 2 / 3;
+    justify-self: end;
+  }
+}
+
 .insurance-group {
   background: white;
   border: 1.5px solid var(--grey-line);
@@ -1833,6 +1994,18 @@ function setProfileType(t) { updateField('profile.profileType', t); SFX.click();
 /* PHASE 2 */
 function renderPhase2(c) {
   const f = c.finance || {};
+  // Auto-sync: if breakdown exists, calculate sum and set monthlyIncome/Expense from it
+  if (f.incomeBreakdown && f.incomeBreakdown.length > 0) {
+    f.monthlyIncome = f.incomeBreakdown.filter(it => it.regular !== false).reduce((s, it) => s + (Number(it.amount)||0), 0);
+  }
+  if (f.expenseBreakdown && f.expenseBreakdown.length > 0) {
+    f.monthlyExpense = f.expenseBreakdown.reduce((s, it) => s + (Number(it.amount)||0), 0);
+  }
+  const incomeExpanded = !!f.incomeExpanded;
+  const expenseExpanded = !!f.expenseExpanded;
+  const incomeHasBreakdown = f.incomeBreakdown && f.incomeBreakdown.length > 0;
+  const expenseHasBreakdown = f.expenseBreakdown && f.expenseBreakdown.length > 0;
+  
   return `
     <div class="phase-header">
       <span class="phase-badge">PHASE 2</span>
@@ -1841,15 +2014,39 @@ function renderPhase2(c) {
     
     <div class="section-block">
       <h3>💵 รายรับ-รายจ่าย / เดือน</h3>
+      
       <div class="form-grid cols-2">
+        <!-- Income -->
         <div class="form-field">
           <label>รายได้รวม / เดือน (บาท)</label>
-          <input type="number" value="${f.monthlyIncome||''}" ${bindNumber('finance.monthlyIncome')}>
+          <div class="amount-input-row">
+            <input type="number" class="amount-main" id="main-income"
+                   value="${f.monthlyIncome||''}" 
+                   ${bindNumber('finance.monthlyIncome')}
+                   ${incomeHasBreakdown ? 'disabled' : ''}>
+            <button type="button" class="breakdown-toggle ${incomeExpanded?'active':''}" 
+                    onclick="toggleBreakdown('income')">
+              ${incomeExpanded ? '✓ แตกย่อย' : '+ แตกย่อย'}
+            </button>
+          </div>
+          ${incomeExpanded ? renderIncomeBreakdown(c) : ''}
         </div>
+        
+        <!-- Expense -->
         <div class="form-field">
           <label>รายจ่ายรวม / เดือน (บาท)</label>
-          <input type="number" value="${f.monthlyExpense||''}" ${bindNumber('finance.monthlyExpense')}>
-          <span class="helper">เช่น ค่าอาหาร, เดินทาง, Subscription, Party, Shopping ฯลฯ</span>
+          <div class="amount-input-row">
+            <input type="number" class="amount-main" id="main-expense"
+                   value="${f.monthlyExpense||''}" 
+                   ${bindNumber('finance.monthlyExpense')}
+                   ${expenseHasBreakdown ? 'disabled' : ''}>
+            <button type="button" class="breakdown-toggle ${expenseExpanded?'active':''}" 
+                    onclick="toggleBreakdown('expense')">
+              ${expenseExpanded ? '✓ แตกย่อย' : '+ แตกย่อย'}
+            </button>
+          </div>
+          <span class="helper">เช่น ค่าอาหาร, เดินทาง, Subscription ฯลฯ</span>
+          ${expenseExpanded ? renderExpenseBreakdown(c) : ''}
         </div>
       </div>
     </div>
@@ -1887,6 +2084,192 @@ function renderPhase2(c) {
       </div>
     </div>
     ${renderPhaseFooter()}`;
+}
+
+/* ============= BREAKDOWN HELPERS ============= */
+function renderIncomeBreakdown(c) {
+  const f = c.finance || {};
+  const items = f.incomeBreakdown || [];
+  const regularSum = items.filter(it => it.regular !== false).reduce((s, it) => s + (Number(it.amount)||0), 0);
+  const totalSum = items.reduce((s, it) => s + (Number(it.amount)||0), 0);
+  const hasIrregular = items.some(it => it.regular === false);
+  
+  let html = `<div class="breakdown-zone">`;
+  if (items.length === 0) {
+    html += `<div class="bd-empty">ยังไม่มีรายการ — กดปุ่มด้านล่างเพื่อเพิ่ม</div>`;
+  } else {
+    items.forEach((it, i) => {
+      html += `
+        <div class="breakdown-row">
+          <input type="text" value="${it.label||''}" placeholder="เช่น เงินเดือนสามี"
+                 oninput="updateIncomeItem(${i}, 'label', this.value)"
+                 data-preserve-focus="inc-label-${i}">
+          <input type="number" class="bd-amount" value="${it.amount||''}" placeholder="บาท/เดือน"
+                 oninput="updateIncomeItem(${i}, 'amount', Number(this.value)||0)"
+                 data-preserve-focus="inc-amount-${i}">
+          <button type="button" class="bd-flag ${it.regular!==false?'active':''}" 
+                  onclick="toggleIncomeRegular(${i})"
+                  title="${it.regular!==false?'รายได้ประจำ ใส่ในยอดรวม':'รายได้ irregular (โบนัส/OT) ไม่นับในยอดรวม'}">
+            ${it.regular!==false ? '✓ ปกติ' : '⚡ ไม่ปกติ'}
+          </button>
+          <button type="button" class="bd-remove" onclick="removeIncomeItem(${i})">×</button>
+        </div>`;
+    });
+  }
+  html += `<button type="button" class="bd-add" onclick="addIncomeItem()">+ เพิ่มรายการ</button>`;
+  if (items.length > 0) {
+    html += `<div class="bd-summary">
+      <span>รวมรายได้ประจำ (ใช้คำนวณ)</span>
+      <span class="bd-total regular" id="bd-total-income">${fmt(regularSum)} ฿/เดือน</span>
+    </div>`;
+    if (hasIrregular) {
+      html += `<div class="bd-tip">💡 รายการ "ไม่ปกติ" (เช่น โบนัส) ไม่ถูกนับในยอดรวม — เก็บเป็น buffer ไว้ใช้ตอน Phase 6 (เบี้ยประกัน)</div>`;
+    }
+  }
+  html += `</div>`;
+  return html;
+}
+
+function renderExpenseBreakdown(c) {
+  const f = c.finance || {};
+  const items = f.expenseBreakdown || [];
+  const total = items.reduce((s, it) => s + (Number(it.amount)||0), 0);
+  
+  let html = `<div class="breakdown-zone">`;
+  if (items.length === 0) {
+    html += `<div class="bd-empty">ยังไม่มีรายการ — กดปุ่มด้านล่างเพื่อเพิ่ม</div>`;
+  } else {
+    items.forEach((it, i) => {
+      html += `
+        <div class="breakdown-row">
+          <input type="text" value="${it.label||''}" placeholder="เช่น ค่ากินอยู่, ส่งแม่"
+                 oninput="updateExpenseItem(${i}, 'label', this.value)"
+                 data-preserve-focus="exp-label-${i}">
+          <input type="number" class="bd-amount" value="${it.amount||''}" placeholder="บาท/เดือน"
+                 oninput="updateExpenseItem(${i}, 'amount', Number(this.value)||0)"
+                 data-preserve-focus="exp-amount-${i}">
+          <button type="button" class="bd-flag ${it.sacred?'sacred':''}" 
+                  onclick="toggleExpenseSacred(${i})"
+                  title="${it.sacred?'⭐ Sacred Zone — ห้ามแตะตอน optimize':'กดเพื่อ flag เป็น sacred zone'}">
+            ${it.sacred ? '⭐ Sacred' : '○ ทั่วไป'}
+          </button>
+          <button type="button" class="bd-remove" onclick="removeExpenseItem(${i})">×</button>
+        </div>`;
+    });
+  }
+  html += `<button type="button" class="bd-add" onclick="addExpenseItem()">+ เพิ่มรายการ</button>`;
+  if (items.length > 0) {
+    html += `<div class="bd-summary">
+      <span>รวมรายจ่าย</span>
+      <span class="bd-total" id="bd-total-expense">${fmt(total)} ฿/เดือน</span>
+    </div>`;
+    if (items.some(it => it.sacred)) {
+      html += `<div class="bd-tip">⭐ Sacred Zone = ค่าใช้จ่ายที่ลูกค้าให้คุณค่าทางใจ (เช่น ส่งแม่) — ห้ามเสนอตัดในการ optimize แผน</div>`;
+    }
+  }
+  html += `</div>`;
+  return html;
+}
+
+function toggleBreakdown(kind) {
+  const c = getActive();
+  if (!c.finance) c.finance = {};
+  const key = kind === 'income' ? 'incomeExpanded' : 'expenseExpanded';
+  c.finance[key] = !c.finance[key];
+  saveAndRefresh();
+  render();
+}
+
+function addIncomeItem() {
+  const c = getActive();
+  if (!c.finance) c.finance = {};
+  if (!c.finance.incomeBreakdown) c.finance.incomeBreakdown = [];
+  c.finance.incomeBreakdown.push({ label: '', amount: 0, regular: true });
+  saveAndRefresh();
+  render();
+}
+
+function updateIncomeItem(idx, field, val) {
+  const c = getActive();
+  if (!c.finance.incomeBreakdown[idx]) return;
+  c.finance.incomeBreakdown[idx][field] = val;
+  c.updatedAt = Date.now();
+  saveAndRefresh();
+  // Update summary in place (avoid full re-render that breaks cursor)
+  if (field === 'amount') updateBreakdownSummary('income');
+}
+
+function toggleIncomeRegular(idx) {
+  const c = getActive();
+  if (!c.finance.incomeBreakdown[idx]) return;
+  c.finance.incomeBreakdown[idx].regular = c.finance.incomeBreakdown[idx].regular === false;
+  saveAndRefresh();
+  render();
+}
+
+function removeIncomeItem(idx) {
+  const c = getActive();
+  c.finance.incomeBreakdown.splice(idx, 1);
+  saveAndRefresh();
+  render();
+}
+
+function addExpenseItem() {
+  const c = getActive();
+  if (!c.finance) c.finance = {};
+  if (!c.finance.expenseBreakdown) c.finance.expenseBreakdown = [];
+  c.finance.expenseBreakdown.push({ label: '', amount: 0, sacred: false });
+  saveAndRefresh();
+  render();
+}
+
+function updateExpenseItem(idx, field, val) {
+  const c = getActive();
+  if (!c.finance.expenseBreakdown[idx]) return;
+  c.finance.expenseBreakdown[idx][field] = val;
+  c.updatedAt = Date.now();
+  saveAndRefresh();
+  if (field === 'amount') updateBreakdownSummary('expense');
+}
+
+function updateBreakdownSummary(kind) {
+  // Targeted DOM update: re-compute totals and update both summary line and disabled main input
+  const c = getActive();
+  const f = c.finance || {};
+  if (kind === 'income') {
+    const items = f.incomeBreakdown || [];
+    const regularSum = items.filter(it => it.regular !== false).reduce((s, it) => s + (Number(it.amount)||0), 0);
+    f.monthlyIncome = regularSum;
+    saveAndRefresh();
+    const mainInp = document.getElementById('main-income');
+    if (mainInp) mainInp.value = f.monthlyIncome;
+    const totalEl = document.getElementById('bd-total-income');
+    if (totalEl) totalEl.textContent = fmt(f.monthlyIncome) + ' ฿/เดือน';
+  } else {
+    const items = f.expenseBreakdown || [];
+    const total = items.reduce((s, it) => s + (Number(it.amount)||0), 0);
+    f.monthlyExpense = total;
+    saveAndRefresh();
+    const mainInp = document.getElementById('main-expense');
+    if (mainInp) mainInp.value = f.monthlyExpense;
+    const totalEl = document.getElementById('bd-total-expense');
+    if (totalEl) totalEl.textContent = fmt(f.monthlyExpense) + ' ฿/เดือน';
+  }
+}
+
+function toggleExpenseSacred(idx) {
+  const c = getActive();
+  if (!c.finance.expenseBreakdown[idx]) return;
+  c.finance.expenseBreakdown[idx].sacred = !c.finance.expenseBreakdown[idx].sacred;
+  saveAndRefresh();
+  render();
+}
+
+function removeExpenseItem(idx) {
+  const c = getActive();
+  c.finance.expenseBreakdown.splice(idx, 1);
+  saveAndRefresh();
+  render();
 }
 
 /* PHASE 3 */
@@ -1983,31 +2366,52 @@ function removeAsset(idx) {
 }
 
 function renderCashFlowList(c) {
-  if (!c.cashFlows || c.cashFlows.length === 0) return '<p class="text-grey small">ยังไม่มี — กดปุ่มด้านล่าง</p>';
-  return c.cashFlows.map((cf, i) => `
-    <div class="row-grid" style="grid-template-columns: 1.2fr 2fr 1fr auto auto">
-      <select onchange="updateCashFlowField(${i}, 'type', this.value)">
-        <option value="">-- ประเภท --</option>
-        <option value="rent" ${cf.type==='rent'?'selected':''}>ค่าเช่า</option>
-        <option value="pension" ${cf.type==='pension'?'selected':''}>บำนาญประกัน</option>
-        <option value="govPension" ${cf.type==='govPension'?'selected':''}>บำนาญข้าราชการ</option>
-        <option value="dividend" ${cf.type==='dividend'?'selected':''}>เงินปันผล</option>
-        <option value="interest" ${cf.type==='interest'?'selected':''}>ดอกเบี้ย</option>
-        <option value="royalty" ${cf.type==='royalty'?'selected':''}>ค่าลิขสิทธิ์</option>
-        <option value="salary" ${cf.type==='salary'?'selected':''}>เงินเดือนหลังเกษียณ</option>
-        <option value="other" ${cf.type==='other'?'selected':''}>อื่นๆ</option>
-      </select>
-      <input type="text" value="${cf.note||''}" placeholder="รายละเอียด" 
-             oninput="updateCashFlowField(${i}, 'note', this.value)">
-      <input type="number" value="${cf.monthly||''}" placeholder="บาท/เดือน" 
-             oninput="updateCashFlowField(${i}, 'monthly', Number(this.value)||0)">
-      <label class="use-checkbox">
-        <input type="checkbox" ${cf.useForRetirement?'checked':''} 
-               onchange="updateCashFlowField(${i}, 'useForRetirement', this.checked)">
-        <span>ใช้เกษียณ</span>
-      </label>
-      <button class="remove-btn" onclick="removeCashFlow(${i})">×</button>
-    </div>`).join('');
+  if (!c.cashFlows || c.cashFlows.length === 0) {
+    return '<div class="bd-empty" style="background:#fafbfc; border:1.5px solid var(--grey-line); border-radius:10px; padding:18px;">ยังไม่มี — กดปุ่มด้านล่างเพื่อเพิ่ม</div>';
+  }
+  const total = c.cashFlows.filter(cf => cf.useForRetirement).reduce((s, cf) => s + (Number(cf.monthly)||0), 0);
+  let html = `<div class="breakdown-zone" style="margin-top:0">`;
+  c.cashFlows.forEach((cf, i) => {
+    html += `
+      <div class="breakdown-row" style="grid-template-columns: 1.3fr 2fr 1.2fr auto auto">
+        <select onchange="updateCashFlowField(${i}, 'type', this.value)" style="padding:8px 10px; border:1px solid var(--grey-line); border-radius:6px; font-size:14px; background:white">
+          <option value="">-- ประเภท --</option>
+          <option value="rent" ${cf.type==='rent'?'selected':''}>ค่าเช่า</option>
+          <option value="pension" ${cf.type==='pension'?'selected':''}>บำนาญประกัน</option>
+          <option value="govPension" ${cf.type==='govPension'?'selected':''}>บำนาญข้าราชการ</option>
+          <option value="dividend" ${cf.type==='dividend'?'selected':''}>เงินปันผล</option>
+          <option value="interest" ${cf.type==='interest'?'selected':''}>ดอกเบี้ย</option>
+          <option value="royalty" ${cf.type==='royalty'?'selected':''}>ค่าลิขสิทธิ์</option>
+          <option value="salary" ${cf.type==='salary'?'selected':''}>เงินเดือนหลังเกษียณ</option>
+          <option value="other" ${cf.type==='other'?'selected':''}>อื่นๆ</option>
+        </select>
+        <input type="text" value="${cf.note||''}" placeholder="รายละเอียด เช่น คอนโดให้เช่า"
+               oninput="updateCashFlowField(${i}, 'note', this.value)"
+               data-preserve-focus="cf-note-${i}">
+        <input type="number" class="bd-amount" value="${cf.monthly||''}" placeholder="บาท/เดือน" 
+               oninput="updateCashFlowField(${i}, 'monthly', Number(this.value)||0)"
+               data-preserve-focus="cf-monthly-${i}">
+        <button type="button" class="bd-flag ${cf.useForRetirement?'active':''}"
+                onclick="toggleCashFlowUse(${i})">
+          ${cf.useForRetirement ? '✓ ใช้เกษียณ' : '✗ ไม่ใช้'}
+        </button>
+        <button type="button" class="bd-remove" onclick="removeCashFlow(${i})">×</button>
+      </div>`;
+  });
+  html += `<div class="bd-summary">
+    <span>รวมกระแสเงินสดสำหรับเกษียณ</span>
+    <span class="bd-total regular" id="bd-total-cashflow">${fmt(total)} ฿/เดือน · ${fmt(total*12)} ฿/ปี</span>
+  </div>`;
+  html += `</div>`;
+  return html;
+}
+
+function toggleCashFlowUse(idx) {
+  const c = getActive();
+  if (!c.cashFlows[idx]) return;
+  c.cashFlows[idx].useForRetirement = !c.cashFlows[idx].useForRetirement;
+  saveAndRefresh();
+  document.getElementById('cashFlowList').innerHTML = renderCashFlowList(c);
 }
 
 function addCashFlow() {
@@ -2025,6 +2429,12 @@ function updateCashFlowField(idx, field, val) {
   c.cashFlows[idx][field] = val;
   c.updatedAt = Date.now();
   saveAndRefresh();
+  // Update only summary if amount changes (don't re-render to preserve cursor)
+  if (field === 'monthly') {
+    const total = c.cashFlows.filter(cf => cf.useForRetirement).reduce((s, cf) => s + (Number(cf.monthly)||0), 0);
+    const totalEl = document.getElementById('bd-total-cashflow');
+    if (totalEl) totalEl.textContent = fmt(total) + ' ฿/เดือน · ' + fmt(total*12) + ' ฿/ปี';
+  }
 }
 
 function removeCashFlow(idx) {
