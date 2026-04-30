@@ -1279,6 +1279,936 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   }
 }
 
+/* === REALITY CHECK (Phase 5 footer) === */
+.reality-check {
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-top: 20px;
+  border: 2px solid;
+}
+.reality-check.safe { background: #e8f8ef; border-color: var(--green); }
+.reality-check.warning { background: #fff8e1; border-color: var(--gold); }
+.reality-check.danger { background: #fdecea; border-color: var(--red); }
+.rc-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.rc-icon { font-size: 22px; }
+.rc-title { font-weight: 800; color: var(--navy); font-size: 17px; }
+.rc-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.rc-cell { background: white; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--grey-line); }
+.rc-label { font-size: 11px; color: var(--grey-text); font-weight: 600; }
+.rc-val { font-size: 18px; font-weight: 800; color: var(--navy); font-feature-settings: "tnum"; line-height: 1.1; }
+.rc-val.red { color: var(--red); }
+.rc-val.green { color: var(--green-dark); }
+.rc-sub { font-size: 10px; color: var(--grey-text); margin-top: 2px; }
+.rc-msg {
+  background: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #2c3e50;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.rc-cta {
+  font-size: 13px;
+  color: var(--navy);
+  font-weight: 600;
+  background: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border-left: 3px solid var(--gold);
+}
+@media (max-width:600px){ .rc-row { grid-template-columns: 1fr; } }
+
+/* === PHASE 6 v4 — เลือกแผนของคุณ (checklist + guides) === */
+
+/* Plan summary (4 cells from Phase 5) */
+.plan-summary {
+  background: linear-gradient(180deg, #fafbfc 0%, white 100%);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  border: 1.5px solid var(--grey-line);
+}
+.ps-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.ps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.ps-cell {
+  background: white;
+  border-radius: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--grey-line);
+  text-align: center;
+}
+.ps-cell.highlight { border-color: var(--gold); background: #fff8e1; }
+.ps-label { font-size: 11px; color: var(--grey-text); font-weight: 600; margin-bottom: 4px; }
+.ps-val { font-size: 20px; font-weight: 800; color: var(--navy); font-feature-settings: "tnum"; line-height: 1.1; }
+.ps-val.red { color: var(--red); }
+.ps-val.green { color: var(--green-dark); }
+.ps-sub { font-size: 11px; color: var(--grey-text); margin-top: 3px; }
+@media (max-width:700px){ .ps-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width:400px){ .ps-grid { grid-template-columns: 1fr; } }
+
+/* Path section */
+.path-section { margin-bottom: 22px; }
+.path-eyebrow {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--grey-text);
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.path-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+@media (max-width:900px){ .path-grid { grid-template-columns: 1fr; } }
+
+.path-card {
+  background: white;
+  border: 2px solid var(--grey-line);
+  border-radius: 14px;
+  padding: 18px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+.path-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.path-card.active.green { border-color: var(--green); background: linear-gradient(180deg, #e8f8ef, white); }
+.path-card.active.gold  { border-color: var(--gold); background: linear-gradient(180deg, #fff8e1, white); }
+.path-card.active.navy  { border-color: var(--navy); background: linear-gradient(180deg, #eef5fc, white); }
+.path-card.active::after {
+  content: '✓ เลือกแล้ว';
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: white;
+  background: var(--navy);
+  padding: 3px 10px;
+  border-radius: 99px;
+}
+.pc-title { font-size: 13px; font-weight: 700; color: var(--grey-text); letter-spacing: 0.1em; text-transform: uppercase; }
+.pc-subtitle { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 14px; }
+
+.pc-allocation { margin-bottom: 12px; }
+.pc-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 13.5px;
+  border-bottom: 1px dashed #f0f4f8;
+}
+.pc-row.total {
+  padding-top: 10px;
+  border-bottom: none;
+  border-top: 2px solid var(--grey-line);
+  margin-top: 6px;
+  font-weight: 800;
+  color: var(--navy);
+  flex-wrap: wrap;
+}
+.pc-icon { width: 20px; flex-shrink: 0; }
+.pc-text { flex: 1; color: #2c3e50; }
+.pc-amt { font-weight: 700; color: var(--navy); font-feature-settings: "tnum"; }
+.pc-amt-sub { width: 100%; font-size: 11px; font-weight: 500; color: var(--grey-text); text-align: right; }
+
+.pc-warning {
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  padding: 6px 10px;
+  border-radius: 99px;
+  margin-bottom: 10px;
+}
+.pc-warning.ok { background: #d4f1de; color: var(--green-dark); }
+.pc-warning.warn { background: #fff3cd; color: #856404; }
+.pc-warning.over { background: #f8d7da; color: #721c24; }
+
+.pc-tagline { font-size: 12px; color: var(--grey-text); font-style: italic; line-height: 1.5; text-align: center; }
+
+/* Path Editor (after path selected) */
+.path-editor {
+  background: white;
+  border-radius: 14px;
+  padding: 22px;
+  margin-bottom: 18px;
+  border: 1.5px solid var(--grey-line);
+  box-shadow: var(--shadow-sm);
+}
+.pe-header { font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+.pe-sub { font-size: 13px; color: var(--grey-text); margin-bottom: 18px; }
+
+/* Two legs: เกษียณ + ปกป้อง */
+.leg-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+@media (max-width:900px){ .leg-grid { grid-template-columns: 1fr; } }
+
+.leg-card {
+  background: #fafbfc;
+  border-radius: 12px;
+  padding: 16px 18px;
+  border: 1px solid var(--grey-line);
+}
+.leg-card.retire { border-left: 4px solid var(--gold); }
+.leg-card.protect { border-left: 4px solid var(--green); }
+.leg-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.leg-icon { font-size: 22px; }
+.leg-title { font-size: 16px; font-weight: 800; color: var(--navy); }
+
+.leg-row-slider {
+  margin-bottom: 14px;
+}
+.le-slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #d6e7f7 0%, var(--navy) 100%);
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.le-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--gold);
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+.le-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--gold);
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.leg-numbers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.leg-num-block {
+  background: white;
+  border: 1px solid var(--grey-line);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.leg-num-label { font-size: 11px; color: var(--grey-text); font-weight: 600; display: block; margin-bottom: 2px; }
+.leg-num-val { font-size: 17px; font-weight: 800; color: var(--navy); font-feature-settings: "tnum"; display: block; line-height: 1.2; }
+.leg-num-sub { font-size: 11px; color: var(--grey-text); display: block; margin-top: 2px; }
+
+.leg-result {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 2px solid;
+}
+.leg-result.safe { background: #e8f8ef; border-color: var(--green); }
+.leg-result.warning { background: #fff8e1; border-color: var(--gold); }
+.leg-result.danger { background: #fdecea; border-color: var(--red); }
+.leg-result-icon { font-size: 20px; flex-shrink: 0; }
+.leg-result-title { font-weight: 800; color: var(--navy); font-size: 14px; }
+.leg-result-msg { font-size: 12px; color: var(--grey-text); margin-top: 2px; }
+
+/* Insurance row in protect leg */
+.ins-row {
+  background: white;
+  border: 1px solid var(--grey-line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  transition: all 0.15s;
+}
+.ins-row.inactive { opacity: 0.6; }
+.ins-row.active { border-color: var(--green); }
+
+.ins-row-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-between;
+}
+.ins-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  flex: 1;
+}
+.ins-toggle input { width: 16px; height: 16px; cursor: pointer; }
+.ins-icon { font-size: 16px; }
+.ins-label { font-weight: 700; color: var(--navy); font-size: 14px; }
+.ins-product { font-size: 11px; color: var(--grey-text); font-weight: 500; }
+.ins-premium { font-size: 13px; font-weight: 800; color: var(--red); font-feature-settings: "tnum"; }
+
+.ins-row-slider {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #f0f4f8;
+}
+.ins-sum-display {
+  text-align: right;
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--navy);
+  font-feature-settings: "tnum";
+}
+
+/* Commitment summary */
+.commitment-summary {
+  border-radius: 12px;
+  padding: 18px 20px;
+  border: 2px solid;
+}
+.commitment-summary.safe { background: #e8f8ef; border-color: var(--green); }
+.commitment-summary.warning { background: #fff8e1; border-color: var(--gold); }
+.commitment-summary.danger { background: #fdecea; border-color: var(--red); }
+.cs-header { font-size: 16px; font-weight: 800; color: var(--navy); margin-bottom: 12px; }
+.cs-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.cs-cell {
+  background: white;
+  padding: 10px 12px;
+  border-radius: 8px;
+}
+.cs-cell.highlight { border: 2px solid var(--gold); }
+.cs-label { font-size: 11px; color: var(--grey-text); font-weight: 600; margin-bottom: 2px; }
+.cs-val { font-size: 17px; font-weight: 800; color: var(--navy); font-feature-settings: "tnum"; line-height: 1.1; }
+.cs-val.big { font-size: 20px; }
+.cs-val.green { color: var(--green-dark); }
+.cs-val.orange { color: var(--orange); }
+.cs-val.red { color: var(--red); }
+.cs-sub { font-size: 11px; color: var(--grey-text); margin-top: 2px; }
+.cs-msg {
+  background: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+@media (max-width:700px){ .cs-row { grid-template-columns: repeat(2, 1fr); } }
+
+/* === Phase 6 v4 additions === */
+.existing-section {
+  background: #fafbfc;
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+  border: 1px solid var(--grey-line);
+}
+.es-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--grey-text);
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.es-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+@media (max-width:700px){ .es-grid { grid-template-columns: 1fr; } }
+.es-cell {
+  display: flex;
+  gap: 10px;
+  background: white;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border-left: 3px solid;
+  align-items: center;
+}
+.es-cell.have { border-left-color: var(--green); }
+.es-cell.none { border-left-color: var(--orange); opacity: 0.85; }
+.es-icon { font-size: 22px; flex-shrink: 0; }
+.es-label { font-size: 12px; color: var(--grey-text); font-weight: 600; }
+.es-val { font-size: 14px; font-weight: 700; color: var(--navy); margin-top: 2px; }
+.es-val.none { color: var(--orange); font-weight: 500; font-size: 13px; }
+
+.preset-section {
+  background: linear-gradient(135deg, #fffbf0, #fff8e1);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 18px;
+  border-left: 3px solid var(--gold);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.prs-label { font-size: 13px; font-weight: 600; color: var(--navy); margin-right: 4px; }
+.prs-buttons { display: flex; flex-wrap: wrap; gap: 6px; }
+.prs-btn {
+  background: white;
+  border: 1.5px solid var(--grey-line);
+  border-radius: 99px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--navy);
+  transition: all 0.15s;
+}
+.prs-btn:hover { border-color: var(--navy); background: #eef5fc; }
+.prs-btn.clear { color: var(--grey-text); }
+.prs-btn.clear:hover { border-color: var(--red); color: var(--red); background: #fdecea; }
+
+.check-section { margin-bottom: 18px; }
+.cs-eyebrow {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--grey-text);
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.check-row {
+  background: white;
+  border: 2px solid var(--grey-line);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+.check-row.active { border-color: var(--green); }
+.cr-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  cursor: pointer;
+  background: #fafbfc;
+}
+.check-row.active .cr-head { background: #e8f8ef; }
+.cr-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  flex: 1;
+}
+.cr-toggle input { width: 18px; height: 18px; cursor: pointer; }
+.cr-icon { font-size: 18px; }
+.cr-title { font-size: 15px; font-weight: 700; color: var(--navy); }
+.cr-summary { font-size: 14px; font-weight: 700; color: var(--red); font-feature-settings: "tnum"; }
+
+.cr-body {
+  padding: 14px 16px;
+  border-top: 1px solid #e8edf2;
+}
+.cr-slider-wrap { padding: 8px 0 12px; }
+
+.cr-numbers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+.cr-num {
+  background: #fafbfc;
+  border-radius: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--grey-line);
+}
+.cr-num-label { font-size: 11px; color: var(--grey-text); font-weight: 600; }
+.cr-num-val { font-size: 17px; font-weight: 800; color: var(--navy); font-feature-settings: "tnum"; line-height: 1.2; }
+.cr-num-val.red { color: var(--red); }
+.cr-num-sub { font-size: 11px; color: var(--grey-text); margin-top: 2px; }
+
+.cr-result {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  border: 1px solid;
+}
+.cr-result.safe { background: #e8f8ef; border-color: var(--green); }
+.cr-result.warning { background: #fff8e1; border-color: var(--gold); }
+.cr-result.danger { background: #fdecea; border-color: var(--red); }
+
+.gov-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #eef5fc;
+  border: 1.5px dashed #1a3a5c;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+.gov-toggle input { width: 16px; height: 16px; cursor: pointer; }
+.gov-msg {
+  background: #eef5fc;
+  border-left: 3px solid var(--navy);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.guide-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.guide-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--grey-text);
+  margin-right: 4px;
+}
+.guide-btn {
+  background: white;
+  border: 1.5px solid var(--grey-line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--navy);
+  transition: all 0.15s;
+  text-align: center;
+  line-height: 1.3;
+}
+.guide-btn small { font-size: 10px; color: var(--grey-text); font-weight: 500; }
+.guide-btn.active small { color: rgba(255,255,255,0.85); }
+.guide-btn:hover { border-color: var(--navy); }
+.guide-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
+
+.mode-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: stretch;
+  margin-bottom: 12px;
+}
+.mode-btn {
+  flex: 1;
+  min-width: 130px;
+  background: white;
+  border: 1.5px solid var(--grey-line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--navy);
+  transition: all 0.15s;
+  text-align: center;
+  line-height: 1.4;
+}
+.mode-btn small { font-size: 11px; color: var(--grey-text); font-weight: 500; display: block; }
+.mode-btn.active small { color: rgba(255,255,255,0.85); }
+.mode-btn:hover { border-color: var(--navy); }
+.mode-btn.active { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+
+.mode-b-config {
+  background: #fff8e1;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border: 1px solid var(--gold);
+}
+.mode-b-config > span { font-size: 14px; font-weight: 600; color: var(--navy); display: block; margin-bottom: 8px; }
+.mode-b-formula { font-size: 12px; color: var(--grey-text); margin-top: 6px; display: block; }
+
+.product-note {
+  background: #eef5fc;
+  border-left: 3px solid var(--navy);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--navy);
+  margin-top: 10px;
+}
+
+.commitment-summary.empty {
+  background: #fafbfc;
+  border: 2px dashed var(--grey-line);
+  text-align: center;
+  padding: 20px;
+}
+.cs-empty-msg { color: var(--grey-text); font-size: 14px; }
+
+/* === PHASE 7 v3 — สรุปแผน · Vision + Before/After === */
+.vision-card {
+  background: linear-gradient(135deg, #fff8e1 0%, #fffbf0 50%, #fef5e7 100%);
+  border-radius: 16px;
+  padding: 22px 26px;
+  margin-bottom: 22px;
+  border: 1.5px solid var(--gold);
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.15);
+}
+.vc-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.vc-narrative { font-size: 15px; color: #2c3e50; line-height: 1.8; }
+.vc-main { font-size: 17px; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+.vc-line { padding: 4px 0; }
+.vc-pain {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: white;
+  border-radius: 10px;
+  border-left: 3px solid var(--red);
+}
+.vc-pain-label { font-size: 12px; font-weight: 700; color: var(--grey-text); margin-bottom: 4px; }
+.vc-pain-text { color: #2c3e50; line-height: 1.6; font-size: 14px; }
+
+/* 2-column summary */
+.summary-2-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+@media (max-width:900px){ .summary-2-cols { grid-template-columns: 1fr; } }
+
+.sum-card {
+  background: white;
+  border-radius: 14px;
+  padding: 22px;
+  border: 1.5px solid var(--grey-line);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+.sum-card.retire { border-top: 4px solid var(--gold); }
+.sum-card.protect { border-top: 4px solid var(--green); }
+.sum-icon { font-size: 28px; margin-bottom: 6px; }
+.sum-title { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 14px; }
+
+.sum-rows { display: flex; flex-direction: column; gap: 6px; }
+.sum-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 4px 0;
+}
+.sum-row.big { padding: 8px 0; border-top: 2px solid var(--grey-line); margin-top: 6px; }
+.sum-label { font-size: 13.5px; color: var(--grey-text); }
+.sum-val { font-size: 15px; font-weight: 700; color: var(--navy); font-feature-settings: "tnum"; }
+.sum-row.big .sum-val { font-size: 19px; font-weight: 800; }
+.sum-val.red { color: var(--red); }
+.sum-val.green { color: var(--green-dark); }
+
+.sum-divider { border-top: 1px dashed var(--grey-line); margin: 14px 0; }
+
+.sum-result {
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1.5px solid;
+  font-size: 13px;
+}
+.sum-result.safe { background: #e8f8ef; border-color: var(--green); }
+.sum-result.warning { background: #fff8e1; border-color: var(--gold); }
+.sum-result.danger { background: #fdecea; border-color: var(--red); }
+
+.sum-empty {
+  text-align: center;
+  padding: 30px 0;
+  color: var(--grey-text);
+  font-size: 14px;
+}
+.sum-empty-sub { font-size: 12px; margin-top: 4px; }
+
+.protect-items { display: flex; flex-direction: column; gap: 10px; }
+.prot-item {
+  background: #fafbfc;
+  border: 1px solid var(--grey-line);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.prot-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.prot-icon { font-size: 16px; }
+.prot-label { font-weight: 700; color: var(--navy); flex: 1; font-size: 14px; }
+.prot-prem { font-size: 13px; font-weight: 700; color: var(--red); font-feature-settings: "tnum"; }
+.prot-detail { font-size: 12px; color: var(--grey-text); margin-top: 4px; padding-left: 24px; }
+
+/* Final commitment */
+.commit-final {
+  background: white;
+  border-radius: 14px;
+  padding: 22px 26px;
+  margin-bottom: 22px;
+  border: 2px solid;
+}
+.commit-final.safe { border-color: var(--green); background: linear-gradient(180deg, #e8f8ef, white); }
+.commit-final.warning { border-color: var(--gold); background: linear-gradient(180deg, #fff8e1, white); }
+.commit-final.danger { border-color: var(--red); background: linear-gradient(180deg, #fdecea, white); }
+.commit-final.empty { border-style: dashed; border-color: var(--grey-line); }
+
+.cf-empty { text-align: center; color: var(--grey-text); padding: 16px; }
+.cf-title { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 14px; }
+
+.cf-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1.3fr;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+@media (max-width:700px){
+  .cf-grid { grid-template-columns: 1fr; }
+  .cf-plus, .cf-equals { display: none; }
+}
+.cf-plus, .cf-equals {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--grey-text);
+  text-align: center;
+}
+.cf-cell {
+  background: white;
+  border: 1px solid var(--grey-line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  text-align: center;
+}
+.cf-cell.big {
+  background: linear-gradient(135deg, var(--navy), #2c5582);
+  color: white;
+  border-color: var(--navy);
+}
+.cf-label { font-size: 12px; color: var(--grey-text); font-weight: 600; margin-bottom: 4px; }
+.cf-cell.big .cf-label { color: rgba(255,255,255,0.8); }
+.cf-val { font-size: 19px; font-weight: 800; color: var(--navy); font-feature-settings: "tnum"; line-height: 1.2; }
+.cf-cell.big .cf-val { color: white; font-size: 22px; }
+.cf-sub { font-size: 12px; color: var(--grey-text); margin-top: 2px; }
+.cf-cell.big .cf-sub { color: rgba(255,255,255,0.85); }
+
+.cf-pct {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  background: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--grey-text);
+}
+.cf-pct-val { font-size: 18px; font-weight: 800; color: var(--navy); }
+.cf-msg {
+  background: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+/* Before-After */
+.before-after {
+  background: linear-gradient(180deg, #fafbfc 0%, white 100%);
+  border-radius: 14px;
+  padding: 22px;
+  margin-bottom: 22px;
+  border: 1.5px solid var(--grey-line);
+}
+.ba-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--grey-text);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  text-align: center;
+}
+.ba-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 14px;
+  align-items: center;
+}
+@media (max-width:700px){
+  .ba-grid { grid-template-columns: 1fr; }
+  .ba-arrow { transform: rotate(90deg); margin: 0 auto; }
+}
+.ba-arrow {
+  font-size: 32px;
+  color: var(--gold);
+  font-weight: 800;
+  text-align: center;
+}
+.ba-col {
+  background: white;
+  border-radius: 12px;
+  padding: 18px;
+  border: 2px solid;
+}
+.ba-col.before { border-color: #e8edf2; opacity: 0.85; }
+.ba-col.after { border-color: var(--green); background: linear-gradient(180deg, #e8f8ef, white); }
+.ba-col-title { font-size: 14px; font-weight: 800; color: var(--navy); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px dashed var(--grey-line); }
+.ba-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px dashed #f0f4f8;
+}
+.ba-row:last-child { border-bottom: none; }
+.ba-row-label { font-size: 13px; color: var(--grey-text); font-weight: 600; }
+.ba-row-val { font-size: 14px; font-weight: 700; color: var(--navy); font-feature-settings: "tnum"; }
+.ba-row-val.good { color: var(--green-dark); }
+.ba-row-val.bad { color: var(--red); }
+.ba-row-val.partial { color: var(--orange); }
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+  margin-bottom: 22px;
+}
+
+/* Print styles */
+@media print {
+  body { background: white; }
+  .header, .sidebar, .phase-footer, .action-buttons, .toast, button { display: none !important; }
+  .main { padding: 0; }
+  .vision-card, .summary-2-cols, .commit-final, .before-after { page-break-inside: avoid; }
+  .sum-card, .ba-col { box-shadow: none; }
+}
+
+/* === UL Insight (Phase 7 · Infinite Wealth) === */
+.ul-insight {
+  background: linear-gradient(135deg, #f0f7ff 0%, #fff8e1 100%);
+  border: 2px solid var(--gold);
+  border-radius: 14px;
+  padding: 22px 26px;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.18);
+}
+.uli-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.uli-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 18px;
+}
+.uli-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+@media (max-width:700px){ .uli-grid { grid-template-columns: 1fr; } }
+.uli-option {
+  background: white;
+  border-radius: 12px;
+  padding: 16px 18px;
+  border: 1.5px solid var(--grey-line);
+}
+.uli-icon { font-size: 26px; margin-bottom: 6px; }
+.uli-opt-title { font-size: 15px; font-weight: 800; color: var(--navy); margin-bottom: 10px; }
+.uli-opt-detail { font-size: 14px; color: #2c3e50; line-height: 1.6; }
+.uli-sub { font-size: 12px; color: var(--grey-text); display: block; margin-top: 4px; }
+
+.uli-nav-rows { margin-top: 8px; }
+.uli-nav-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 13px;
+  border-bottom: 1px dashed #f0f4f8;
+}
+.uli-nav-row:last-child { border-bottom: none; }
+.uli-nav-row.low b { color: var(--orange); }
+.uli-nav-row.mid b { color: var(--navy); }
+.uli-nav-row.high b { color: var(--green-dark); }
+
+.uli-summary {
+  background: white;
+  border-radius: 10px;
+  padding: 12px 16px;
+  border: 1px solid var(--grey-line);
+}
+.uli-sum-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 14px;
+}
+.uli-sum-row.green { background: #e8f8ef; padding: 8px 12px; border-radius: 6px; margin: 4px -8px; font-weight: 700; }
+.uli-sum-row.green b { color: var(--green-dark); }
+
+.uli-disclaimer {
+  margin-top: 12px;
+  font-size: 11.5px;
+  color: var(--grey-text);
+  line-height: 1.5;
+  padding: 8px 12px;
+  background: #fff8e1;
+  border-radius: 6px;
+  border-left: 3px solid var(--gold);
+}
+
 /* === WEALTH SUMMARY (Phase 3 footer) === */
 .wealth-summary {
   background: linear-gradient(180deg, #fafbfc 0%, white 100%);
@@ -1590,10 +2520,15 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   background: white;
   border: 2px solid var(--navy);
   border-radius: 10px;
-  padding: 12px 16px;
+  padding: 14px 18px;
   text-align: center;
   min-width: 180px;
   margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
 }
 .timeline-box.red {
   background: var(--red);
@@ -1605,10 +2540,25 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   color: var(--navy);
   border-color: var(--gold);
 }
-.timeline-box .b-label { font-size: 12px; opacity: 0.85; font-weight: 500; }
-.timeline-box .b-value { font-size: 22px; font-weight: 700; margin-top: 2px; }
-.timeline-box .b-sub { font-size: 12px; opacity: 0.85; margin-top: 2px; }
-.timeline-stack { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+.timeline-box .b-label { 
+  font-size: 12px; 
+  opacity: 0.9; 
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+.timeline-box .b-value { 
+  font-size: 24px; 
+  font-weight: 800; 
+  line-height: 1.1;
+  font-feature-settings: "tnum";
+}
+.timeline-box .b-sub { 
+  font-size: 12px; 
+  opacity: 0.9; 
+  line-height: 1.3;
+}
+.timeline-stack { display: flex; flex-direction: column; gap: 10px; align-items: center; }
 
 /* COMBINED PHASE (former 6+7) */
 .combined-grid {
@@ -2711,11 +3661,6 @@ function renderPhase1(c) {
             <input type="number" min="0" max="2" value="${(c.finance||{}).motherCount||''}" 
                    ${bindNumber('finance.motherCount')} placeholder="0">
           </div>
-          <div class="dep-mini grow">
-            <span class="mini-prefix">หมายเหตุ</span>
-            <input type="text" value="${(c.finance||{}).parentNote||(c.finance||{}).parentDependents||''}" 
-                   ${bindField('finance.parentNote')} placeholder="เช่น ส่ง 5k/เดือน · พ่อแม่แฟนด้วย">
-          </div>
         </div>
       </div>
     </div>
@@ -2747,7 +3692,7 @@ function renderChildrenList(c) {
                placeholder="0">
         <span class="mini-suffix">ขวบ</span>
       </div>
-      <button type="button" class="bd-remove" onclick="removeChild(${i})">×</button>
+      <button type="button" class="bd-remove" onclick="removeChildItem(${i})">×</button>
     </div>
   `).join('');
 }
@@ -2784,7 +3729,7 @@ function updateChild(idx, field, val) {
   // No re-render — preserve cursor while typing age
 }
 
-function removeChild(idx) {
+function removeChildItem(idx) {
   const c = getActive();
   c.finance.children.splice(idx, 1);
   saveAndRefresh();
@@ -4187,7 +5132,8 @@ function renderPhase5(c) {
             <div class="timeline-box red">
               <div class="b-label">เก็บเงินเพิ่ม/ปี</div>
               <div class="b-value">${fmt(m.annualPMT)}</div>
-              <div class="b-sub">บาท · ผลตอบแทน ${g.returnRate||7}%</div>
+              <div class="b-sub" style="font-weight:700; color:var(--red); font-size:14px">~ ${fmt(Math.round(m.annualPMT/12))} บาท/เดือน</div>
+              <div class="b-sub">ผลตอบแทน ${g.returnRate||7}%</div>
             </div>
             <div class="timeline-box gold">
               <div class="b-label">กองทุนเกษียณ</div>
@@ -4235,7 +5181,69 @@ function renderPhase5(c) {
         </div>
       </div>
     </div>
+    ${renderPhase5RealityCheck(c, m)}
     ${renderPhaseFooter()}`;
+}
+
+function renderPhase5RealityCheck(c, m) {
+  const f = c.finance || {};
+  const monthlyIncome = Number(f.monthlyIncome) || 0;
+  const monthlyExpense = Number(f.monthlyExpense) || 0;
+  const monthlyDebt = (Number(f.debtHouse)||0) + (Number(f.debtCar)||0) + 
+                      (Number(f.debtCard)||0) + (Number(f.debtOther)||0);
+  const surplusRegular = monthlyIncome - monthlyExpense - monthlyDebt;
+  const irregular = (f.incomeBreakdown||[]).filter(it => it.regular === false)
+    .reduce((s, it) => s + (Number(it.amount)||0), 0);
+  const surplusFull = surplusRegular + irregular;
+  
+  const pmtMonthly = Math.round((m.annualPMT || 0) / 12);
+  const gap = pmtMonthly - surplusFull;
+  
+  // Don't show if Phase 2 not filled
+  if (monthlyIncome === 0) return '';
+  
+  let status, title, msg;
+  if (pmtMonthly === 0) {
+    return ''; // No gap, no need
+  } else if (gap <= 0) {
+    status = 'safe';
+    title = '✅ เงินที่กันได้พอเก็บเพิ่ม';
+    msg = `เงินที่กันได้ ${fmt(surplusFull)}/เดือน ≥ ที่ต้องเก็บ ${fmt(pmtMonthly)}/เดือน — เพียงพอ`;
+  } else if (surplusFull > 0 && gap <= surplusFull * 0.5) {
+    status = 'warning';
+    title = '🟡 เงินที่กันได้ตึง — ต้องปรับ';
+    msg = `ขาดอีก ${fmt(gap)}/เดือน · อาจต้องปรับรายจ่าย หรือใช้สินทรัพย์ที่มีช่วยเสริม`;
+  } else {
+    status = 'danger';
+    title = '🔴 เงินที่กันได้ไม่พอ — ต้องวางแผนใหม่';
+    msg = `ขาดอีก ${fmt(gap)}/เดือน · ใช้รายได้ประจำเก็บเพิ่มไม่ไหว — Phase 6 จะมีแนวทางช่วย`;
+  }
+  
+  return `
+    <div class="reality-check ${status}">
+      <div class="rc-header">
+        <span class="rc-icon">🚦</span>
+        <span class="rc-title">${title}</span>
+      </div>
+      <div class="rc-row">
+        <div class="rc-cell">
+          <div class="rc-label">ต้องเก็บเพิ่ม</div>
+          <div class="rc-val red">${fmt(pmtMonthly)} ฿/เดือน</div>
+        </div>
+        <div class="rc-cell">
+          <div class="rc-label">เงินที่กันได้</div>
+          <div class="rc-val ${surplusFull < 0 ? 'red' : 'green'}">${surplusFull < 0 ? '' : '+'}${fmt(surplusFull)} ฿/เดือน</div>
+          <div class="rc-sub">${irregular > 0 ? `(รวมรายได้ไม่ประจำ ${fmt(irregular)})` : 'จากรายได้ประจำ'}</div>
+        </div>
+        <div class="rc-cell">
+          <div class="rc-label">${gap > 0 ? 'ขาดอีก' : 'เหลือเก็บ'}</div>
+          <div class="rc-val ${gap > 0 ? 'red' : 'green'}">${gap > 0 ? '−' : '+'}${fmt(Math.abs(gap))} ฿/เดือน</div>
+        </div>
+      </div>
+      <div class="rc-msg">${msg}</div>
+      ${gap > 0 ? '<div class="rc-cta">→ ไปต่อ Phase 6 — เลือกแนวทางที่เหมาะกับคุณ</div>' : ''}
+    </div>
+  `;
 }
 
 function pullCashFlowData() {
@@ -4272,365 +5280,893 @@ function resetPullData() {
 }
 
 /* ============================================================
-   PHASE 6 — COMBINED PROTECTION + GAME (v6)
+   PHASE 6 — เลือกแผนของคุณ (v13 · AIA real pricing)
    ============================================================ */
+
+// === AIA Premium Tables (ปี 2025 · ไม่สูบบุหรี่) ===
+// อ้างอิงจาก AIA iSell · Pay Life Plus 20Pay(NP) + Riders
+
+// AIA Health Happy (เหมาจ่าย แบบมาตรฐานใหม่)
+const HEALTH_HAPPY_TABLE = {
+  M: {
+    35: { 1000000: 15100, 5000000: 18900, 15000000: 29400, 25000000: 37800 },
+    45: { 1000000: 19200, 5000000: 23800, 15000000: 36000, 25000000: 47300 },
+    55: { 1000000: 28300, 5000000: 35000, 15000000: 50100, 25000000: 65300 }
+  },
+  F: {
+    35: { 1000000: 18400, 5000000: 22700, 15000000: 34200, 25000000: 42300 },
+    45: { 1000000: 22300, 5000000: 27800, 15000000: 42900, 25000000: 53600 },
+    55: { 1000000: 28500, 5000000: 35200, 15000000: 50700, 25000000: 65500 }
+  }
+};
+
+// AIA Multi-Pay CI (Plus) · Linear กับทุน — เก็บแค่เบี้ย/1M
+const MPCI_TABLE = {
+  M: { 35: 5780, 45: 15470, 55: 46620 },
+  F: { 35: 5840, 45: 9300, 55: 27710 }
+};
+
+// AIA Total Care (rider) · Linear กับทุน — เก็บแค่เบี้ย/1M
+const TOTAL_CARE_TABLE = {
+  M: { 35: 830, 45: 1400, 55: 3110 },
+  F: { 35: 390, 45: 740, 55: 1450 }
+};
+
+// 20 Pay Life Plus · เบี้ย/1M (เพราะ scale linear)
+// ทุน 150k → /150 × 1M conversion
+const LIFE_WL_TABLE = {
+  M: { 35: 28190, 45: 37350, 55: 50530 },  // 4228.5/0.15, 5602.5/0.15, 7579.5/0.15
+  F: { 35: 23660, 45: 31260, 55: 43440 }   // 3549/0.15, 4689/0.15, 6516/0.15
+};
+
+// AIA Infinite Wealth · anchor 45 + extrapolate
+// anchor: M 45 = 555k/15M = 37,000/M · F 45 = 525k/15M = 35,000/M
+// extrapolate ใช้ pattern จาก 20 Pay Life
+const LIFE_UL_TABLE = {
+  M: { 35: 28000, 45: 37000, 55: 50000 },
+  F: { 35: 26500, 45: 35000, 55: 48500 }
+};
+
+const LIFE_UL_THRESHOLD = 15_000_000;
+
+// Guide สำหรับสุขภาพ + โรคร้าย — 3 ระดับ
+const HEALTH_GUIDES = [
+  { id: 'basic', label: 'Basic', sumInsured: 1000000, desc: 'ค่ารักษาทั่วไป' },
+  { id: 'standard', label: 'Standard', sumInsured: 5000000, desc: 'รักษาดีขึ้น + ห้องดี' },
+  { id: 'comprehensive', label: 'Premium', sumInsured: 15000000, desc: 'เหมาจ่าย ครอบคลุมเต็ม' }
+];
+const CRITICAL_GUIDES = [
+  { id: 'basic', label: 'Basic', sumInsured: 1000000, desc: 'ค่ารักษามะเร็งทั่วไป' },
+  { id: 'income', label: 'Income Replace', sumInsured: 2000000, desc: 'รักษา + รายได้ทดแทน' },
+  { id: 'full', label: 'Full', sumInsured: 3000000, desc: 'ครอบคลุมเต็มที่' }
+];
+
+// Map gender Thai → key
+function genderKey(c) {
+  const g = (c?.profile?.gender || '').trim();
+  return g === 'หญิง' ? 'F' : 'M';  // default M (ชาย/อื่น/ว่าง)
+}
+
+// Linear interpolation between two age points
+function lerp(x, x0, x1, y0, y1) {
+  if (x1 === x0) return y0;
+  return y0 + (y1 - y0) * (x - x0) / (x1 - x0);
+}
+
+// Interpolate age within table {35, 45, 55}
+function interpAge(table, age) {
+  if (age <= 35) return table[35];
+  if (age >= 55) return table[55];
+  if (age <= 45) return lerp(age, 35, 45, table[35], table[45]);
+  return lerp(age, 45, 55, table[45], table[55]);
+}
+
+// Health Happy: ทุน 1M / 5M / 15M / 25M with age + gender
+function calcHealthHappyPremium(sumInsured, age, gender) {
+  if (!sumInsured || sumInsured < 1000000) return 0;  // ขั้นต่ำ 1M
+  const tableForGender = HEALTH_HAPPY_TABLE[gender] || HEALTH_HAPPY_TABLE.M;
+  
+  // Interpolate per cover at this age
+  const cap = Math.min(sumInsured, 25000000);  // ขั้นสูง 25M
+  
+  // Get premium at each cover-anchor for this age
+  const anchorCovers = [1000000, 5000000, 15000000, 25000000];
+  const anchorPrems = anchorCovers.map(cv => {
+    const tableByCv = { 35: tableForGender[35][cv], 45: tableForGender[45][cv], 55: tableForGender[55][cv] };
+    return interpAge(tableByCv, age);
+  });
+  
+  // Interpolate by cover
+  if (cap <= 1000000) return Math.round(anchorPrems[0]);
+  if (cap >= 25000000) return Math.round(anchorPrems[3]);
+  if (cap <= 5000000) return Math.round(lerp(cap, 1000000, 5000000, anchorPrems[0], anchorPrems[1]));
+  if (cap <= 15000000) return Math.round(lerp(cap, 5000000, 15000000, anchorPrems[1], anchorPrems[2]));
+  return Math.round(lerp(cap, 15000000, 25000000, anchorPrems[2], anchorPrems[3]));
+}
+
+// MPCI + Total Care (รวมเป็น "โรคร้าย")
+function calcCriticalPremium(sumInsured, age, gender) {
+  if (!sumInsured) return 0;
+  const cap = Math.min(sumInsured, 3000000);  // ขั้นสูง 3M
+  const sumM = cap / 1000000;
+  
+  const mpciTable = MPCI_TABLE[gender] || MPCI_TABLE.M;
+  const tcTable = TOTAL_CARE_TABLE[gender] || TOTAL_CARE_TABLE.M;
+  
+  const mpciPerM = interpAge(mpciTable, age);
+  const tcPerM = interpAge(tcTable, age);
+  
+  return Math.round((mpciPerM + tcPerM) * sumM);
+}
+
+// 20 Pay Life Plus / Infinite Wealth
+function calcLifePremium(sumInsured, age, gender) {
+  if (!sumInsured) return 0;
+  const sumM = sumInsured / 1000000;
+  const isUL = sumInsured >= LIFE_UL_THRESHOLD;
+  const table = isUL 
+    ? (LIFE_UL_TABLE[gender] || LIFE_UL_TABLE.M)
+    : (LIFE_WL_TABLE[gender] || LIFE_WL_TABLE.M);
+  const perM = interpAge(table, age);
+  return Math.round(perM * sumM);
+}
+
+function chooseLifeProduct(sumInsured) {
+  return sumInsured >= LIFE_UL_THRESHOLD ? 'lifeUL' : 'lifeWL';
+}
+
+// Generic dispatcher (legacy compat)
+function calcInsurePremium(sumInsured, type, age, gender) {
+  if (type === 'health') return calcHealthHappyPremium(sumInsured, age, gender);
+  if (type === 'critical') return calcCriticalPremium(sumInsured, age, gender);
+  if (type === 'lifeWL' || type === 'lifeUL') return calcLifePremium(sumInsured, age, gender);
+  return 0;
+}
+
+function calcDisposable(c) {
+  const f = c.finance || {};
+  const monthlyIncome = Number(f.monthlyIncome) || 0;
+  const monthlyExpense = Number(f.monthlyExpense) || 0;
+  const monthlyDebt = (Number(f.debtHouse)||0) + (Number(f.debtCar)||0) + 
+                      (Number(f.debtCard)||0) + (Number(f.debtOther)||0);
+  const surplusRegular = monthlyIncome - monthlyExpense - monthlyDebt;
+  const irregular = (f.incomeBreakdown||[]).filter(it => it.regular === false)
+    .reduce((s, it) => s + (Number(it.amount)||0), 0);
+  return Math.round((surplusRegular + irregular) * 12);
+}
+
+// === Existing insurance (จาก Phase 3) ===
+function getExistingInsurance(c) {
+  const ins = c.insurance || {};
+  return {
+    life: (ins.life||[]).reduce((s,i)=>s+(Number(i.sumInsured)||0),0),
+    health: (ins.health||[]).reduce((s,i)=>s+(Number(i.sumInsured)||0),0),
+    critical: (ins.critical||[]).reduce((s,i)=>s+(Number(i.sumInsured)||0),0),
+    pension: (ins.pension||[]).reduce((s,i)=>s+(Number(i.sumInsured)||0),0),
+    lifeCount: (ins.life||[]).length,
+    healthCount: (ins.health||[]).length,
+    criticalCount: (ins.critical||[]).length,
+    pensionCount: (ins.pension||[]).length
+  };
+}
+
 function renderPhase6(c) {
   const g = c.goal || {};
   const m = calcRetirement(c);
-  const p = c.plan || {};
   const f = c.finance || {};
   const age = fmtAge(c.profile.dob) || g.currentAge || 35;
   
-  const existingCover = [
-    ...((c.insurance && c.insurance.life)||[]),
-    ...((c.insurance && c.insurance.critical)||[]),
-    ...((c.insurance && c.insurance.pension)||[])
-  ].reduce((s, ins) => s + (Number(ins.sumInsured)||0), 0);
+  // Init plan state
+  if (!c.plan) c.plan = {};
+  if (!c.plan.choice) {
+    c.plan.choice = {
+      // ออมเพิ่ม
+      saveActive: false,
+      saveAnnual: 0,
+      // สุขภาพ
+      healthActive: false,
+      healthGuide: 'basic',
+      healthSum: 1000000,
+      healthUseGov: false,
+      // โรคร้าย
+      criticalActive: false,
+      criticalGuide: 'basic',
+      criticalSum: 1000000,
+      // ชีวิต
+      lifeActive: false,
+      lifeMode: 'custom',  // 'A' | 'B' | 'custom'
+      lifeSum: 1500000,
+      lifeBYears: 5
+    };
+  }
+  const ch = c.plan.choice;
   
-  const protectionMode = p.protectionMode || 'retirement';
+  // คำนวณ
+  const disposable = calcDisposable(c);
+  const pmtAnnual = m.annualPMT || 0;
+  const pmtMonthly = Math.round(pmtAnnual / 12);
+  const existing = getExistingInsurance(c);
   
-  const targetRetirement = m.requiredCorpus;
-  // Mode B: ปกป้องรายได้/มรดก — auto-suggest หรือใส่เองอิสระ
-  const totalDebt = (f.debtHouse||0)*12*15 + (f.debtCar||0)*12*5 + 
-                    (f.debtCard||0)*12*2 + (f.debtOther||0)*12*5;
-  const yearsToSupport = 20;
-  const annualIncome = (f.monthlyIncome||0) * 12;
-  const targetIncomeAuto = totalDebt + annualIncome * yearsToSupport;
-  // Free-input override (เช่น ลูกค้าบอก 5 ล้านพอ)
-  const customTarget = p.protectionCustomTarget;
-  const targetIncome = (customTarget !== undefined && customTarget !== null) 
-    ? Number(customTarget) 
-    : targetIncomeAuto;
+  const monthlyIncome = Number(f.monthlyIncome) || 0;
+  const monthlyExpense = Number(f.monthlyExpense) || 0;
   
-  const protectionTarget = protectionMode === 'income' ? targetIncome : targetRetirement;
-  const gapToProtect = Math.max(0, protectionTarget - existingCover);
-  const coverPctOfTarget = protectionTarget > 0 ? (existingCover / protectionTarget * 100) : 0;
-  const protectionFull = coverPctOfTarget >= 100;
+  // คำนวณ Mode B จากรายได้สามี (รายได้รวม) × ปี
+  const modeBSum = (monthlyIncome * 12) * (ch.lifeBYears || 5);
+  // คำนวณ Mode A — gap
+  const modeASum = m.gap || 0;
   
-  const targetPct = p.protectionPct || 0;
-  const targetCover = gapToProtect * targetPct / 100;
-  const newPremiumWL = calcPremium(age, targetCover);
-  
-  if (targetPct > 0) {
-    p.sumInsured = targetCover;
-    p.premium = newPremiumWL;
-    p.product = 'Whole Life';
-  } else {
-    p.sumInsured = 0;
-    p.premium = 0;
+  // กำหนดทุนชีวิตตาม mode
+  let actualLifeSum = ch.lifeSum;
+  if (ch.lifeActive) {
+    if (ch.lifeMode === 'A') actualLifeSum = modeASum;
+    else if (ch.lifeMode === 'B') actualLifeSum = modeBSum;
+    // custom = ใช้ ch.lifeSum
   }
   
-  // === FUND GAME — LOCK CORPUS, adjust retire age ===
-  const lockedCorpus = m.requiredCorpus;
-  const lockedGap = m.gap;
-  const baselinePMT = m.annualPMT;
+  const lifeProduct = chooseLifeProduct(actualLifeSum);
   
-  const adjReturnRate = p.adjustReturnRate || g.returnRate || 7;
-  const adjPMT = p.adjustPMT || baselinePMT;
+  // Premiums
+  const gender = genderKey(c);
+  const healthPremium = (ch.healthActive && !ch.healthUseGov) ? calcInsurePremium(ch.healthSum, 'health', age, gender) : 0;
+  const criticalPremium = ch.criticalActive ? calcInsurePremium(ch.criticalSum, 'critical', age, gender) : 0;
+  const lifePremium = ch.lifeActive ? calcInsurePremium(actualLifeSum, lifeProduct, age, gender) : 0;
+  const totalInsure = healthPremium + criticalPremium + lifePremium;
+  const totalSave = ch.saveActive ? (ch.saveAnnual || 0) : 0;
+  const totalCommit = totalSave + totalInsure;
   
-  let neededYears;
-  if (adjPMT > 0 && adjReturnRate > 0 && lockedGap > 0) {
-    const r = adjReturnRate / 100;
-    neededYears = Math.log(1 + lockedGap * r / adjPMT) / Math.log(1 + r);
-  } else if (adjPMT > 0 && lockedGap > 0) {
-    neededYears = lockedGap / adjPMT;
-  } else {
-    neededYears = 0;
-  }
-  const newRetireAge = Math.ceil((g.currentAge||30) + neededYears);
-  const ageDelta = newRetireAge - (g.retireAge||60);
-  
-  const fundIndicator = lockedGap === 0 ? 'full' : (newRetireAge <= (g.retireAge||60) + 2 ? 'partial' : 'empty');
-  const protectionIndicator = protectionFull ? 'full' : (targetPct > 0 ? 'partial' : 'empty');
+  // Sync to legacy fields
+  c.plan.sumInsured = actualLifeSum;
+  c.plan.premium = totalInsure;
+  c.plan.product = ch.lifeActive 
+    ? (lifeProduct === 'lifeUL' ? 'AIA Infinite Wealth' : 'AIA 20 Pay Life Plus')
+    : '';
+  c.plan.adjustPMT = totalSave || pmtAnnual;
+  c.plan.adjustReturnRate = g.returnRate || 7;
   
   return `
     <div class="phase-header">
       <span class="phase-badge" style="background:var(--green)">PHASE 6</span>
-      <h2>เลือกแผน — กองทุน + ปกป้อง</h2>
+      <h2>เลือกแผนของคุณ</h2>
+      <p class="phase-subtitle">ติ๊กรายการที่อยากทำ · ปรับ slider หรือเลือก guide ตามต้องการ</p>
     </div>
     
-    <div class="combined-grid">
-      <div class="target-card fund">
-        <h3>
-          <span>💰 กองทุนเกษียณ</span>
-          <span class="indicator ${fundIndicator}">
-            ${fundIndicator==='full' ? '✓ พร้อม' : fundIndicator==='partial' ? '⚡ ใกล้เคียง' : '⚠ ช้ากว่าเป้า'}
-          </span>
-        </h3>
-        
-        <div class="info-strip" style="background:#fff8e1;border-left-color:var(--gold);color:#5d4f00">
-          🔒 เป้ากองทุน <b>${fmt(lockedCorpus)}</b> บาท · ขาดอีก <b>${fmt(lockedGap)}</b> บาท
+    ${renderPlanSummary(m, disposable, pmtMonthly)}
+    
+    ${renderExistingInsurance(existing)}
+    
+    ${renderPresetButtons(c)}
+    
+    <div class="check-section">
+      <div class="cs-eyebrow">🎯 เลือกที่อยากทำเพิ่ม</div>
+      
+      ${renderSaveRow(c, m, pmtAnnual)}
+      ${renderHealthRow(c, age, healthPremium)}
+      ${renderCriticalRow(c, age, criticalPremium)}
+      ${renderLifeRow(c, age, lifePremium, modeASum, modeBSum, actualLifeSum, lifeProduct, monthlyIncome)}
+    </div>
+    
+    ${renderCommitmentSummary(totalSave, totalInsure, totalCommit, disposable)}
+    
+    ${renderPhaseFooter()}
+  `;
+}
+
+function renderPlanSummary(m, disposable, pmtMonthly) {
+  return `
+    <div class="plan-summary">
+      <div class="ps-eyebrow">📊 ข้อมูลจาก Phase 5</div>
+      <div class="ps-grid">
+        <div class="ps-cell">
+          <div class="ps-label">เป้ากองทุนเกษียณ</div>
+          <div class="ps-val">${fmt(m.requiredCorpus)}</div>
+          <div class="ps-sub">บาท</div>
         </div>
-        
-        <div class="big-num">${fmt(adjPMT)}</div>
-        <div class="sub-num">บาท/ปี ที่จะเก็บ (เดิม ${fmt(baselinePMT)})</div>
-        
-        <div class="info-strip mt-16" style="background:${ageDelta>0?'#fdf0f0':'#eef8f1'};border-left-color:${ageDelta>0?'var(--red)':'var(--green)'};color:${ageDelta>0?'var(--red)':'var(--green-dark)'}">
-          📅 จะเกษียณตอนอายุ <b>${newRetireAge}</b> ปี 
-          ${ageDelta>0 ? `(ช้ากว่าเดิม ${ageDelta} ปี)` : ageDelta<0 ? `(เร็วกว่าเดิม ${-ageDelta} ปี!)` : '(ตรงเป้าเดิม)'}
+        <div class="ps-cell">
+          <div class="ps-label">ต้องเตรียมเพิ่ม</div>
+          <div class="ps-val red">${fmt(m.gap)}</div>
+          <div class="ps-sub">บาท</div>
         </div>
-        
-        <div class="section-block" style="margin-top:14px; background:white">
-          <div class="adjust-row">
-            <label>ผลตอบแทน</label>
-            <input type="range" min="5" max="12" step="0.5" value="${adjReturnRate}" 
-                   oninput="setAdjReturnRate(this.value)">
-            <span class="value-display">${adjReturnRate}%</span>
-          </div>
-          <div class="adjust-row">
-            <label>เก็บเงิน/ปี</label>
-            <input type="range" 
-                   min="${Math.max(10000, Math.round(baselinePMT*0.3/10000)*10000)}" 
-                   max="${Math.round(baselinePMT*2/10000)*10000}" 
-                   step="10000" value="${adjPMT}" 
-                   oninput="setAdjPMT(this.value)">
-            <span class="value-display">${fmt(adjPMT)}</span>
-          </div>
-          <button class="btn-secondary" style="font-size:13px; padding:6px 12px; margin-top:6px" onclick="resetFundAdjust()">↺ รีเซ็ต</button>
+        <div class="ps-cell">
+          <div class="ps-label">ต้องเก็บเพิ่ม</div>
+          <div class="ps-val red">${fmt(pmtMonthly)}</div>
+          <div class="ps-sub">บาท/เดือน</div>
+        </div>
+        <div class="ps-cell highlight">
+          <div class="ps-label">เงินที่ใช้ได้/ปี</div>
+          <div class="ps-val">${fmt(disposable)}</div>
+          <div class="ps-sub">สำหรับลงทุน + ประกัน</div>
         </div>
       </div>
-      
-      <div class="target-card protection">
-        <h3>
-          <span>🛡️ ปกป้อง</span>
-          <span class="indicator ${protectionIndicator}">
-            ${protectionIndicator==='full' ? '✓ ครอบคลุมแล้ว' : protectionIndicator==='partial' ? '⚡ เลือกแล้ว' : '⚠ ยังไม่เลือก'}
-          </span>
-        </h3>
-        
-        <div class="flex-row" style="gap:6px; margin-bottom:14px; background:#f5f6f8; padding:4px; border-radius:10px">
-          <button class="${protectionMode==='retirement'?'btn-action':'btn-secondary'}" 
-                  style="flex:1; font-size:14px; padding:10px"
-                  onclick="setProtectionMode('retirement')">🎯 ปกป้องแผนเกษียณ</button>
-          <button class="${protectionMode==='income'?'btn-action':'btn-secondary'}" 
-                  style="flex:1; font-size:14px; padding:10px"
-                  onclick="setProtectionMode('income')">👨‍👩‍👧 ปกป้องรายได้/มรดก</button>
+    </div>
+  `;
+}
+
+function renderExistingInsurance(ex) {
+  const items = [];
+  if (ex.lifeCount > 0) items.push({ icon: '🛡️', label: 'ประกันชีวิต', sum: ex.life, count: ex.lifeCount, status: 'have' });
+  else items.push({ icon: '🛡️', label: 'ประกันชีวิต', sum: 0, count: 0, status: 'none' });
+  
+  if (ex.healthCount > 0) items.push({ icon: '🏥', label: 'ประกันสุขภาพ', sum: ex.health, count: ex.healthCount, status: 'have' });
+  else items.push({ icon: '🏥', label: 'ประกันสุขภาพ', sum: 0, count: 0, status: 'none' });
+  
+  if (ex.criticalCount > 0) items.push({ icon: '⚠️', label: 'ประกันโรคร้าย', sum: ex.critical, count: ex.criticalCount, status: 'have' });
+  else items.push({ icon: '⚠️', label: 'ประกันโรคร้าย', sum: 0, count: 0, status: 'none' });
+  
+  return `
+    <div class="existing-section">
+      <div class="es-eyebrow">🛡️ ประกันที่คุณมีอยู่ (จาก Phase 3)</div>
+      <div class="es-grid">
+        ${items.map(it => `
+          <div class="es-cell ${it.status}">
+            <div class="es-icon">${it.icon}</div>
+            <div class="es-content">
+              <div class="es-label">${it.label}</div>
+              ${it.status === 'have' 
+                ? `<div class="es-val">ทุน ${fmt(it.sum)} ฿ · ${it.count} กรมธรรม์</div>`
+                : `<div class="es-val none">ยังไม่มี</div>`}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderPresetButtons(c) {
+  return `
+    <div class="preset-section">
+      <div class="prs-label">⚡ pre-fill เร็ว (กดแล้วปรับทีหลังได้):</div>
+      <div class="prs-buttons">
+        <button class="prs-btn" onclick="applyPreset(1)">🟢 ทาง 1 · เน้นเกษียณ</button>
+        <button class="prs-btn" onclick="applyPreset(2)">🟡 ทาง 2 · สมดุล</button>
+        <button class="prs-btn" onclick="applyPreset(3)">🔴 ทาง 3 · เน้นปกป้อง</button>
+        <button class="prs-btn clear" onclick="clearAllChoice()">🗑️ ล้าง</button>
+      </div>
+    </div>
+  `;
+}
+
+// ==== Save row ====
+function renderSaveRow(c, m, pmtAnnual) {
+  const ch = c.plan.choice;
+  const newRetireInfo = calcAdjustedRetireAge(c, ch.saveActive ? ch.saveAnnual : 0);
+  
+  return `
+    <div class="check-row ${ch.saveActive ? 'active' : ''}">
+      <div class="cr-head">
+        <label class="cr-toggle">
+          <input type="checkbox" ${ch.saveActive ? 'checked' : ''} 
+                 onchange="toggleChoice('saveActive', this.checked)">
+          <span class="cr-icon">💰</span>
+          <span class="cr-title">ออมเพิ่ม (กองทุนเกษียณ)</span>
+        </label>
+        <span class="cr-summary">${ch.saveActive ? fmt(ch.saveAnnual) + ' ฿/ปี' : '—'}</span>
+      </div>
+      ${ch.saveActive ? `
+        <div class="cr-body">
+          <div class="cr-slider-wrap">
+            <input type="range" class="le-slider" 
+                   min="0" max="${Math.max(pmtAnnual * 1.5, 100000)}" step="10000"
+                   value="${ch.saveAnnual}"
+                   oninput="updateChoice('saveAnnual', Number(this.value))">
+          </div>
+          <div class="cr-numbers">
+            <div class="cr-num">
+              <div class="cr-num-label">ออม/ปี</div>
+              <div class="cr-num-val">${fmt(ch.saveAnnual)} ฿</div>
+              <div class="cr-num-sub">~${fmt(Math.round(ch.saveAnnual/12))} ฿/เดือน</div>
+            </div>
+            <div class="cr-num">
+              <div class="cr-num-label">% ของเป้า</div>
+              <div class="cr-num-val">${pmtAnnual > 0 ? Math.round(ch.saveAnnual/pmtAnnual*100) : 0}%</div>
+              <div class="cr-num-sub">เป้า ${fmt(pmtAnnual)}/ปี</div>
+            </div>
+          </div>
+          <div class="cr-result ${newRetireInfo.status}">
+            ${newRetireInfo.icon} <b>${newRetireInfo.title}</b> · ${newRetireInfo.msg}
+          </div>
         </div>
-        
-        ${protectionMode==='income' ? `
-          <div class="form-field" style="margin-bottom:10px">
-            <label style="font-size:14px; color:var(--navy); font-weight:700">เป้าปกป้อง / มรดก (บาท)</label>
-            <input type="number" value="${customTarget !== undefined && customTarget !== null ? customTarget : ''}" 
-                   onchange="setProtectionCustomTarget(this.value)"
-                   onblur="setProtectionCustomTarget(this.value)"
-                   data-preserve-focus="protectionCustomTarget"
-                   style="font-size:18px; font-weight:600; padding:14px 16px"
-                   placeholder="เช่น 5,000,000 — ใส่ตัวเลขที่ลูกค้าอุ่นใจ">
-            <div class="helper" style="display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin-top:6px">
-              <span>💡 แนะนำตามภาระ: <b>${fmt(targetIncomeAuto)}</b> บาท</span>
-              <button type="button" 
-                      onclick="setProtectionCustomTarget(${targetIncomeAuto})"
-                      style="background:var(--navy); color:white; border:none; padding:5px 12px; border-radius:99px; font-size:12px; font-weight:600; cursor:pointer">
-                ใช้ตัวเลขนี้
+      ` : ''}
+    </div>
+  `;
+}
+
+// ==== Health row ====
+function renderHealthRow(c, age, premium) {
+  const ch = c.plan.choice;
+  
+  return `
+    <div class="check-row ${ch.healthActive ? 'active' : ''}">
+      <div class="cr-head">
+        <label class="cr-toggle">
+          <input type="checkbox" ${ch.healthActive ? 'checked' : ''} 
+                 onchange="toggleChoice('healthActive', this.checked)">
+          <span class="cr-icon">🏥</span>
+          <span class="cr-title">ประกันสุขภาพ</span>
+        </label>
+        <span class="cr-summary">${ch.healthActive ? (ch.healthUseGov ? 'ใช้สวัสดิการรัฐ' : fmt(premium) + ' ฿/ปี') : '—'}</span>
+      </div>
+      ${ch.healthActive ? `
+        <div class="cr-body">
+          <label class="gov-toggle">
+            <input type="checkbox" ${ch.healthUseGov ? 'checked' : ''}
+                   onchange="toggleChoice('healthUseGov', this.checked)">
+            <span>ใช้สวัสดิการรัฐ / บัตรทอง / ประกันสังคม (ไม่ทำประกันเพิ่ม)</span>
+          </label>
+          ${!ch.healthUseGov ? `
+            <div class="guide-row">
+              <span class="guide-label">เลือกระดับ:</span>
+              ${HEALTH_GUIDES.map(g => `
+                <button class="guide-btn ${ch.healthGuide === g.id ? 'active' : ''}" 
+                        onclick="selectGuide('health', '${g.id}', ${g.sumInsured})">
+                  ${g.label}<br><small>${fmt(g.sumInsured)} · ${g.desc}</small>
+                </button>
+              `).join('')}
+              <button class="guide-btn ${ch.healthGuide === 'custom' ? 'active' : ''}" 
+                      onclick="selectGuide('health', 'custom', ${ch.healthSum})">
+                Custom
               </button>
-              ${customTarget !== undefined && customTarget !== null ? `
-                <button type="button" 
-                        onclick="setProtectionCustomTarget(null)"
-                        style="background:white; color:var(--grey-text); border:1.5px solid var(--grey-line); padding:5px 12px; border-radius:99px; font-size:12px; font-weight:500; cursor:pointer">
-                  ↺ ล้าง
-                </button>` : ''}
             </div>
-            <div class="helper" style="margin-top:4px; font-size:12px">
-              (จากหนี้รวม ${fmt(totalDebt)} + รายได้ ${fmt(annualIncome)}/ปี × ${yearsToSupport} ปี)
+            <div class="cr-slider-wrap">
+              <input type="range" class="le-slider" 
+                     min="1000000" max="25000000" step="500000"
+                     value="${Math.max(ch.healthSum, 1000000)}"
+                     oninput="updateChoice('healthSum', Number(this.value)); updateChoice('healthGuide', 'custom')">
+            </div>
+            <div class="cr-numbers">
+              <div class="cr-num">
+                <div class="cr-num-label">ทุน</div>
+                <div class="cr-num-val">${fmt(Math.max(ch.healthSum, 1000000))} ฿</div>
+                <div class="cr-num-sub">ขั้นต่ำ 1M · ขั้นสูง 25M</div>
+              </div>
+              <div class="cr-num">
+                <div class="cr-num-label">เบี้ย/ปี</div>
+                <div class="cr-num-val red">${fmt(premium)} ฿</div>
+                <div class="cr-num-sub">~${fmt(Math.round(premium/12))} ฿/เดือน</div>
+              </div>
+            </div>
+            <div class="product-note">
+              💡 AIA Health Happy (เหมาจ่าย แบบมาตรฐานใหม่)
+            </div>
+          ` : `
+            <div class="gov-msg">
+              ✓ คุ้มครองด้วยสวัสดิการรัฐ — ไม่มีค่าเบี้ยส่วนนี้
+            </div>
+          `}
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
+// ==== Critical row ====
+function renderCriticalRow(c, age, premium) {
+  const ch = c.plan.choice;
+  
+  return `
+    <div class="check-row ${ch.criticalActive ? 'active' : ''}">
+      <div class="cr-head">
+        <label class="cr-toggle">
+          <input type="checkbox" ${ch.criticalActive ? 'checked' : ''} 
+                 onchange="toggleChoice('criticalActive', this.checked)">
+          <span class="cr-icon">⚠️</span>
+          <span class="cr-title">ประกันโรคร้าย</span>
+        </label>
+        <span class="cr-summary">${ch.criticalActive ? fmt(premium) + ' ฿/ปี' : '—'}</span>
+      </div>
+      ${ch.criticalActive ? `
+        <div class="cr-body">
+          <div class="guide-row">
+            <span class="guide-label">เลือกระดับ:</span>
+            ${CRITICAL_GUIDES.map(g => `
+              <button class="guide-btn ${ch.criticalGuide === g.id ? 'active' : ''}" 
+                      onclick="selectGuide('critical', '${g.id}', ${g.sumInsured})">
+                ${g.label}<br><small>${fmt(g.sumInsured)} · ${g.desc}</small>
+              </button>
+            `).join('')}
+            <button class="guide-btn ${ch.criticalGuide === 'custom' ? 'active' : ''}" 
+                    onclick="selectGuide('critical', 'custom', ${ch.criticalSum})">
+              Custom
+            </button>
+          </div>
+          <div class="cr-slider-wrap">
+            <input type="range" class="le-slider" 
+                   min="500000" max="3000000" step="100000"
+                   value="${Math.min(ch.criticalSum, 3000000)}"
+                   oninput="updateChoice('criticalSum', Number(this.value)); updateChoice('criticalGuide', 'custom')">
+          </div>
+          <div class="cr-numbers">
+            <div class="cr-num">
+              <div class="cr-num-label">ทุน</div>
+              <div class="cr-num-val">${fmt(Math.min(ch.criticalSum, 3000000))} ฿</div>
+              <div class="cr-num-sub">ขั้นสูง 3M</div>
+            </div>
+            <div class="cr-num">
+              <div class="cr-num-label">เบี้ย/ปี</div>
+              <div class="cr-num-val red">${fmt(premium)} ฿</div>
+              <div class="cr-num-sub">~${fmt(Math.round(premium/12))} ฿/เดือน</div>
             </div>
           </div>
-        ` : `
-          <div class="info-strip" style="background:#fff8e1;border-left-color:var(--gold)">
-            เป้าปกป้อง: <b>${fmt(protectionTarget)}</b> บาท
+          <div class="product-note">
+            💡 รวม MPCI (โรคร้าย) + Total Care (ภาวะวิกฤต) — ครอบคลุม 200+ โรค
           </div>
-        `}
-        
-        ${existingCover > 0 ? `
-          <div class="info-strip mt-8">
-            มีประกันอยู่แล้ว: <b>${fmt(existingCover)}</b> บาท 
-            (${fmtDecimal(coverPctOfTarget, 1)}% ของเป้า)
-          </div>` : ''}
-        
-        ${protectionFull ? `
-          <div class="big-num text-green">100%</div>
-          <div class="sub-num">ปกป้องครบแล้ว ไม่ต้องซื้อเพิ่ม</div>
-          <div class="fill-bar"><div class="fill-bar-inner full" style="width: 100%">ครอบคลุม</div></div>
-        ` : `
-          <p class="text-grey small mb-8">เลือก % ของส่วนที่ต้องเตรียมเพิ่ม (กดซ้ำ = ยกเลิก):</p>
-          <div class="protection-grid">
-            ${[100, 75, 50, 30].map(pct => {
-              const cover = gapToProtect * pct / 100;
-              const premium = calcPremium(age, cover);
-              return `
-                <div class="protection-card ${targetPct===pct?'selected':''}" onclick="selectProtectionPct(${pct})">
-                  <div class="pct">${pct}%</div>
-                  <div class="calc">
-                    <div class="row"><span>ทุนเพิ่ม</span><b>${fmt(cover)}</b></div>
-                    <div class="row"><span>เบี้ย/ปี</span><b style="color:var(--red)">${fmt(premium)}</b></div>
-                  </div>
-                </div>`;
-            }).join('')}
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
+// ==== Life row ====
+function renderLifeRow(c, age, premium, modeASum, modeBSum, actualSum, product, monthlyIncome) {
+  const ch = c.plan.choice;
+  const productLabel = product === 'lifeUL' ? 'AIA Infinite Wealth' : '20 Pay Life Plus';
+  
+  return `
+    <div class="check-row ${ch.lifeActive ? 'active' : ''}">
+      <div class="cr-head">
+        <label class="cr-toggle">
+          <input type="checkbox" ${ch.lifeActive ? 'checked' : ''} 
+                 onchange="toggleChoice('lifeActive', this.checked)">
+          <span class="cr-icon">🛡️</span>
+          <span class="cr-title">ประกันชีวิต</span>
+        </label>
+        <span class="cr-summary">${ch.lifeActive ? fmt(premium) + ' ฿/ปี' : '—'}</span>
+      </div>
+      ${ch.lifeActive ? `
+        <div class="cr-body">
+          <div class="mode-row">
+            <span class="guide-label">วิธีคิดทุน:</span>
+            <button class="mode-btn ${ch.lifeMode === 'A' ? 'active' : ''}" 
+                    onclick="selectLifeMode('A')">
+              <b>Mode A</b><br><small>ปกป้องเป้าเกษียณ</small><br><small>ทุน ${fmt(modeASum)}</small>
+            </button>
+            <button class="mode-btn ${ch.lifeMode === 'B' ? 'active' : ''}" 
+                    onclick="selectLifeMode('B')">
+              <b>Mode B</b><br><small>ซื้อเวลาครอบครัว</small><br><small>ทุน ${fmt(modeBSum)}</small>
+            </button>
+            <button class="mode-btn ${ch.lifeMode === 'custom' ? 'active' : ''}" 
+                    onclick="selectLifeMode('custom')">
+              <b>Custom</b><br><small>ตั้งทุนเอง</small>
+            </button>
           </div>
-          ${targetPct > 0 ? `
-            <div class="fill-bar mt-16">
-              <div class="fill-bar-inner partial" style="width: ${targetPct}%">${targetPct}%</div>
-            </div>
-            <div class="text-grey small mt-8 center">
-              ทุนเพิ่ม <b class="text-navy">${fmt(targetCover)}</b> บาท · 
-              เบี้ยใหม่ <b class="text-red">${fmt(newPremiumWL)}</b> บาท/ปี
+          
+          ${ch.lifeMode === 'B' ? `
+            <div class="mode-b-config">
+              <span>คุ้มครอง <b>${ch.lifeBYears}</b> ปี ให้ครอบครัวยืนได้</span>
+              <input type="range" class="le-slider" min="1" max="10" step="1"
+                     value="${ch.lifeBYears}"
+                     oninput="updateChoice('lifeBYears', Number(this.value))">
+              <span class="mode-b-formula">รายได้ ${fmt(monthlyIncome)}/ด × 12 × ${ch.lifeBYears} ปี = ${fmt(modeBSum)} ฿</span>
             </div>
           ` : ''}
-        `}
-      </div>
+          
+          ${ch.lifeMode === 'custom' ? `
+            <div class="cr-slider-wrap">
+              <input type="range" class="le-slider" 
+                     min="500000" max="30000000" step="500000"
+                     value="${ch.lifeSum}"
+                     oninput="updateChoice('lifeSum', Number(this.value))">
+            </div>
+          ` : ''}
+          
+          <div class="cr-numbers">
+            <div class="cr-num">
+              <div class="cr-num-label">ทุนคุ้มครอง</div>
+              <div class="cr-num-val">${fmt(actualSum)} ฿</div>
+              <div class="cr-num-sub">${productLabel}</div>
+            </div>
+            <div class="cr-num">
+              <div class="cr-num-label">เบี้ย/ปี</div>
+              <div class="cr-num-val red">${fmt(premium)} ฿</div>
+              <div class="cr-num-sub">~${fmt(Math.round(premium/12))} ฿/เดือน</div>
+            </div>
+          </div>
+          
+          ${actualSum >= LIFE_UL_THRESHOLD ? `
+            <div class="product-note">
+              💡 ทุน ≥ 15 ล้าน → ใช้ Infinite Wealth (Unit-Linked) — เบี้ยจ่าย 20 ปี
+            </div>
+          ` : `
+            <div class="product-note">
+              💡 ทุน &lt; 15 ล้าน → ใช้ 20 Pay Life Plus (Whole Life) — เบี้ยจ่าย 20 ปีจบ
+            </div>
+          `}
+        </div>
+      ` : ''}
     </div>
-    
-    ${renderPhaseFooter()}`;
+  `;
 }
 
-function selectProtectionPct(pct) {
-  const c = getActive();
-  if (c.plan.protectionPct === pct) {
-    c.plan.protectionPct = 0;
-    c.plan.sumInsured = 0;
-    c.plan.premium = 0;
-    SFX.remove();
-  } else {
-    c.plan.protectionPct = pct;
-    SFX.success();
+function renderCommitmentSummary(totalSave, totalInsure, totalCommit, disposable) {
+  if (totalCommit === 0) {
+    return `
+      <div class="commitment-summary empty">
+        <div class="cs-empty-msg">💡 ติ๊กรายการที่อยากทำ — แล้วระบบจะคำนวณสรุปให้</div>
+      </div>
+    `;
   }
-  saveAndRefresh();
-  render();
+  
+  const pct = disposable > 0 ? (totalCommit / disposable * 100) : 0;
+  const insurePct = disposable > 0 ? (totalInsure / disposable * 100) : 0;
+  
+  let budgetClass, budgetMsg;
+  if (pct > 100) {
+    budgetClass = 'danger';
+    budgetMsg = '🔴 รวมเกินเงินที่ใช้ได้ · ต้องลดบางส่วน';
+  } else if (pct > 80) {
+    budgetClass = 'warning';
+    budgetMsg = '🟡 ตึงๆ · ใกล้เต็มงบ';
+  } else {
+    budgetClass = 'safe';
+    budgetMsg = '🟢 อยู่ในงบที่ไหว';
+  }
+  
+  let insureMsg = '';
+  if (insurePct > 50) insureMsg = '⚠️ เบี้ยเกิน 50% ของเงินที่ใช้ได้ · เสี่ยงเวนคืน';
+  else if (insurePct > 30) insureMsg = '🟡 เบี้ย 30-50% ของเงินที่ใช้ได้ · ตึง';
+  
+  return `
+    <div class="commitment-summary ${budgetClass}">
+      <div class="cs-header">📋 สรุปแผนรวม</div>
+      <div class="cs-row">
+        <div class="cs-cell">
+          <div class="cs-label">เก็บกองทุน/ปี</div>
+          <div class="cs-val">${fmt(totalSave)} ฿</div>
+        </div>
+        <div class="cs-cell">
+          <div class="cs-label">เบี้ยประกัน/ปี</div>
+          <div class="cs-val">${fmt(totalInsure)} ฿</div>
+          <div class="cs-sub">${insurePct.toFixed(0)}% ของเงินที่ใช้ได้</div>
+        </div>
+        <div class="cs-cell highlight">
+          <div class="cs-label">รวม/ปี</div>
+          <div class="cs-val big">${fmt(totalCommit)} ฿</div>
+          <div class="cs-sub">~${fmt(Math.round(totalCommit/12))} ฿/เดือน</div>
+        </div>
+        <div class="cs-cell">
+          <div class="cs-label">% เงินที่ใช้ได้</div>
+          <div class="cs-val ${budgetClass === 'safe' ? 'green' : budgetClass === 'warning' ? 'orange' : 'red'}">${pct.toFixed(0)}%</div>
+        </div>
+      </div>
+      <div class="cs-msg">${budgetMsg}${insureMsg ? ' · ' + insureMsg : ''}</div>
+    </div>
+  `;
 }
 
-function setProtectionMode(mode) {
+function calcAdjustedRetireAge(c, saveAnnual) {
+  const g = c.goal || {};
+  const m = calcRetirement(c);
+  const r = (g.returnRate || 7) / 100;
+  const targetCorpus = m.requiredCorpus;
+  const fvAssets = m.fvOfAssets || 0;
+  const gap = Math.max(0, targetCorpus - fvAssets);
+  
+  if (saveAnnual <= 0) {
+    return { 
+      status: 'danger', icon: '🔴', 
+      title: 'ไม่ออม',
+      msg: 'อาจต้องเลื่อนเกษียณ หรือใช้สินทรัพย์ที่มี + กระแสเงินสด' 
+    };
+  }
+  if (saveAnnual >= m.annualPMT) {
+    return { 
+      status: 'safe', icon: '🟢', 
+      title: `เกษียณตามแผน อายุ ${g.retireAge||60}`,
+      msg: `ออม ${fmt(saveAnnual)}/ปี ≥ เป้า ${fmt(m.annualPMT)}/ปี` 
+    };
+  }
+  let years;
+  if (r > 0) years = Math.log(1 + gap * r / saveAnnual) / Math.log(1 + r);
+  else years = gap / saveAnnual;
+  const newAge = Math.ceil((g.currentAge||30) + years);
+  const delta = newAge - (g.retireAge||60);
+  return { 
+    status: delta <= 2 ? 'warning' : 'danger', 
+    icon: delta <= 2 ? '🟡' : '🟠', 
+    title: `เกษียณช้ากว่าแผน ${delta} ปี`,
+    msg: `ออม ${fmt(saveAnnual)}/ปี → ถึงเป้าที่อายุ ${newAge}` 
+  };
+}
+
+// ==== Handlers ====
+function toggleChoice(field, val) {
   const c = getActive();
-  c.plan.protectionMode = mode;
-  c.plan.protectionPct = 0;
+  if (!c.plan || !c.plan.choice) return;
+  c.plan.choice[field] = val;
+  // Auto-set saveAnnual when activating
+  if (field === 'saveActive' && val && (c.plan.choice.saveAnnual || 0) === 0) {
+    const m = calcRetirement(c);
+    c.plan.choice.saveAnnual = m.annualPMT || 0;
+  }
   saveAndRefresh();
   render();
   SFX.click();
 }
 
-function setProtectionCustomTarget(val) {
+function updateChoice(field, val) {
   const c = getActive();
-  if (val === null || val === '' || val === undefined) {
-    delete c.plan.protectionCustomTarget;
-  } else {
-    c.plan.protectionCustomTarget = Number(val) || 0;
+  if (!c.plan || !c.plan.choice) return;
+  c.plan.choice[field] = val;
+  c.updatedAt = Date.now();
+  saveAndRefresh();
+  render();
+}
+
+function selectGuide(category, guideId, sumInsured) {
+  const c = getActive();
+  if (!c.plan || !c.plan.choice) return;
+  if (category === 'health') {
+    c.plan.choice.healthGuide = guideId;
+    if (guideId !== 'custom') c.plan.choice.healthSum = sumInsured;
+  } else if (category === 'critical') {
+    c.plan.choice.criticalGuide = guideId;
+    if (guideId !== 'custom') c.plan.choice.criticalSum = sumInsured;
   }
-  c.plan.protectionPct = 0; // reset selection when target changes
   saveAndRefresh();
   render();
+  SFX.click();
 }
 
-function setAdjReturnRate(val) {
+function selectLifeMode(mode) {
   const c = getActive();
-  c.plan.adjustReturnRate = Number(val);
+  if (!c.plan || !c.plan.choice) return;
+  c.plan.choice.lifeMode = mode;
   saveAndRefresh();
   render();
+  SFX.click();
 }
 
-function setAdjPMT(val) {
-  const c = getActive();
-  c.plan.adjustPMT = Number(val);
-  saveAndRefresh();
-  render();
-}
-
-function resetFundAdjust() {
+function applyPreset(pathNum) {
   const c = getActive();
   const m = calcRetirement(c);
-  c.plan.adjustReturnRate = c.goal.returnRate || 7;
-  c.plan.adjustPMT = m.annualPMT;
+  const pmt = m.annualPMT || 0;
+  
+  if (!c.plan) c.plan = {};
+  if (!c.plan.choice) c.plan.choice = {};
+  const ch = c.plan.choice;
+  
+  if (pathNum === 1) {
+    // เน้นเกษียณ
+    ch.saveActive = true;
+    ch.saveAnnual = pmt;
+    ch.healthActive = true;
+    ch.healthGuide = 'basic';
+    ch.healthSum = 1000000;
+    ch.healthUseGov = false;
+    ch.criticalActive = true;
+    ch.criticalGuide = 'basic';
+    ch.criticalSum = 1000000;
+    ch.lifeActive = false;
+  } else if (pathNum === 2) {
+    // สมดุล
+    ch.saveActive = true;
+    ch.saveAnnual = Math.round(pmt * 0.6);
+    ch.healthActive = true;
+    ch.healthGuide = 'basic';
+    ch.healthSum = 1000000;
+    ch.healthUseGov = false;
+    ch.criticalActive = true;
+    ch.criticalGuide = 'basic';
+    ch.criticalSum = 1000000;
+    ch.lifeActive = true;
+    ch.lifeMode = 'B';
+    ch.lifeBYears = 5;
+    ch.lifeSum = 1500000;
+  } else {
+    // เน้นปกป้อง
+    ch.saveActive = true;
+    ch.saveAnnual = Math.round(pmt * 0.3);
+    ch.healthActive = true;
+    ch.healthGuide = 'standard';
+    ch.healthSum = 2000000;
+    ch.healthUseGov = false;
+    ch.criticalActive = true;
+    ch.criticalGuide = 'income';
+    ch.criticalSum = 2000000;
+    ch.lifeActive = true;
+    ch.lifeMode = 'B';
+    ch.lifeBYears = 10;
+    ch.lifeSum = 3000000;
+  }
+  
+  saveAndRefresh();
+  render();
+  SFX.success();
+}
+
+function clearAllChoice() {
+  const c = getActive();
+  if (!c.plan) c.plan = {};
+  c.plan.choice = {
+    saveActive: false, saveAnnual: 0,
+    healthActive: false, healthGuide: 'basic', healthSum: 1000000, healthUseGov: false,
+    criticalActive: false, criticalGuide: 'basic', criticalSum: 1000000,
+    lifeActive: false, lifeMode: 'custom', lifeSum: 1500000, lifeBYears: 5
+  };
   saveAndRefresh();
   render();
   SFX.click();
 }
 
+
+
 /* ============================================================
-   PHASE 7 — SUMMARY (combined former 8+9, no health, no status)
+   PHASE 7 — สรุปแผนของคุณ (v13 · Vision + Before-After)
    ============================================================ */
 function renderPhase7(c) {
   const g = c.goal || {};
   const m = calcRetirement(c);
   const p = c.plan || {};
+  const ch = (p.choice) || {};
+  const f = c.finance || {};
+  const ex = getExistingInsurance(c);
   
-  // Path A: ค่าเดิมจาก Phase 5 (เก็บเต็มเป้าตามเดิม)
-  const corpusA = m.requiredCorpus;
-  const pmtA = m.annualPMT;
-  const ageA = g.retireAge || 60;
-  const returnA = g.returnRate || 7;
+  const age = fmtAge(c.profile.dob) || g.currentAge || '-';
+  const retireAge = g.retireAge || 60;
+  const lifeExp = g.lifeExpectancy || 90;
+  const yearsAfterRetire = Math.max(0, lifeExp - retireAge);
+  const annualExpense = g.annualExpense || 0;
   
-  // Path B: ปรับเงื่อนไข (ใช้ adjPMT + adjReturnRate จาก Phase 6)
-  const adjReturnRate = p.adjustReturnRate || g.returnRate || 7;
-  const pmtB = p.adjustPMT || pmtA;
-  const corpusB = m.requiredCorpus; // LOCKED — เป้าเดิม
-  const gapB = m.gap;
-  let ageB = ageA;
-  if (pmtB > 0 && adjReturnRate > 0 && gapB > 0) {
-    const r = adjReturnRate / 100;
-    const neededYrs = Math.log(1 + gapB * r / pmtB) / Math.log(1 + r);
-    ageB = Math.ceil((g.currentAge||30) + neededYrs);
+  // === Selections from Phase 6 ===
+  const saveAnnual = (ch.saveActive ? ch.saveAnnual : 0) || 0;
+  
+  const gender = genderKey(c);
+  const healthPremium = (ch.healthActive && !ch.healthUseGov) ? calcInsurePremium(ch.healthSum, 'health', age, gender) : 0;
+  const criticalPremium = ch.criticalActive ? calcInsurePremium(ch.criticalSum, 'critical', age, gender) : 0;
+  
+  // คำนวณทุนชีวิตจริง ตาม mode
+  let actualLifeSum = ch.lifeSum || 0;
+  if (ch.lifeActive) {
+    if (ch.lifeMode === 'A') actualLifeSum = m.gap || 0;
+    else if (ch.lifeMode === 'B') {
+      const monthlyIncome = Number(f.monthlyIncome) || 0;
+      actualLifeSum = monthlyIncome * 12 * (ch.lifeBYears || 5);
+    }
   }
+  const lifeProduct = chooseLifeProduct(actualLifeSum);
+  const lifePremium = ch.lifeActive ? calcInsurePremium(actualLifeSum, lifeProduct, age, gender) : 0;
+  const totalInsure = healthPremium + criticalPremium + lifePremium;
+  const totalCommit = saveAnnual + totalInsure;
   
-  const chosen = c.summary?.chosenPath;
+  // คำนวณ disposable
+  const disposable = calcDisposable(c);
+  const pctOfDisposable = disposable > 0 ? (totalCommit / disposable * 100) : 0;
+  
+  // คำนวณอายุเกษียณใหม่
+  const retireInfo = calcAdjustedRetireAge(c, saveAnnual);
+  
+  // === Pain Points (จาก Phase 1) ===
+  const painPoints = (f.painPoints || '').trim();
+  
+  // === Children (สำหรับ Vision) ===
+  const children = f.children || [];
+  const childrenAtRetire = children.map(ch => ({
+    gender: ch.gender,
+    ageNow: ch.age || 0,
+    ageAtRetire: (ch.age || 0) + (retireAge - (g.currentAge || age))
+  }));
   
   return `
     <div class="phase-header">
-      <span class="phase-badge" style="background:var(--grey-text)">PHASE 7</span>
-      <h2>สรุปแผน</h2>
+      <span class="phase-badge" style="background:var(--gold)">PHASE 7</span>
+      <h2>สรุปแผนของคุณ</h2>
+      <p class="phase-subtitle">${c.profile.name || 'ลูกค้า'} · ${profileTypeLabel(c.profile.profileType)}</p>
     </div>
     
-    <div class="info-strip gold">
-      <b>เลือกทาง:</b> A เก็บเต็มเป้าเดิม หรือ B ปรับเงื่อนไขให้ยืดหยุ่นขึ้น
+    ${renderVisionCard(c, age, retireAge, lifeExp, annualExpense, childrenAtRetire, painPoints)}
+    
+    <div class="summary-2-cols">
+      ${renderRetireSummary(saveAnnual, retireInfo, m, retireAge)}
+      ${renderProtectSummary(ch, healthPremium, criticalPremium, lifePremium, actualLifeSum, lifeProduct, totalInsure)}
     </div>
     
-    <div class="path-grid">
-      <div class="path-card ${chosen==='A'?'selected':''}" onclick="selectPath('A')">
-        <div class="letter">A</div>
-        <div class="title">เพิ่มเงิน</div>
-        <div class="desc">เก็บเต็มเป้า อายุเกษียณเดิม ผลตอบแทนเดิม</div>
-        <div class="numbers">
-          <div class="row"><span>เป้ากองทุน</span><b>${fmt(corpusA)}</b></div>
-          <div class="row"><span>ผลตอบแทน</span><b>${returnA}%</b></div>
-          <div class="row"><span>เกษียณ</span><b>${ageA} ปี</b></div>
-          <div class="row" style="border-top:1px dashed var(--grey-line); padding-top:6px; margin-top:6px">
-            <span><b>เก็บ/ปี</b></span><b style="color:var(--red); font-size:16px">${fmt(pmtA)}</b></div>
-          ${p.premium ? `<div class="row"><span>เบี้ยประกัน/ปี</span><b style="color:var(--red)">${fmt(p.premium)}</b></div>` : ''}
-        </div>
-      </div>
-      
-      <div class="path-card ${chosen==='B'?'selected':''}" onclick="selectPath('B')">
-        <div class="letter">B</div>
-        <div class="title">ปรับเงื่อนไข</div>
-        <div class="desc">ยืดหยุ่น — ปรับผลตอบแทน + เลื่อนเกษียณ</div>
-        <div class="numbers">
-          <div class="row"><span>เป้ากองทุน</span><b>${fmt(corpusB)}</b></div>
-          <div class="row"><span>ผลตอบแทน</span><b style="color:${adjReturnRate>returnA?'var(--green-dark)':'var(--navy)'}">${adjReturnRate}%</b></div>
-          <div class="row"><span>เกษียณ</span><b style="color:${ageB>ageA?'var(--orange)':'var(--navy)'}">${ageB} ปี</b></div>
-          <div class="row" style="border-top:1px dashed var(--grey-line); padding-top:6px; margin-top:6px">
-            <span><b>เก็บ/ปี</b></span><b style="color:var(--red); font-size:16px">${fmt(pmtB)}</b></div>
-          ${p.premium ? `<div class="row"><span>เบี้ยประกัน/ปี</span><b style="color:var(--red)">${fmt(p.premium)}</b></div>` : ''}
-        </div>
-      </div>
-    </div>
+    ${ch.lifeActive && lifeProduct === 'lifeUL' ? renderULInsight(c, age, retireAge, actualLifeSum, lifePremium, gender) : ''}
     
-    <div class="section-block">
-      <h3>📋 สรุปข้อมูลทั้งหมด</h3>
-      <table class="simple-table">
-        <tr><td>ลูกค้า</td><td class="right bold">${c.profile.name||'-'}</td></tr>
-        <tr><td>โปรไฟล์</td><td class="right bold">${profileTypeLabel(c.profile.profileType)}</td></tr>
-        <tr><td>อายุ / เกษียณ / อายุขัย</td><td class="right bold">${fmtAge(c.profile.dob)||g.currentAge||'-'} → ${g.retireAge||60} → ${g.lifeExpectancy||90} ปี</td></tr>
-        <tr><td>เงินใช้ / ปี (วันนี้)</td><td class="right bold">${fmt(g.annualExpense||0)} บาท</td></tr>
-        <tr><td>กระแสเงินสด / ปี (เกษียณ)</td><td class="right bold">${fmt(g.cashFlowAnnual||0)} บาท</td></tr>
-        <tr class="highlight"><td><b>เป้ากองทุนเกษียณ</b></td><td class="right bold" style="color:var(--gold)">${fmt(m.requiredCorpus)} บาท</td></tr>
-        <tr><td>สินทรัพย์ที่เตรียมไว้ (FV)</td><td class="right bold text-green">${fmt(m.fvOfAssets)} บาท</td></tr>
-        <tr><td>ต้องเตรียมเพิ่ม</td><td class="right bold text-red">${fmt(m.gap)} บาท</td></tr>
-        <tr class="highlight"><td><b>เก็บเงินเพิ่ม / ปี</b></td><td class="right bold" style="color:var(--red)">${fmt(chosen==='B'?pmtB:pmtA)} บาท</td></tr>
-        ${p.protectionPct ? `
-          <tr><td>ปกป้อง %</td><td class="right bold">${p.protectionPct}%</td></tr>
-          <tr><td>ทุนประกันเพิ่ม</td><td class="right bold">${fmt(p.sumInsured)} บาท</td></tr>
-          <tr class="highlight"><td><b>เบี้ยประกัน / ปี</b></td><td class="right bold" style="color:var(--red)">${fmt(p.premium)} บาท</td></tr>
-        ` : ''}
-      </table>
-    </div>
+    ${renderCommitmentFinal(saveAnnual, totalInsure, totalCommit, pctOfDisposable, disposable)}
     
-    <div class="flex-row mt-16" style="gap:12px; flex-wrap:wrap">
+    ${renderBeforeAfter(c, m, ex, ch, totalInsure, saveAnnual)}
+    
+    <div class="action-buttons">
       <button class="btn-primary" onclick="exportPDF()">🖨️ พิมพ์ / Save PDF</button>
       <button class="btn-secondary" onclick="exportCustomerJSON('${c.id}')">📥 Export JSON</button>
       <button class="btn-secondary" onclick="goToDashboard()">← กลับ Dashboard</button>
@@ -4639,13 +6175,366 @@ function renderPhase7(c) {
     ${renderPhaseFooter(false)}`;
 }
 
-function selectPath(key) {
-  const c = getActive();
-  if (!c.summary) c.summary = {};
-  c.summary.chosenPath = key;
-  saveAndRefresh();
-  render();
-  SFX.success();
+function renderVisionCard(c, age, retireAge, lifeExp, annualExpense, childrenAtRetire, painPoints) {
+  // สร้างเล่าเรื่อง vision ตามข้อมูล
+  const monthlyExpense = Math.round(annualExpense / 12);
+  let childrenStory = '';
+  if (childrenAtRetire.length > 0) {
+    const parts = childrenAtRetire.map(ch => {
+      const label = ch.gender === 'boy' ? 'ลูกชาย' : 'ลูกสาว';
+      return `${label}อายุ ${ch.ageAtRetire} ปี`;
+    });
+    childrenStory = `<div class="vc-line">👨‍👩‍👧 ${parts.join(' · ')}</div>`;
+  }
+  
+  return `
+    <div class="vision-card">
+      <div class="vc-eyebrow">🌅 ภาพชีวิตตอนเกษียณ</div>
+      <div class="vc-narrative">
+        <div class="vc-main">
+          ตอนคุณ <b>${age}</b> ปี ตอนนี้ — เกษียณวัย <b>${retireAge}</b> ปี ใช้ชีวิตต่ออีก <b>${lifeExp - retireAge}</b> ปี
+        </div>
+        ${annualExpense > 0 ? `
+          <div class="vc-line">💰 ใช้เงินเดือนละ <b>${fmt(monthlyExpense)}</b> ฿ (${fmt(annualExpense)}/ปี · มูลค่าวันนี้)</div>
+        ` : ''}
+        ${childrenStory}
+        ${painPoints ? `
+          <div class="vc-pain">
+            <div class="vc-pain-label">💭 สิ่งที่คุณกังวล:</div>
+            <div class="vc-pain-text">${painPoints.replace(/\n/g, '<br>')}</div>
+          </div>
+        ` : ''}
+      </div>
+    </div>
+  `;
+}
+
+function renderRetireSummary(saveAnnual, retireInfo, m, retireAge) {
+  return `
+    <div class="sum-card retire">
+      <div class="sum-icon">💰</div>
+      <div class="sum-title">ส่วนกองทุนเกษียณ</div>
+      
+      <div class="sum-rows">
+        <div class="sum-row">
+          <span class="sum-label">เป้ากองทุน</span>
+          <span class="sum-val">${fmt(m.requiredCorpus)} ฿</span>
+        </div>
+        <div class="sum-row">
+          <span class="sum-label">เตรียมไว้แล้ว (FV)</span>
+          <span class="sum-val green">${fmt(m.fvOfAssets)} ฿</span>
+        </div>
+        <div class="sum-row">
+          <span class="sum-label">ขาดอีก</span>
+          <span class="sum-val red">${fmt(m.gap)} ฿</span>
+        </div>
+      </div>
+      
+      <div class="sum-divider"></div>
+      
+      <div class="sum-rows">
+        <div class="sum-row big">
+          <span class="sum-label">เก็บเพิ่ม/ปี</span>
+          <span class="sum-val red">${fmt(saveAnnual)} ฿</span>
+        </div>
+        <div class="sum-row">
+          <span class="sum-label">เก็บเพิ่ม/เดือน</span>
+          <span class="sum-val">~${fmt(Math.round(saveAnnual/12))} ฿</span>
+        </div>
+      </div>
+      
+      <div class="sum-result ${retireInfo.status}">
+        ${retireInfo.icon} <b>${retireInfo.title}</b>
+      </div>
+    </div>
+  `;
+}
+
+function renderULInsight(c, currentAge, retireAge, sumInsured, annualPremium, gender) {
+  // ใช้ pattern จาก AIA real data (ชาย 45 → 60: NAV @5% = 10.84M / @2% = ~9.4M / @-1% = ~7.5M)
+  // pattern: NAV ~ premium_paid × multiplier (depends on years, return)
+  const yearsToRetire = retireAge - currentAge;
+  const yearsPaid = Math.min(yearsToRetire, 20); // จ่าย 20 ปี
+  const totalPaid = annualPremium * yearsPaid;
+  
+  // multiplier ตาม return (อ้างจากข้อมูล AIA Infinite Wealth จริง)
+  // ปี 15-20: เริ่ม break-even ที่ 2%, กำไร 30% ที่ 5%
+  // อายุ 60+ (หลังจ่ายครบ): cash value ทบดอกเบี้ย
+  const yearsAfterPaid = Math.max(0, yearsToRetire - 20);
+  
+  // Estimate NAV at retire age
+  const estimateNAV = (returnRate) => {
+    const r = returnRate / 100;
+    // Step 1: build cash value during 20 years of payments (assume 50% of premium goes to investment)
+    // Approximation based on AIA Infinite Wealth real data
+    let nav = 0;
+    const investRatio = 0.85; // 85% goes to investment after costs
+    for (let yr = 1; yr <= yearsPaid; yr++) {
+      nav = (nav + annualPremium * investRatio) * (1 + r);
+    }
+    // Step 2: compound during years after paid (no more premiums)
+    for (let yr = 1; yr <= yearsAfterPaid; yr++) {
+      nav = nav * (1 + r);
+    }
+    return Math.round(nav);
+  };
+  
+  const navLow = estimateNAV(-1);   // -1% (worst)
+  const navMid = estimateNAV(2);    // 2% (moderate)
+  const navHigh = estimateNAV(5);   // 5% (good)
+  
+  return `
+    <div class="ul-insight">
+      <div class="uli-eyebrow">⭐ พลังของ Infinite Wealth</div>
+      <div class="uli-title">ตอนเกษียณอายุ ${retireAge} ปี · คุณจะมี 2 ทางเลือก</div>
+      
+      <div class="uli-grid">
+        <div class="uli-option">
+          <div class="uli-icon">🛡️</div>
+          <div class="uli-opt-title">ทางที่ 1 · เก็บคุ้มครองต่อ</div>
+          <div class="uli-opt-detail">
+            ทุนคุ้มครอง <b>${fmt(sumInsured)}</b> ฿ ตลอดชีวิต<br>
+            <span class="uli-sub">→ ครอบครัวได้ ${fmt(sumInsured)} ฿ ถ้าวันใดไม่อยู่ (Legacy)</span>
+          </div>
+        </div>
+        
+        <div class="uli-option">
+          <div class="uli-icon">💰</div>
+          <div class="uli-opt-title">ทางที่ 2 · ถอนเงินก้อนใช้</div>
+          <div class="uli-opt-detail">
+            มูลค่ารับซื้อคืน (NAV) ประมาณ:<br>
+            <div class="uli-nav-rows">
+              <div class="uli-nav-row low"><span>ตอน return -1%</span><b>${fmt(navLow)} ฿</b></div>
+              <div class="uli-nav-row mid"><span>ตอน return 2%</span><b>${fmt(navMid)} ฿</b></div>
+              <div class="uli-nav-row high"><span>ตอน return 5%</span><b>${fmt(navHigh)} ฿</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="uli-summary">
+        <div class="uli-sum-row">
+          <span>จ่ายเบี้ยรวม 20 ปี:</span>
+          <b>${fmt(totalPaid)} ฿</b>
+        </div>
+        <div class="uli-sum-row green">
+          <span>NAV ตอน ${retireAge} (กลาง 2%):</span>
+          <b>${fmt(navMid)} ฿</b>
+        </div>
+        <div class="uli-sum-row">
+          <span>คุ้มครอง:</span>
+          <b>${fmt(sumInsured)} ฿ ตลอดชีวิต</b>
+        </div>
+      </div>
+      
+      <div class="uli-disclaimer">
+        ⚠️ <b>หมายเหตุ:</b> NAV เป็นการประมาณการตามอัตราผลตอบแทน · ผลจริงขึ้นกับกองทุนที่เลือก · ผลตอบแทนที่ผ่านมาไม่ใช่ตัวบ่งชี้อนาคต
+      </div>
+    </div>
+  `;
+}
+
+
+function renderProtectSummary(ch, healthPremium, criticalPremium, lifePremium, lifeSum, lifeProduct, totalInsure) {
+  const items = [];
+  
+  if (ch.healthActive) {
+    if (ch.healthUseGov) {
+      items.push({ icon: '🏥', label: 'ประกันสุขภาพ', detail: 'ใช้สวัสดิการรัฐ', premium: 0 });
+    } else {
+      items.push({ icon: '🏥', label: 'ประกันสุขภาพ', detail: `ทุน ${fmt(ch.healthSum)} ฿`, premium: healthPremium });
+    }
+  }
+  if (ch.criticalActive) {
+    items.push({ icon: '⚠️', label: 'ประกันโรคร้าย', detail: `ทุน ${fmt(ch.criticalSum)} ฿`, premium: criticalPremium });
+  }
+  if (ch.lifeActive) {
+    const productLabel = lifeProduct === 'lifeUL' ? 'Infinite Wealth' : '20 Pay Life Plus';
+    items.push({ icon: '🛡️', label: 'ประกันชีวิต', detail: `ทุน ${fmt(lifeSum)} ฿ · ${productLabel}`, premium: lifePremium });
+  }
+  
+  return `
+    <div class="sum-card protect">
+      <div class="sum-icon">🛡️</div>
+      <div class="sum-title">ส่วนปกป้อง</div>
+      
+      ${items.length === 0 ? `
+        <div class="sum-empty">
+          <div>ไม่มีประกันที่จะทำเพิ่ม</div>
+          <div class="sum-empty-sub">(หรือใช้สวัสดิการรัฐทั้งหมด)</div>
+        </div>
+      ` : `
+        <div class="protect-items">
+          ${items.map(it => `
+            <div class="prot-item">
+              <div class="prot-head">
+                <span class="prot-icon">${it.icon}</span>
+                <span class="prot-label">${it.label}</span>
+                <span class="prot-prem">${it.premium > 0 ? fmt(it.premium) + ' ฿/ปี' : 'ไม่มีค่าเบี้ย'}</span>
+              </div>
+              <div class="prot-detail">${it.detail}</div>
+            </div>
+          `).join('')}
+        </div>
+      `}
+      
+      <div class="sum-divider"></div>
+      
+      <div class="sum-row big">
+        <span class="sum-label">เบี้ยรวม/ปี</span>
+        <span class="sum-val red">${fmt(totalInsure)} ฿</span>
+      </div>
+      <div class="sum-row">
+        <span class="sum-label">เบี้ย/เดือน</span>
+        <span class="sum-val">~${fmt(Math.round(totalInsure/12))} ฿</span>
+      </div>
+    </div>
+  `;
+}
+
+function renderCommitmentFinal(saveAnnual, totalInsure, totalCommit, pct, disposable) {
+  let cls = 'safe', msg = '🟢 อยู่ในงบที่ไหว';
+  if (pct > 100) { cls = 'danger'; msg = '🔴 รวมเกินเงินที่ใช้ได้ · ต้องลดบางส่วน'; }
+  else if (pct > 80) { cls = 'warning'; msg = '🟡 ตึงๆ · ใกล้เต็มงบ'; }
+  
+  if (totalCommit === 0) return `
+    <div class="commit-final empty">
+      <div class="cf-empty">⚠️ ยังไม่ได้เลือกแผน — กลับ Phase 6 เลือกที่ต้องการทำ</div>
+    </div>
+  `;
+  
+  return `
+    <div class="commit-final ${cls}">
+      <div class="cf-title">📋 สิ่งที่ต้องทำ/ปี</div>
+      <div class="cf-grid">
+        <div class="cf-cell">
+          <div class="cf-label">เก็บกองทุน</div>
+          <div class="cf-val">${fmt(saveAnnual)} ฿</div>
+        </div>
+        <div class="cf-plus">+</div>
+        <div class="cf-cell">
+          <div class="cf-label">เบี้ยประกัน</div>
+          <div class="cf-val">${fmt(totalInsure)} ฿</div>
+        </div>
+        <div class="cf-equals">=</div>
+        <div class="cf-cell big">
+          <div class="cf-label">รวม commitment</div>
+          <div class="cf-val">${fmt(totalCommit)} ฿/ปี</div>
+          <div class="cf-sub">~${fmt(Math.round(totalCommit/12))} ฿/เดือน</div>
+        </div>
+      </div>
+      <div class="cf-pct">
+        <span>% ของเงินที่ใช้ได้ (${fmt(disposable)} ฿/ปี)</span>
+        <span class="cf-pct-val">${pct.toFixed(0)}%</span>
+      </div>
+      <div class="cf-msg">${msg}</div>
+    </div>
+  `;
+}
+
+function renderBeforeAfter(c, m, ex, ch, totalInsure, saveAnnual) {
+  const pmtAnnual = m.annualPMT || 0;
+  
+  // ก่อน: ใช้สิ่งที่มี (ไม่ออม + ไม่ประกันใหม่)
+  const beforeSaving = 0;
+  const beforeInsureSum = ex.life;
+  
+  // หลัง: ออม + ประกันใหม่ (รวมเดิม)
+  const afterSaving = saveAnnual;
+  const afterLifeSum = ex.life + (ch.lifeActive ? (
+    ch.lifeMode === 'A' ? m.gap : 
+    ch.lifeMode === 'B' ? (Number((c.finance||{}).monthlyIncome)||0) * 12 * (ch.lifeBYears||5) :
+    ch.lifeSum
+  ) : 0);
+  
+  const afterHealthOk = ch.healthActive || ex.healthCount > 0;
+  const afterCriticalOk = ch.criticalActive || ex.criticalCount > 0;
+  
+  // Stability score before/after
+  const baseChecksBefore = [
+    ex.lifeCount > 0,
+    ex.healthCount > 0,
+    ex.criticalCount > 0
+  ].filter(Boolean).length;
+  
+  const baseChecksAfter = [
+    afterLifeSum > 0,
+    afterHealthOk,
+    afterCriticalOk
+  ].filter(Boolean).length;
+  
+  // เกษียณ
+  const beforeReachGoal = m.fvOfAssets >= m.requiredCorpus;
+  const afterReachGoal = saveAnnual >= pmtAnnual;
+  
+  return `
+    <div class="before-after">
+      <div class="ba-eyebrow">⚖️ ก่อน-หลัง · เห็น Impact</div>
+      <div class="ba-grid">
+        <!-- ก่อน -->
+        <div class="ba-col before">
+          <div class="ba-col-title">📍 ก่อนทำแผน</div>
+          
+          <div class="ba-row">
+            <div class="ba-row-label">เป้าเกษียณ</div>
+            <div class="ba-row-val ${beforeReachGoal ? 'good' : 'bad'}">
+              ${beforeReachGoal ? '✅ ครบ' : '❌ ขาด ' + fmt(m.gap) + ' ฿'}
+            </div>
+          </div>
+          
+          <div class="ba-row">
+            <div class="ba-row-label">ฐานปกป้อง</div>
+            <div class="ba-row-val ${baseChecksBefore >= 2 ? 'good' : 'bad'}">${baseChecksBefore}/3</div>
+          </div>
+          
+          <div class="ba-row">
+            <div class="ba-row-label">ทุนชีวิตรวม</div>
+            <div class="ba-row-val">${fmt(beforeInsureSum)} ฿</div>
+          </div>
+          
+          <div class="ba-row">
+            <div class="ba-row-label">เก็บเพิ่ม/ปี</div>
+            <div class="ba-row-val">—</div>
+          </div>
+        </div>
+        
+        <!-- arrow -->
+        <div class="ba-arrow">→</div>
+        
+        <!-- หลัง -->
+        <div class="ba-col after">
+          <div class="ba-col-title">✨ หลังทำแผน</div>
+          
+          <div class="ba-row">
+            <div class="ba-row-label">เป้าเกษียณ</div>
+            <div class="ba-row-val ${afterReachGoal ? 'good' : 'partial'}">
+              ${afterReachGoal ? '✅ ครบตามเป้า' : (saveAnnual > 0 ? '⚡ เกษียณช้า · มีออม' : '⚠️ ใช้ของที่มี')}
+            </div>
+          </div>
+          
+          <div class="ba-row">
+            <div class="ba-row-label">ฐานปกป้อง</div>
+            <div class="ba-row-val ${baseChecksAfter >= 2 ? 'good' : 'partial'}">${baseChecksAfter}/3</div>
+          </div>
+          
+          <div class="ba-row">
+            <div class="ba-row-label">ทุนชีวิตรวม</div>
+            <div class="ba-row-val good">${fmt(afterLifeSum)} ฿</div>
+          </div>
+          
+          <div class="ba-row">
+            <div class="ba-row-label">เก็บเพิ่ม/ปี</div>
+            <div class="ba-row-val good">${fmt(afterSaving)} ฿</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function exportPDF() {
+  showToast('กดปุ่ม "Save as PDF" ในหน้าต่างพิมพ์', 'success');
+  setTimeout(() => window.print(), 300);
 }
 
 function exportPDF() {
