@@ -1408,10 +1408,20 @@ function render() {
   const activeEl = document.activeElement;
   let focusInfo = null;
   if (activeEl && activeEl.tagName === 'INPUT' && activeEl.hasAttribute('data-preserve-focus')) {
+    const isNumberInput = activeEl.type === 'number';
+    let selStart = null, selEnd = null;
+    // type=number doesn't support selectionStart in most browsers — fall back to end of value
+    if (!isNumberInput) {
+      try {
+        selStart = activeEl.selectionStart;
+        selEnd = activeEl.selectionEnd;
+      } catch(e) {}
+    }
     focusInfo = {
       key: activeEl.getAttribute('data-preserve-focus'),
-      selStart: activeEl.selectionStart,
-      selEnd: activeEl.selectionEnd
+      isNumberInput,
+      selStart,
+      selEnd
     };
   }
   
@@ -1429,7 +1439,10 @@ function render() {
     const el = document.querySelector(`[data-preserve-focus="${focusInfo.key}"]`);
     if (el) {
       el.focus();
-      try { el.setSelectionRange(focusInfo.selStart, focusInfo.selEnd); } catch(e) {}
+      if (!focusInfo.isNumberInput && focusInfo.selStart !== null) {
+        try { el.setSelectionRange(focusInfo.selStart, focusInfo.selEnd); } catch(e) {}
+      }
+      // For number inputs, browser puts cursor at end by default after focus() — that's what we want
     }
   }
 }
@@ -2659,15 +2672,29 @@ function renderPhase6(c) {
         ${protectionMode==='income' ? `
           <div class="form-field" style="margin-bottom:10px">
             <label style="font-size:14px; color:var(--navy); font-weight:700">เป้าปกป้อง / มรดก (บาท)</label>
-            <input type="number" value="${protectionTarget}" 
-                   oninput="setProtectionCustomTarget(this.value)"
+            <input type="number" value="${customTarget !== undefined && customTarget !== null ? customTarget : ''}" 
+                   onchange="setProtectionCustomTarget(this.value)"
+                   onblur="setProtectionCustomTarget(this.value)"
                    data-preserve-focus="protectionCustomTarget"
                    style="font-size:18px; font-weight:600; padding:14px 16px"
-                   placeholder="ใส่ตัวเลขที่ต้องการ">
-            <span class="helper">
-              💡 แนะนำ: หนี้รวม ${fmt(totalDebt)} + รายได้ ${fmt(annualIncome)}/ปี × ${yearsToSupport} ปี = <b>${fmt(targetIncomeAuto)}</b> บาท
-              ${customTarget !== undefined && customTarget !== null ? ` · <a href="#" onclick="event.preventDefault(); setProtectionCustomTarget(null)">↺ ใช้แนะนำ</a>` : ''}
-            </span>
+                   placeholder="เช่น 5,000,000 — ใส่ตัวเลขที่ลูกค้าอุ่นใจ">
+            <div class="helper" style="display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin-top:6px">
+              <span>💡 แนะนำตามภาระ: <b>${fmt(targetIncomeAuto)}</b> บาท</span>
+              <button type="button" 
+                      onclick="setProtectionCustomTarget(${targetIncomeAuto})"
+                      style="background:var(--navy); color:white; border:none; padding:5px 12px; border-radius:99px; font-size:12px; font-weight:600; cursor:pointer">
+                ใช้ตัวเลขนี้
+              </button>
+              ${customTarget !== undefined && customTarget !== null ? `
+                <button type="button" 
+                        onclick="setProtectionCustomTarget(null)"
+                        style="background:white; color:var(--grey-text); border:1.5px solid var(--grey-line); padding:5px 12px; border-radius:99px; font-size:12px; font-weight:500; cursor:pointer">
+                  ↺ ล้าง
+                </button>` : ''}
+            </div>
+            <div class="helper" style="margin-top:4px; font-size:12px">
+              (จากหนี้รวม ${fmt(totalDebt)} + รายได้ ${fmt(annualIncome)}/ปี × ${yearsToSupport} ปี)
+            </div>
           </div>
         ` : `
           <div class="info-strip" style="background:#fff8e1;border-left-color:var(--gold)">
