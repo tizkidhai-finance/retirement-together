@@ -6,161 +6,301 @@
 <title>เกษียนด้วยกัน by ติสคิดให้</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 :root {
-  --navy: #0d1f3c;
-  --navy-light: #1a2e52;
-  --gold: #d4af37;
-  --gold-light: #f4cf5a;
-  --green: #27ae60;
-  --green-dark: #1d8348;
-  --red: #c0392b;
-  --red-light: #e74c3c;
-  --orange: #e67e22;
-  --grey-bg: #f5f6f8;
-  --grey-line: #d8dde3;
-  --grey-text: #6c7a89;
-  --shadow-sm: 0 2px 8px rgba(13,31,60,0.08);
-  --shadow-md: 0 4px 16px rgba(13,31,60,0.15);
-  --shadow-lg: 0 12px 40px rgba(13,31,60,0.22);
+  /* === Private Bank Palette === */
+  --navy: #0A1F3F;              /* Royal Navy — deeper than #0d1f3c */
+  --navy-light: #1A3358;        /* Hover */
+  --navy-lighter: #2C4670;      /* Subtle elements */
+  --navy-pale: #E8EEF6;         /* Background tint */
+  
+  --gold: #BFA15F;              /* Champagne Gold — sophisticated */
+  --gold-light: #D4BB7A;        /* Lighter accent */
+  --gold-dark: #9A8043;         /* Hover */
+  --gold-pale: #F5EFDC;         /* Background tint */
+  
+  --cream: #FAF7F0;             /* Premium cream — warmer than grey */
+  --cream-light: #FEFCF7;       /* Card background */
+  --pearl: #FFFEFB;             /* Pure premium white */
+  
+  --charcoal: #2C2C2C;          /* Body text — softer than black */
+  --charcoal-light: #4A4A4A;    /* Secondary */
+  
+  /* Functional colors (subtle, not loud) */
+  --green: #2D7D4A;             /* Forest green, not bright */
+  --green-dark: #1F5933;
+  --green-pale: #E8F1EC;
+  
+  --red: #A93226;               /* Burgundy red, not bright */
+  --red-light: #C0392B;
+  --red-pale: #F5E6E4;
+  
+  --orange: #B7651D;            /* Bronze, not orange */
+  --orange-pale: #F5EBDD;
+  
+  /* Greys (warmer tone — cream-tinted not blue-tinted) */
+  --grey-bg: #F5F2ED;           /* Cream-tinted bg */
+  --grey-line: #DDD7CC;         /* Cream-tinted border */
+  --grey-line-soft: #EBE6DA;
+  --grey-text: #7A7368;         /* Warm grey for text */
+  --grey-pale: #F0EDE5;
+  
+  /* Premium Shadows — softer, warmer */
+  --shadow-xs: 0 1px 2px rgba(10,31,63,0.04);
+  --shadow-sm: 0 2px 8px rgba(10,31,63,0.06);
+  --shadow-md: 0 4px 16px rgba(10,31,63,0.08);
+  --shadow-lg: 0 12px 40px rgba(10,31,63,0.12);
+  --shadow-gold: 0 6px 20px rgba(191,161,95,0.18);
+  
+  /* Border radius scale */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 20px;
+  
+  /* Typography */
+  --font-thai: 'IBM Plex Sans Thai', system-ui, sans-serif;
+  --font-display: 'IBM Plex Sans Thai', system-ui, sans-serif;       /* Same as Thai - no serif */
+  --font-numeric: 'IBM Plex Sans Thai', 'Inter', sans-serif;          /* Numbers */
 }
-html { font-size: 18px; }  /* base bumped from 14 */
+html { font-size: 18px; }
 body {
-  font-family: 'IBM Plex Sans Thai', system-ui, sans-serif;
+  font-family: var(--font-thai);
   background: var(--grey-bg);
-  color: #1a1a1a;
+  color: var(--charcoal);
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.55;
   min-height: 100vh;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "tnum" off;
 }
-button { font-family: inherit; cursor: pointer; border: none; font-size: 1rem; }
+button { font-family: inherit; cursor: pointer; border: none; font-size: 1rem; letter-spacing: 0.01em; }
 input, select, textarea { font-family: inherit; font-size: 1rem; }
+
+/* === Tabular numerals — for all numbers (premium look) === */
+.tnum, [class*="-val"], [class*="-amount"], [class*="-num"], 
+.b-value, input[type="number"] {
+  font-feature-settings: "tnum" 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* === Display headings === */
+h1, h2, h3, .display {
+  font-family: var(--font-thai);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+h1 { font-size: 2rem; line-height: 1.25; }
+h2 { font-size: 1.5rem; line-height: 1.3; }
+h3 { font-size: 1.2rem; line-height: 1.35; }
 
 /* TOP BAR */
 .topbar {
-  background: var(--navy);
+  background: linear-gradient(180deg, var(--navy) 0%, #051630 100%);
   color: white;
-  padding: 14px 24px;
+  padding: 18px 28px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
+  border-bottom: 1px solid rgba(191,161,95,0.15);
 }
-.topbar-brand { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.topbar-brand { display: flex; align-items: center; gap: 14px; cursor: pointer; }
 .topbar-logo {
-  width: 42px; height: 42px;
-  background: linear-gradient(135deg, var(--gold), var(--gold-light));
-  border-radius: 10px;
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  border-radius: var(--r-md);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 22px;
+  box-shadow: 0 2px 8px rgba(191,161,95,0.3), inset 0 1px 1px rgba(255,255,255,0.2);
 }
-.topbar-title { font-size: 20px; font-weight: 700; }
-.topbar-sub { font-size: 13px; color: rgba(255,255,255,0.6); }
+.topbar-title { 
+  font-size: 20px; 
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.topbar-sub { 
+  font-size: 12px; 
+  color: rgba(255,255,255,0.55); 
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-top: 2px;
+}
 .topbar-actions { display: flex; gap: 10px; align-items: center; }
 .topbar-btn {
-  background: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
   color: white;
-  padding: 10px 18px;
-  border-radius: 10px;
-  font-size: 15px;
+  padding: 10px 20px;
+  border-radius: var(--r-md);
+  font-size: 14px;
   font-weight: 500;
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: background 0.2s;
+  transition: all 0.2s;
+  border: 1px solid rgba(255,255,255,0.08);
+  letter-spacing: 0.02em;
 }
-.topbar-btn:hover { background: rgba(255,255,255,0.22); }
+.topbar-btn:hover { 
+  background: rgba(255,255,255,0.12); 
+  border-color: rgba(191,161,95,0.3);
+}
 .sound-toggle {
-  background: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
   width: 44px; height: 44px;
-  border-radius: 10px;
-  font-size: 20px;
+  border-radius: var(--r-md);
+  font-size: 18px;
   color: white;
+  border: 1px solid rgba(255,255,255,0.08);
 }
-.sound-toggle:hover { background: rgba(255,255,255,0.22); }
+.sound-toggle:hover { 
+  background: rgba(255,255,255,0.12); 
+  border-color: rgba(191,161,95,0.3);
+}
 
-.app { max-width: 1400px; margin: 0 auto; padding: 24px 20px; }
+.app { max-width: 1400px; margin: 0 auto; padding: 32px 24px; }
 
 /* DASHBOARD */
 .dashboard-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   flex-wrap: wrap;
   gap: 16px;
 }
 .dashboard-title h1 {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--navy);
-}
-.dashboard-title p { color: var(--grey-text); font-size: 16px; margin-top: 4px; }
-
-.btn-primary {
-  background: var(--navy);
-  color: white;
-  padding: 14px 26px;
-  border-radius: 12px;
+  font-family: var(--font-display);
+  font-size: 38px;
   font-weight: 600;
-  font-size: 16px;
-  display: flex;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+}
+.dashboard-title p { 
+  color: var(--grey-text); 
+  font-size: 14px; 
+  margin-top: 6px;
+  letter-spacing: 0.02em;
+}
+
+/* === Premium Buttons === */
+.btn-primary {
+  background: linear-gradient(180deg, var(--navy) 0%, #051630 100%);
+  color: white;
+  padding: 14px 28px;
+  border-radius: var(--r-md);
+  font-weight: 600;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s;
+  letter-spacing: 0.02em;
+  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.08);
+  border: 1px solid rgba(191,161,95,0.2);
+}
+.btn-primary:hover { 
+  transform: translateY(-1px); 
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255,255,255,0.12);
+  border-color: rgba(191,161,95,0.4);
+}
+.btn-secondary {
+  background: var(--pearl);
+  color: var(--navy);
+  padding: 12px 24px;
+  border-radius: var(--r-md);
+  font-weight: 500;
+  font-size: 14px;
+  border: 1px solid var(--grey-line);
+  display: inline-flex;
   align-items: center;
   gap: 8px;
   transition: all 0.2s;
+  letter-spacing: 0.02em;
 }
-.btn-primary:hover { background: var(--navy-light); transform: translateY(-1px); }
-.btn-secondary {
-  background: white;
+.btn-secondary:hover { 
+  background: var(--cream); 
+  border-color: var(--navy);
   color: var(--navy);
-  padding: 12px 22px;
-  border-radius: 12px;
-  font-weight: 500;
-  font-size: 15px;
-  border: 1.5px solid var(--grey-line);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  box-shadow: var(--shadow-sm);
 }
-.btn-secondary:hover { background: #f8f9fa; border-color: var(--navy); }
 .btn-action {
-  background: var(--gold);
+  background: linear-gradient(180deg, var(--gold) 0%, var(--gold-dark) 100%);
   color: var(--navy);
-  padding: 12px 22px;
-  border-radius: 12px;
+  padding: 12px 24px;
+  border-radius: var(--r-md);
   font-weight: 700;
-  font-size: 15px;
-  border: none;
+  font-size: 14px;
+  border: 1px solid rgba(154,128,67,0.3);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  letter-spacing: 0.02em;
+  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.15);
+  transition: all 0.25s;
 }
-.btn-action:hover { background: var(--gold-light); }
+.btn-action:hover { 
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-gold), inset 0 1px 0 rgba(255,255,255,0.2);
+}
 
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 14px;
-  margin-bottom: 24px;
+  gap: 16px;
+  margin-bottom: 28px;
 }
 .stat-card {
-  background: white;
-  padding: 18px;
-  border-radius: 14px;
+  background: linear-gradient(180deg, var(--pearl) 0%, var(--cream-light) 100%);
+  padding: 22px 22px 20px;
+  border-radius: var(--r-lg);
   border: 1px solid var(--grey-line);
+  box-shadow: var(--shadow-xs);
+  transition: all 0.2s;
+  position: relative;
 }
-.stat-card .label { font-size: 13px; color: var(--grey-text); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; }
-.stat-card .value { font-size: 30px; font-weight: 700; color: var(--navy); margin-top: 6px; }
-.stat-card .sub { font-size: 13px; color: var(--grey-text); margin-top: 2px; }
-.stat-card.green .value { color: var(--green); }
-.stat-card.gold .value { color: var(--gold); }
+.stat-card:hover {
+  border-color: rgba(191,161,95,0.4);
+  box-shadow: var(--shadow-sm);
+}
+.stat-card .label { 
+  font-size: 11px; 
+  color: var(--grey-text); 
+  text-transform: uppercase; 
+  letter-spacing: 0.12em; 
+  font-weight: 600; 
+}
+.stat-card .value { 
+  font-family: var(--font-numeric);
+  font-size: 32px; 
+  font-weight: 600; 
+  color: var(--navy); 
+  margin-top: 8px;
+  letter-spacing: -0.02em;
+  font-feature-settings: "tnum" 1;
+}
+.stat-card .sub { 
+  font-size: 12px; 
+  color: var(--grey-text); 
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
+.stat-card.green .value { color: var(--green-dark); }
+.stat-card.gold .value { color: var(--gold-dark); }
+.stat-card.gold { 
+  background: linear-gradient(180deg, var(--gold-pale) 0%, var(--cream-light) 100%);
+  border-color: rgba(191,161,95,0.3);
+}
 
 .filter-bar {
   display: flex;
@@ -358,58 +498,97 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   border: 1.5px solid var(--grey-line);
 }
 .phase-nav-item {
-  background: #f5f6f8;
-  border: 2px solid transparent;
-  padding: 12px 6px;
-  border-radius: 10px;
+  background: var(--cream);
+  border: 1.5px solid transparent;
+  padding: 14px 8px;
+  border-radius: var(--r-md);
   text-align: center;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 600;
   color: var(--grey-text);
-  transition: all 0.15s;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+  cursor: pointer;
 }
-.phase-nav-item:hover { border-color: var(--navy); color: var(--navy); }
+.phase-nav-item:hover { 
+  border-color: var(--gold); 
+  color: var(--navy); 
+  background: var(--cream-light);
+  transform: translateY(-1px);
+}
 .phase-nav-item.active {
-  background: var(--navy);
+  background: linear-gradient(180deg, var(--navy) 0%, #051630 100%);
   color: white;
-  border-color: var(--navy);
+  border-color: var(--gold);
+  box-shadow: var(--shadow-sm);
 }
-.phase-nav-item.done { background: #eaf6ee; color: var(--green-dark); }
-.phase-nav-item.done.active { background: var(--green-dark); color: white; }
-.phase-nav-item .num { display: block; font-size: 18px; font-weight: 700; margin-bottom: 3px; }
+.phase-nav-item.done { 
+  background: var(--green-pale); 
+  color: var(--green-dark); 
+  border-color: var(--green);
+  font-weight: 700;
+}
+.phase-nav-item.done .num { color: var(--green-dark); }
+.phase-nav-item.done.active { 
+  background: linear-gradient(180deg, var(--green) 0%, var(--green-dark) 100%);
+  color: white;
+  border-color: var(--gold);
+}
+.phase-nav-item.done.active .num { color: white; }
+.phase-nav-item .num { 
+  display: block; 
+  font-family: var(--font-display);
+  font-size: 22px; 
+  font-weight: 600; 
+  margin-bottom: 2px;
+  letter-spacing: -0.02em;
+}
 
 .phase-container {
-  background: white;
-  border-radius: 14px;
-  padding: 28px;
-  border: 1.5px solid var(--grey-line);
-  margin-bottom: 18px;
+  background: var(--pearl);
+  border-radius: var(--r-lg);
+  padding: 36px 32px;
+  border: 1px solid var(--grey-line);
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
 }
 .phase-header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px 14px;
-  padding-bottom: 18px;
-  border-bottom: 1.5px solid var(--grey-line);
+  gap: 8px 16px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--grey-line);
   margin-bottom: 24px;
 }
 .phase-badge {
-  background: var(--navy);
+  background: linear-gradient(180deg, var(--navy) 0%, #051630 100%);
   color: white;
   padding: 6px 14px;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  border-radius: var(--r-sm);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-family: var(--font-numeric);
+  border: 1px solid rgba(191,161,95,0.3);
+  box-shadow: var(--shadow-xs);
 }
-.phase-header h2 { font-size: 26px; color: var(--navy); }
+.phase-header h2 { 
+  font-family: var(--font-thai);
+  font-size: 26px; 
+  color: var(--navy);
+  font-weight: 700;
+  letter-spacing: 0;
+}
 .phase-subtitle {
   flex: 0 0 100%;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--grey-text);
   margin-top: 4px;
   font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
 }
 
 /* Phase 3 section heads */
@@ -421,11 +600,14 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 }
 .p3-section-head h3 {
   margin-bottom: 4px !important;
+  font-family: var(--font-thai);
+  font-weight: 700;
 }
 .p3-section-head p {
-  font-size: 13px;
+  font-size: 12px;
   margin-top: 0;
   line-height: 1.5;
+  letter-spacing: 0.02em;
 }
 
 /* Quick-add pills (Phase 3) */
@@ -448,22 +630,24 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   margin-right: 4px;
 }
 .quick-pill {
-  background: var(--grey-bg);
+  background: var(--cream);
   border: 1px solid var(--grey-line);
   color: var(--navy);
-  padding: 6px 12px;
+  padding: 7px 14px;
   border-radius: 99px;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.2s;
   white-space: nowrap;
+  letter-spacing: 0.02em;
 }
 .quick-pill:hover {
-  background: var(--navy);
+  background: linear-gradient(180deg, var(--navy) 0%, #051630 100%);
   color: white;
-  border-color: var(--navy);
+  border-color: var(--gold);
   transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 .quick-pill:active { transform: translateY(0); }
 
@@ -483,44 +667,79 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 
 .form-field { display: flex; flex-direction: column; }
 .form-field label {
-  font-size: 14px;
+  font-size: 12px;
   color: var(--grey-text);
   font-weight: 600;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 .form-field input, .form-field select, .form-field textarea {
-  padding: 12px 16px;
-  border: 1.5px solid var(--grey-line);
-  border-radius: 10px;
-  background: white;
+  padding: 13px 16px;
+  border: 1px solid var(--grey-line);
+  border-radius: var(--r-md);
+  background: var(--pearl);
   outline: none;
-  transition: border 0.15s;
-  font-size: 16px;
+  transition: all 0.2s;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--charcoal);
+  font-feature-settings: "tnum" 1;
 }
 .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
-  border-color: var(--navy);
+  border-color: var(--gold);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(191,161,95,0.12);
 }
-.form-field .helper { font-size: 13px; color: var(--grey-text); margin-top: 5px; }
+.form-field input:hover:not(:focus), .form-field select:hover:not(:focus) {
+  border-color: var(--navy-lighter);
+}
+.form-field .helper { 
+  font-size: 12px; 
+  color: var(--grey-text); 
+  margin-top: 6px;
+  letter-spacing: 0.02em;
+}
 
 .section-block {
-  background: #fafbfc;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 18px;
-  border: 1.5px solid #eef0f3;
+  background: var(--cream-light);
+  border-radius: var(--r-lg);
+  padding: 24px 28px;
+  margin-bottom: 20px;
+  border: 1px solid var(--grey-line);
+  box-shadow: var(--shadow-xs);
+  position: relative;
 }
 .section-block h3 {
+  font-family: var(--font-thai);
   font-size: 17px;
   color: var(--navy);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   font-weight: 700;
+  letter-spacing: 0;
 }
-.section-block.blue { background: #eef5fc; border-color: #d6e7f7; }
-.section-block.green { background: #eef8f1; border-color: #cfe9d8; }
-.section-block.yellow { background: #fff8e1; border-color: #ffe082; }
-.section-block.red { background: #fdf0f0; border-color: #f5c8c4; }
-.section-block.compact { padding: 14px 18px; }
-.section-block.compact h3 { font-size: 15px; margin-bottom: 10px; }
+.section-block.blue { 
+  background: var(--navy-pale); 
+  border-color: rgba(10,31,63,0.12); 
+  border-left: 3px solid var(--navy);
+}
+.section-block.green { 
+  background: var(--green-pale); 
+  border-color: rgba(45,125,74,0.15);
+  border-left: 3px solid var(--green);
+}
+.section-block.yellow { 
+  background: var(--gold-pale); 
+  border-color: rgba(191,161,95,0.25);
+  border-left: 3px solid var(--gold);
+}
+.section-block.red { 
+  background: var(--red-pale); 
+  border-color: rgba(169,50,38,0.15);
+  border-left: 3px solid var(--red);
+}
+.section-block.compact { padding: 18px 22px; }
+.section-block.compact h3 { font-size: 15px; margin-bottom: 12px; }
 
 /* Dependents row — compact inline layout */
 .dep-block {
@@ -748,7 +967,23 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   margin-bottom: 10px;
   align-items: center;
 }
-.row-grid input, .row-grid select { padding: 10px 14px; border: 1.5px solid var(--grey-line); border-radius: 8px; font-size: 15px; }
+.row-grid input, .row-grid select { 
+  padding: 11px 14px; 
+  border: 1px solid var(--grey-line); 
+  border-radius: var(--r-sm); 
+  font-size: 14px; 
+  background: var(--pearl);
+  font-family: inherit;
+  color: var(--charcoal);
+  outline: none;
+  transition: all 0.2s;
+  font-feature-settings: "tnum" 1;
+}
+.row-grid input:focus, .row-grid select:focus {
+  border-color: var(--gold);
+  background: white;
+  box-shadow: 0 0 0 2px rgba(191,161,95,0.1);
+}
 .remove-btn {
   width: 38px; height: 38px;
   background: #fdf0f0;
@@ -759,28 +994,700 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   border: none;
   cursor: pointer;
 }
-.remove-btn:hover { background: var(--red); color: white; }
+.remove-btn:hover { background: var(--red); color: white; border-color: var(--red); }
 .add-btn {
-  background: white;
+  background: var(--pearl);
   color: var(--navy);
-  border: 2px dashed var(--grey-line);
-  padding: 10px 18px;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 500;
+  border: 1.5px dashed var(--grey-line);
+  padding: 12px 20px;
+  border-radius: var(--r-md);
+  font-size: 13px;
+  font-weight: 600;
   width: 100%;
-  margin-top: 6px;
+  margin-top: 8px;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+  cursor: pointer;
 }
-.add-btn:hover { border-color: var(--navy); border-style: solid; background: #eef5fc; }
+.add-btn:hover { 
+  border-color: var(--gold); 
+  border-style: solid; 
+  background: var(--gold-pale);
+  color: var(--gold-dark);
+}
 .use-checkbox {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 13px;
-  padding: 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy);
+  padding: 0 12px;
   white-space: nowrap;
+  background: var(--cream);
+  border-radius: var(--r-sm);
+  border: 1px solid var(--grey-line);
+  cursor: pointer;
+  transition: all 0.2s;
+  height: 36px;
+  letter-spacing: 0.02em;
+  justify-content: center;
 }
-.use-checkbox input { transform: scale(1.3); }
+.use-checkbox:hover { border-color: var(--gold); }
+.use-checkbox input[type="checkbox"] { 
+  transform: scale(1.15); 
+  cursor: pointer;
+  accent-color: var(--green);
+}
+/* Active state when checked */
+.use-checkbox:has(input:checked) {
+  background: var(--green-pale);
+  border-color: var(--green);
+  color: var(--green-dark);
+}
+
+.cf-hint {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: var(--navy-pale);
+  border-radius: var(--r-sm);
+  font-size: 12px;
+  color: var(--navy);
+  line-height: 1.6;
+  border-left: 3px solid var(--navy);
+  letter-spacing: 0.02em;
+}
+
+/* === Asset Row v13 (with type + DCA + PVD) === */
+.asset-row {
+  background: var(--pearl);
+  border: 1px solid var(--grey-line);
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-xs);
+}
+.asset-row:hover { 
+  border-color: var(--gold); 
+  box-shadow: var(--shadow-sm);
+}
+/* Row 1: type | name | value | checkbox | × */
+.asset-row-main {
+  display: grid;
+  grid-template-columns: 180px 1fr 160px 110px 36px;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+@media (max-width: 900px) {
+  .asset-row-main { 
+    grid-template-columns: 1fr 1fr 36px;
+    grid-template-areas: 
+      "type type remove"
+      "name name name"
+      "value checkbox checkbox";
+  }
+  .asset-type-select { grid-area: type; }
+  .asset-name { grid-area: name; }
+  .asset-row-main .value-suffix { grid-area: value; }
+  .asset-row-main .use-checkbox { grid-area: checkbox; }
+  .asset-row-main .remove-btn { grid-area: remove; }
+}
+.asset-type-select {
+  padding: 8px 12px;
+  border: 1px solid var(--grey-line);
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  font-family: inherit;
+  background: var(--cream-light);
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--navy);
+  outline: none;
+  transition: all 0.2s;
+  height: 36px;
+}
+.asset-type-select:focus, .asset-type-select:hover {
+  border-color: var(--gold);
+  background: var(--pearl);
+}
+.asset-name {
+  padding: 8px 12px;
+  border: 1px solid var(--grey-line);
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  font-family: inherit;
+  background: var(--pearl);
+  outline: none;
+  transition: all 0.2s;
+  color: var(--charcoal);
+  height: 36px;
+}
+.asset-name:focus {
+  border-color: var(--gold);
+  background: white;
+  box-shadow: 0 0 0 2px rgba(191,161,95,0.1);
+}
+.value-suffix {
+  height: 36px;
+}
+.value-suffix input.asset-value {
+  font-weight: 600;
+  font-size: 14px;
+}
+.remove-btn {
+  width: 36px; height: 36px;
+  background: var(--red-pale);
+  color: var(--red);
+  border: 1px solid rgba(169,50,38,0.2);
+  border-radius: var(--r-sm);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+/* Row 2: balanced grid - all cells equal width */
+.asset-row-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 10px;
+  align-items: end;
+  padding-top: 10px;
+  border-top: 1px dashed var(--grey-line-soft);
+}
+@media (max-width: 900px) {
+  .asset-row-detail { grid-template-columns: 1fr 1fr; }
+}
+.asset-detail-cell label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--grey-text);
+  margin-bottom: 4px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.asset-detail-cell.hidden-cell { visibility: hidden; }
+
+/* Inline FV cell */
+.asset-fv-cell label { color: var(--gold-dark); }
+.asset-fv-inline {
+  height: 34px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  background: linear-gradient(135deg, var(--gold-pale) 0%, var(--cream-light) 100%);
+  border-radius: var(--r-sm);
+  border: 1px solid rgba(191,161,95,0.3);
+}
+.asset-fv-inline .afv-val.gold {
+  color: var(--gold-dark);
+  font-weight: 700;
+  font-size: 14px;
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.01em;
+}
+.asset-fv-inline .afv-empty {
+  color: var(--grey-text);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+
+.asset-fv-card {
+  margin-top: 12px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, var(--cream-light) 0%, var(--gold-pale) 100%);
+  border-radius: var(--r-sm);
+  border: 1px solid rgba(191,161,95,0.25);
+}
+.afv-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.afv-side {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.afv-side.right { align-items: flex-end; text-align: right; }
+.afv-mid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0 8px;
+}
+.afv-arrow {
+  font-size: 22px;
+  color: var(--gold);
+  font-weight: 700;
+  line-height: 1;
+}
+.afv-meta {
+  font-size: 10px;
+  color: var(--grey-text);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.afv-label {
+  font-size: 10px;
+  color: var(--grey-text);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.afv-val {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.01em;
+}
+.afv-val.gold {
+  color: var(--gold-dark);
+  font-size: 17px;
+}
+.afv-sub {
+  font-size: 10px;
+  color: var(--green-dark);
+  font-weight: 600;
+  font-feature-settings: "tnum" 1;
+}
+.asset-input-suffix {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--grey-line);
+  border-radius: var(--r-sm);
+  background: var(--pearl);
+  overflow: hidden;
+  transition: all 0.2s;
+}
+.asset-input-suffix input {
+  flex: 1;
+  padding: 7px 10px;
+  border: none;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  width: 100%;
+  min-width: 0;
+  font-feature-settings: "tnum" 1;
+  font-weight: 500;
+  color: var(--charcoal);
+  background: transparent;
+  text-align: right;
+}
+.asset-input-suffix span {
+  padding: 0 10px;
+  background: var(--cream);
+  color: var(--grey-text);
+  font-size: 11px;
+  font-weight: 600;
+  border-left: 1px solid var(--grey-line);
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.02em;
+}
+.asset-input-suffix:focus-within { 
+  border-color: var(--gold); 
+  background: white;
+  box-shadow: 0 0 0 2px rgba(191,161,95,0.1);
+}
+
+.asset-fv {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, var(--green-pale) 0%, var(--cream-light) 100%);
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  border: 1px solid rgba(45,125,74,0.15);
+}
+.afv-arrow { color: var(--green-dark); font-weight: 700; font-size: 14px; }
+.afv-val { 
+  font-family: var(--font-numeric);
+  font-weight: 700; 
+  color: var(--navy); 
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.01em;
+}
+.afv-growth { 
+  color: var(--green-dark); 
+  font-size: 11px; 
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-family: var(--font-numeric);
+  font-feature-settings: "tnum" 1;
+}
+
+.asset-hint {
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--grey-text);
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+
+/* === PVD Detail Card === */
+.pvd-detail-card {
+  background: linear-gradient(135deg, var(--gold-pale) 0%, var(--cream-light) 100%);
+  border-radius: var(--r-md);
+  padding: 12px 16px;
+  margin-top: 12px;
+  border: 1px solid rgba(191,161,95,0.25);
+  border-left: 3px solid var(--gold);
+}
+.pvd-summary-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.pvd-summary-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+.pvd-icon { font-size: 22px; }
+.pvd-info-text { line-height: 1.4; }
+.pvd-info-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.pvd-info-summary {
+  font-size: 12px;
+  color: var(--charcoal-light);
+  margin-top: 2px;
+  letter-spacing: 0.02em;
+}
+.pvd-info-summary b {
+  font-feature-settings: "tnum" 1;
+  color: var(--gold-dark);
+}
+.pvd-info-summary.missing { color: var(--orange); font-weight: 600; }
+.pvd-edit-btn {
+  background: var(--pearl);
+  color: var(--navy);
+  border: 1px solid var(--gold);
+  padding: 8px 14px;
+  border-radius: var(--r-sm);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+}
+.pvd-edit-btn:hover {
+  background: var(--gold);
+  color: white;
+}
+
+/* === PVD/GPF Modal === */
+.pvd-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,31,63,0.7);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  overflow-y: auto;
+}
+.pvd-modal {
+  background: var(--pearl);
+  border-radius: var(--r-xl);
+  max-width: 740px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--gold);
+  overflow: hidden;
+  position: relative;
+}
+.pvd-modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+  z-index: 1;
+}
+.pvd-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 24px 28px 18px;
+  background: linear-gradient(180deg, var(--pearl) 0%, var(--cream-light) 100%);
+  border-bottom: 1px solid var(--grey-line);
+}
+.pvd-modal-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold-dark);
+  letter-spacing: 0.16em;
+  margin-bottom: 6px;
+}
+.pvd-modal-eyebrow.gpf { color: var(--navy); }
+.pvd-modal-head h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0;
+}
+.pvd-modal-sub {
+  font-size: 12px;
+  color: var(--grey-text);
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
+.pvd-modal-close {
+  width: 36px; height: 36px;
+  background: var(--cream);
+  border: 1px solid var(--grey-line);
+  border-radius: 50%;
+  font-size: 22px;
+  color: var(--grey-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.pvd-modal-close:hover {
+  background: var(--red-pale);
+  color: var(--red);
+  border-color: var(--red);
+}
+.pvd-modal-body {
+  padding: 24px 28px;
+  overflow-y: auto;
+  flex: 1;
+}
+.pvd-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+@media (max-width: 600px) {
+  .pvd-form-grid { grid-template-columns: 1fr 1fr; }
+}
+.pvd-field { display: flex; flex-direction: column; }
+.pvd-field.full-width { grid-column: 1 / -1; }
+.pvd-field label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--grey-text);
+  margin-bottom: 5px;
+  letter-spacing: 0.04em;
+}
+.gpf-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.02em;
+  padding-bottom: 8px;
+  margin-bottom: 14px;
+  margin-top: 8px;
+  border-bottom: 1px solid var(--grey-line);
+}
+.gpf-formula-note {
+  background: var(--navy-pale);
+  border-radius: var(--r-sm);
+  padding: 12px 14px;
+  font-size: 12px;
+  color: var(--navy);
+  line-height: 1.7;
+  margin: 14px 0;
+  border-left: 3px solid var(--navy);
+}
+.gpf-formula-note b { color: var(--navy); }
+
+.pvd-modal-results {
+  background: linear-gradient(135deg, var(--gold-pale) 0%, var(--cream-light) 100%);
+  border-radius: var(--r-md);
+  padding: 18px 20px;
+  margin-top: 18px;
+  border: 1px solid rgba(191,161,95,0.3);
+}
+.pvd-results-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 14px;
+  letter-spacing: 0.02em;
+}
+.pvd-results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+@media (max-width: 600px) {
+  .pvd-results-grid { grid-template-columns: 1fr; }
+}
+.pvd-result-item {
+  background: var(--pearl);
+  padding: 10px 14px;
+  border-radius: var(--r-sm);
+  border: 1px solid rgba(191,161,95,0.15);
+}
+.pvd-result-label {
+  font-size: 10px;
+  color: var(--grey-text);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.pvd-result-val {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.01em;
+}
+.pvd-result-val.green { color: var(--green-dark); }
+.pvd-result-total {
+  background: linear-gradient(180deg, var(--navy) 0%, #051630 100%);
+  color: white;
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--gold);
+}
+.pvd-total-label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.pvd-total-val {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gold);
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.01em;
+}
+
+.gpf-block-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold-dark);
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+  margin-top: 14px;
+}
+.gpf-base-info {
+  background: var(--pearl);
+  padding: 10px 14px;
+  border-radius: var(--r-sm);
+  font-size: 12px;
+  color: var(--charcoal-light);
+  line-height: 1.6;
+  margin-bottom: 12px;
+  border: 1px solid var(--grey-line);
+  letter-spacing: 0.02em;
+}
+.gpf-base-info b {
+  color: var(--navy);
+  font-feature-settings: "tnum" 1;
+}
+.gpf-results-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+@media (max-width: 600px) {
+  .gpf-results-2col { grid-template-columns: 1fr; }
+}
+.gpf-option-card {
+  background: var(--pearl);
+  padding: 14px 16px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--grey-line);
+}
+.gpf-option-card.highlight {
+  background: linear-gradient(135deg, var(--green-pale) 0%, var(--cream-light) 100%);
+  border-color: var(--green);
+}
+.gpf-opt-icon { font-size: 22px; margin-bottom: 4px; }
+.gpf-opt-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.gpf-opt-formula {
+  font-size: 10px;
+  color: var(--grey-text);
+  font-style: italic;
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+.gpf-opt-val {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gold-dark);
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.01em;
+}
+.gpf-option-card.highlight .gpf-opt-val { color: var(--green-dark); }
+.gpf-opt-sub {
+  font-size: 11px;
+  color: var(--grey-text);
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
+.gpf-summary-note {
+  background: var(--gold-pale);
+  border: 1px solid var(--gold);
+  border-radius: var(--r-sm);
+  padding: 12px 14px;
+  font-size: 12px;
+  color: var(--navy);
+  line-height: 1.7;
+  margin-top: 12px;
+  letter-spacing: 0.02em;
+}
+.gpf-summary-note b {
+  color: var(--gold-dark);
+  font-feature-settings: "tnum" 1;
+}
+
+.pvd-modal-foot {
+  padding: 16px 28px;
+  background: var(--cream-light);
+  border-top: 1px solid var(--grey-line);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
 
 /* === Breakdown UI (Phase 2 income/expense + Phase 3 cashflows) === */
 .amount-field {
@@ -1483,9 +2390,9 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 }
 .le-slider {
   width: 100%;
-  height: 8px;
+  height: 6px;
   border-radius: 99px;
-  background: linear-gradient(90deg, #d6e7f7 0%, var(--navy) 100%);
+  background: linear-gradient(90deg, var(--cream) 0%, var(--navy) 100%);
   outline: none;
   cursor: pointer;
   -webkit-appearance: none;
@@ -1493,22 +2400,24 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 }
 .le-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: var(--gold);
+  background: linear-gradient(180deg, var(--gold) 0%, var(--gold-dark) 100%);
   cursor: pointer;
-  border: 3px solid white;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  border: 3px solid var(--pearl);
+  box-shadow: 0 2px 8px rgba(10,31,63,0.25), 0 0 0 1px var(--gold-dark);
+  transition: transform 0.15s;
 }
+.le-slider::-webkit-slider-thumb:hover { transform: scale(1.1); }
 .le-slider::-moz-range-thumb {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: var(--gold);
+  background: linear-gradient(180deg, var(--gold) 0%, var(--gold-dark) 100%);
   cursor: pointer;
-  border: 3px solid white;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  border: 3px solid var(--pearl);
+  box-shadow: 0 2px 8px rgba(10,31,63,0.25), 0 0 0 1px var(--gold-dark);
 }
 
 .leg-numbers {
@@ -1744,15 +2653,35 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   margin-top: 10px;
 }
 .cr-num {
-  background: #fafbfc;
-  border-radius: 8px;
-  padding: 10px 12px;
+  background: var(--cream-light);
+  border-radius: var(--r-sm);
+  padding: 12px 14px;
   border: 1px solid var(--grey-line);
 }
-.cr-num-label { font-size: 11px; color: var(--grey-text); font-weight: 600; }
-.cr-num-val { font-size: 17px; font-weight: 800; color: var(--navy); font-feature-settings: "tnum"; line-height: 1.2; }
+.cr-num-label { 
+  font-size: 10px; 
+  color: var(--grey-text); 
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.cr-num-val { 
+  font-family: var(--font-numeric);
+  font-size: 18px; 
+  font-weight: 700; 
+  color: var(--navy); 
+  font-feature-settings: "tnum" 1; 
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-top: 2px;
+}
 .cr-num-val.red { color: var(--red); }
-.cr-num-sub { font-size: 11px; color: var(--grey-text); margin-top: 2px; }
+.cr-num-sub { 
+  font-size: 11px; 
+  color: var(--grey-text); 
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
 
 .cr-result {
   margin-top: 12px;
@@ -1879,40 +2808,72 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 
 /* === PHASE 7 v3 — สรุปแผน · Vision + Before/After === */
 .vision-card {
-  background: linear-gradient(135deg, #fff8e1 0%, #fffbf0 50%, #fef5e7 100%);
-  border-radius: 16px;
-  padding: 22px 26px;
-  margin-bottom: 22px;
-  border: 1.5px solid var(--gold);
-  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.15);
+  background: linear-gradient(135deg, var(--gold-pale) 0%, var(--cream-light) 50%, var(--gold-pale) 100%);
+  border-radius: var(--r-lg);
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  border: 1px solid var(--gold);
+  box-shadow: var(--shadow-gold);
+  position: relative;
+  overflow: hidden;
+}
+.vision-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
 }
 .vc-eyebrow {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  color: var(--gold);
-  letter-spacing: 0.12em;
+  color: var(--gold-dark);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+  margin-bottom: 14px;
+  font-family: var(--font-numeric);
+}
+.vc-narrative { 
+  font-size: 15px; 
+  color: var(--charcoal); 
+  line-height: 1.85;
+  letter-spacing: 0.01em;
+}
+.vc-main { 
+  font-family: var(--font-thai);
+  font-size: 18px; 
+  font-weight: 700; 
+  color: var(--navy); 
   margin-bottom: 12px;
+  letter-spacing: 0;
 }
-.vc-narrative { font-size: 15px; color: #2c3e50; line-height: 1.8; }
-.vc-main { font-size: 17px; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
-.vc-line { padding: 4px 0; }
+.vc-line { padding: 5px 0; }
 .vc-pain {
-  margin-top: 14px;
-  padding: 12px 14px;
-  background: white;
-  border-radius: 10px;
+  margin-top: 18px;
+  padding: 14px 18px;
+  background: var(--pearl);
+  border-radius: var(--r-md);
   border-left: 3px solid var(--red);
+  border: 1px solid var(--grey-line);
 }
-.vc-pain-label { font-size: 12px; font-weight: 700; color: var(--grey-text); margin-bottom: 4px; }
-.vc-pain-text { color: #2c3e50; line-height: 1.6; font-size: 14px; }
+.vc-pain-label { 
+  font-size: 11px; 
+  font-weight: 700; 
+  color: var(--grey-text); 
+  margin-bottom: 6px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.vc-pain-text { color: var(--charcoal); line-height: 1.7; font-size: 14px; }
 
 /* 2-column summary */
 .summary-2-cols {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 22px;
+  gap: 18px;
+  margin-bottom: 24px;
 }
 @media (max-width:900px){ .summary-2-cols { grid-template-columns: 1fr; } }
 
@@ -2120,105 +3081,888 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   margin-bottom: 22px;
 }
 
-/* Print styles */
+/* === FULL REPORT (4-page PDF) — only visible when printing === */
+#printContainer { display: none; }
+
 @media print {
-  body { background: white; }
-  .header, .sidebar, .phase-footer, .action-buttons, .toast, button { display: none !important; }
-  .main { padding: 0; }
-  .vision-card, .summary-2-cols, .commit-final, .before-after { page-break-inside: avoid; }
-  .sum-card, .ba-col { box-shadow: none; }
+  @page { 
+    size: A4; 
+    margin: 12mm 14mm; 
+  }
+  body { 
+    background: white !important; 
+    font-size: 10pt;
+    line-height: 1.45;
+    color: #2C2C2C;
+  }
+  
+  /* Hide everything except print container */
+  .topbar, .phase-nav, .phase-footer, .toast,
+  .modal-overlay, .pvd-modal-overlay, .filter-bar,
+  .app, .header, .sidebar { display: none !important; }
+  
+  #printContainer { 
+    display: block !important; 
+    background: white;
+  }
+  
+  /* === Report layout === */
+  .report { font-family: 'IBM Plex Sans Thai', sans-serif; }
+  .rp-page { 
+    page-break-after: always;
+    break-after: page;
+    padding: 0;
+    color: #2C2C2C;
+  }
+  .rp-page:last-child { page-break-after: auto; break-after: auto; }
+  .page-break { page-break-before: always; break-before: page; }
+  
+  /* === Page 1: Cover === */
+  .rp-cover-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 12pt;
+    border-bottom: 1.5pt solid #0A1F3F;
+    margin-bottom: 18pt;
+  }
+  .rp-logo-block {
+    display: flex;
+    gap: 10pt;
+    align-items: center;
+  }
+  .rp-logo {
+    width: 40pt; height: 40pt;
+    background: linear-gradient(135deg, #BFA15F, #9A8043);
+    border-radius: 8pt;
+    color: white;
+    font-size: 22pt;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .rp-brand-title {
+    font-size: 18pt;
+    font-weight: 700;
+    color: #0A1F3F;
+    line-height: 1;
+  }
+  .rp-brand-sub {
+    font-size: 8pt;
+    color: #BFA15F;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    margin-top: 3pt;
+  }
+  .rp-meta { 
+    text-align: right;
+    font-size: 9pt;
+  }
+  .rp-meta-row { 
+    display: flex;
+    justify-content: flex-end;
+    gap: 6pt;
+    padding: 1pt 0;
+  }
+  .rp-meta-row span { color: #7A7368; }
+  .rp-meta-row b { color: #0A1F3F; }
+  
+  .rp-eyebrow {
+    font-size: 8pt;
+    font-weight: 700;
+    color: #BFA15F;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 6pt;
+  }
+  .rp-eyebrow.gold { color: #9A8043; }
+  
+  .rp-client-card {
+    background: linear-gradient(135deg, #FAF7F0, #FFFEFB);
+    border: 1pt solid #DDD7CC;
+    border-left: 3pt solid #0A1F3F;
+    border-radius: 6pt;
+    padding: 14pt 18pt;
+    margin-bottom: 14pt;
+  }
+  .rp-client-name {
+    font-size: 22pt;
+    font-weight: 700;
+    color: #0A1F3F;
+    line-height: 1.2;
+    margin: 0 0 10pt 0;
+  }
+  .rp-client-info {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8pt;
+  }
+  .rp-info-item {
+    display: flex;
+    flex-direction: column;
+    border-left: 1pt solid #DDD7CC;
+    padding-left: 8pt;
+  }
+  .rp-info-item:first-child { border-left: none; padding-left: 0; }
+  .rp-info-item span {
+    font-size: 7.5pt;
+    color: #7A7368;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .rp-info-item b {
+    font-size: 13pt;
+    color: #0A1F3F;
+    margin-top: 2pt;
+  }
+  
+  .rp-vision {
+    background: linear-gradient(135deg, #F5EFDC, #FAF7F0);
+    border: 1pt solid #BFA15F;
+    border-radius: 8pt;
+    padding: 16pt 20pt;
+    margin-bottom: 14pt;
+  }
+  .rp-vision-headline {
+    font-size: 13pt;
+    color: #0A1F3F;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 12pt;
+  }
+  .rp-vision-headline b { color: #9A8043; font-size: 14pt; }
+  .rp-vision-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.4fr;
+    gap: 10pt;
+    margin-bottom: 10pt;
+  }
+  .rp-vision-cell {
+    background: #FFFEFB;
+    border: 0.5pt solid #DDD7CC;
+    border-radius: 5pt;
+    padding: 8pt 10pt;
+  }
+  .rp-vc-icon { font-size: 16pt; line-height: 1; }
+  .rp-vc-label { font-size: 8pt; color: #7A7368; font-weight: 600; margin-top: 3pt; letter-spacing: 0.04em; text-transform: uppercase; }
+  .rp-vc-val { font-size: 14pt; color: #0A1F3F; font-weight: 700; line-height: 1.2; margin-top: 2pt; }
+  .rp-vc-val.small { font-size: 10pt; line-height: 1.4; font-weight: 600; }
+  .rp-vc-sub { font-size: 8pt; color: #7A7368; margin-top: 2pt; }
+  
+  .rp-pain {
+    background: #FFFEFB;
+    border-left: 2pt solid #A93226;
+    border-radius: 4pt;
+    padding: 8pt 12pt;
+  }
+  .rp-pain-label {
+    font-size: 8pt;
+    font-weight: 700;
+    color: #7A7368;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 3pt;
+  }
+  .rp-pain-text { font-size: 10pt; color: #2C2C2C; line-height: 1.5; }
+  
+  .rp-toc {
+    background: #F5F2ED;
+    border-radius: 6pt;
+    padding: 12pt 16pt;
+    margin-bottom: 16pt;
+  }
+  .rp-toc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6pt;
+  }
+  .rp-toc-item {
+    font-size: 9pt;
+    color: #2C2C2C;
+    padding: 3pt 0;
+  }
+  .rp-toc-item b { color: #BFA15F; font-weight: 700; margin-right: 4pt; }
+  
+  /* === Pages 2-4 === */
+  .rp-page-header {
+    border-bottom: 1pt solid #DDD7CC;
+    padding-bottom: 8pt;
+    margin-bottom: 14pt;
+  }
+  .rp-page-header h2 {
+    font-size: 17pt;
+    color: #0A1F3F;
+    font-weight: 700;
+    margin: 0 0 3pt 0;
+  }
+  .rp-page-header p {
+    font-size: 9pt;
+    color: #7A7368;
+    margin: 0;
+  }
+  
+  .rp-section {
+    margin-bottom: 12pt;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .rp-section-head {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #0A1F3F;
+    padding-bottom: 5pt;
+    margin-bottom: 8pt;
+    border-bottom: 0.5pt solid #DDD7CC;
+  }
+  
+  /* === Cashflow grid (page 2) === */
+  .rp-cashflow-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8pt;
+  }
+  .rp-cf-col {
+    background: #FFFEFB;
+    border: 0.5pt solid #DDD7CC;
+    border-radius: 5pt;
+    padding: 10pt 12pt;
+  }
+  .rp-cf-col.disposable {
+    background: linear-gradient(135deg, #F5EFDC, #FAF7F0);
+    border-color: #BFA15F;
+  }
+  .rp-cf-title {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: #0A1F3F;
+    margin-bottom: 6pt;
+    padding-bottom: 4pt;
+    border-bottom: 0.5pt dashed #DDD7CC;
+  }
+  .rp-cf-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 2pt 0;
+    font-size: 9pt;
+  }
+  .rp-cf-empty {
+    font-size: 8.5pt;
+    color: #7A7368;
+    font-style: italic;
+    padding: 4pt 0;
+  }
+  .rp-cf-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 5pt 0 0;
+    margin-top: 5pt;
+    border-top: 0.5pt solid #DDD7CC;
+    font-size: 10pt;
+    font-weight: 700;
+  }
+  .rp-cf-total b.green { color: #1F5933; }
+  .rp-cf-total b.red { color: #A93226; }
+  .rp-cf-big {
+    font-size: 18pt;
+    font-weight: 700;
+    color: #9A8043;
+    line-height: 1.1;
+    margin-top: 4pt;
+  }
+  .rp-cf-sub {
+    font-size: 9pt;
+    color: #7A7368;
+    margin-top: 2pt;
+  }
+  .rp-cf-note {
+    font-size: 7.5pt;
+    color: #7A7368;
+    margin-top: 6pt;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  
+  /* === Tables === */
+  .rp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+  }
+  .rp-table thead th {
+    font-size: 8pt;
+    color: #7A7368;
+    font-weight: 700;
+    text-align: left;
+    padding: 5pt 8pt;
+    border-bottom: 1pt solid #DDD7CC;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .rp-table tbody td {
+    padding: 5pt 8pt;
+    border-bottom: 0.5pt solid #EBE6DA;
+    vertical-align: middle;
+  }
+  .rp-table tbody tr:last-child td { border-bottom: none; }
+  .rp-table .rp-num { text-align: right; font-feature-settings: "tnum" 1; }
+  .rp-table .small { font-size: 8.5pt; color: #7A7368; }
+  .rp-table .gold { color: #9A8043; }
+  .rp-table .green { color: #1F5933; }
+  .rp-table .red { color: #A93226; }
+  .rp-table .rp-icon-cell { text-align: center; width: 20pt; font-size: 14pt; }
+  .rp-table .rp-asset-name { font-weight: 600; color: #0A1F3F; }
+  .rp-table .rp-asset-type { font-size: 8pt; color: #7A7368; margin-top: 1pt; }
+  .rp-table-total td {
+    background: #F5F2ED;
+    border-top: 1pt solid #BFA15F !important;
+    border-bottom: none !important;
+    font-size: 10pt;
+  }
+  
+  .rp-empty {
+    background: #F5F2ED;
+    padding: 12pt;
+    text-align: center;
+    color: #7A7368;
+    font-size: 9pt;
+    font-style: italic;
+    border-radius: 4pt;
+  }
+  
+  /* === Page 3: Plan grid === */
+  .rp-plan-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10pt;
+    margin-bottom: 12pt;
+  }
+  .rp-plan-col {
+    border-radius: 6pt;
+    padding: 12pt 14pt;
+    border: 1pt solid #DDD7CC;
+  }
+  .rp-plan-col.rp-retire {
+    background: linear-gradient(135deg, #F5EFDC, #FAF7F0);
+    border-color: #BFA15F;
+  }
+  .rp-plan-col.rp-protect {
+    background: linear-gradient(135deg, #E8EEF6, #FAF7F0);
+    border-color: #0A1F3F;
+  }
+  .rp-plan-eyebrow {
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #7A7368;
+    margin-bottom: 4pt;
+  }
+  .rp-plan-title {
+    font-size: 14pt;
+    font-weight: 700;
+    color: #0A1F3F;
+    margin-bottom: 10pt;
+    padding-bottom: 5pt;
+    border-bottom: 0.5pt solid #DDD7CC;
+  }
+  .rp-plan-table {
+    width: 100%;
+    font-size: 9pt;
+    border-collapse: collapse;
+  }
+  .rp-plan-table td {
+    padding: 4pt 0;
+    vertical-align: middle;
+  }
+  .rp-plan-table td:last-child { text-align: right; font-feature-settings: "tnum" 1; }
+  .rp-plan-table tr.divider td { border-top: 0.5pt solid #DDD7CC; padding-top: 6pt; }
+  .rp-plan-table tr.highlight td {
+    background: #FFFEFB;
+    font-size: 11pt;
+    padding: 6pt 8pt;
+    margin: 4pt -8pt;
+  }
+  .rp-plan-table tr.highlight td:first-child { border-top-left-radius: 4pt; border-bottom-left-radius: 4pt; }
+  .rp-plan-table tr.highlight td:last-child { border-top-right-radius: 4pt; border-bottom-right-radius: 4pt; }
+  .rp-plan-table tr.sub-row td { font-size: 8pt; color: #7A7368; padding: 1pt 0 4pt; }
+  .rp-plan-table .rp-num { text-align: right; }
+  .rp-plan-table .green { color: #1F5933; }
+  .rp-plan-table .red { color: #A93226; }
+  .rp-plan-table .gold { color: #9A8043; }
+  .rp-plan-table .small { font-size: 8pt; color: #7A7368; }
+  
+  .rp-status {
+    margin-top: 8pt;
+    padding: 6pt 10pt;
+    border-radius: 4pt;
+    font-size: 9.5pt;
+    font-weight: 700;
+    text-align: center;
+  }
+  .rp-status.safe { background: #E8F1EC; color: #1F5933; }
+  .rp-status.warning { background: #F5EBDD; color: #B7651D; }
+  
+  /* === Commitment === */
+  .rp-commit { 
+    background: #FAF7F0;
+    border: 1pt solid #BFA15F;
+    border-radius: 6pt;
+    padding: 12pt 16pt;
+  }
+  .rp-commit .rp-section-head { border-bottom-color: #BFA15F; }
+  .rp-commit-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6pt;
+    margin: 8pt 0;
+  }
+  .rp-commit-item {
+    flex: 1;
+    background: #FFFEFB;
+    border: 0.5pt solid #DDD7CC;
+    border-radius: 4pt;
+    padding: 8pt;
+    text-align: center;
+  }
+  .rp-commit-item.rp-commit-total {
+    background: linear-gradient(135deg, #0A1F3F, #051630);
+    color: white;
+    border-color: #BFA15F;
+    flex: 1.4;
+  }
+  .rp-c-label {
+    font-size: 7.5pt;
+    color: #7A7368;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .rp-commit-item.rp-commit-total .rp-c-label { color: rgba(255,255,255,0.7); }
+  .rp-c-val {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #0A1F3F;
+    margin-top: 2pt;
+    font-feature-settings: "tnum" 1;
+  }
+  .rp-c-val.gold { color: #BFA15F; font-size: 16pt; }
+  .rp-c-sub { font-size: 8pt; opacity: 0.8; margin-top: 1pt; }
+  .rp-commit-op {
+    font-size: 16pt;
+    color: #BFA15F;
+    font-weight: 700;
+  }
+  .rp-commit-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6pt 10pt;
+    background: #FFFEFB;
+    border-radius: 4pt;
+    border: 0.5pt solid #DDD7CC;
+    font-size: 9pt;
+  }
+  .rp-status-pill {
+    padding: 3pt 10pt;
+    border-radius: 99pt;
+    font-size: 8.5pt;
+    font-weight: 700;
+  }
+  .rp-status-pill.green { background: #E8F1EC; color: #1F5933; }
+  .rp-status-pill.gold { background: #F5EFDC; color: #9A8043; }
+  .rp-status-pill.red { background: #F5E6E4; color: #A93226; }
+  
+  /* === Before-After === */
+  .rp-ba-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+  }
+  .rp-ba-table th {
+    background: #F5F2ED;
+    padding: 6pt 8pt;
+    font-size: 9pt;
+    font-weight: 700;
+    color: #0A1F3F;
+    text-align: left;
+    border: 0.5pt solid #DDD7CC;
+  }
+  .rp-ba-table th:nth-child(2) { background: #FFFEFB; color: #7A7368; }
+  .rp-ba-table th:nth-child(3) { background: #F5EFDC; color: #9A8043; }
+  .rp-ba-table td {
+    padding: 5pt 8pt;
+    border: 0.5pt solid #DDD7CC;
+    font-size: 9pt;
+  }
+  .rp-ba-table td.rp-num { text-align: right; font-feature-settings: "tnum" 1; }
+  .rp-ba-table td.green { color: #1F5933; }
+  .rp-ba-table td.red { color: #A93226; }
+  .rp-ba-table td.gold { color: #9A8043; }
+  .rp-ba-table td.small { font-size: 8pt; color: #7A7368; }
+  
+  /* === Page 4: UL + Timeline === */
+  .rp-ul {
+    background: linear-gradient(135deg, #E8EEF6, #F5EFDC);
+    border: 1pt solid #BFA15F;
+    border-radius: 8pt;
+    padding: 14pt 18pt;
+  }
+  .rp-ul-tagline {
+    font-size: 11pt;
+    color: #0A1F3F;
+    font-weight: 600;
+    margin-bottom: 10pt;
+  }
+  .rp-ul-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10pt;
+    margin-bottom: 10pt;
+  }
+  .rp-ul-opt {
+    background: #FFFEFB;
+    border: 0.5pt solid #DDD7CC;
+    border-radius: 5pt;
+    padding: 10pt 12pt;
+  }
+  .rp-ul-opt-icon { font-size: 18pt; }
+  .rp-ul-opt-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #0A1F3F;
+    margin: 4pt 0 6pt;
+  }
+  .rp-ul-opt-detail {
+    font-size: 9.5pt;
+    color: #2C2C2C;
+    line-height: 1.6;
+  }
+  .rp-nav-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 4pt;
+  }
+  .rp-nav-table td {
+    padding: 2pt 4pt;
+    font-size: 9pt;
+    border-bottom: 0.5pt dashed #DDD7CC;
+  }
+  .rp-nav-table tr:last-child td { border-bottom: none; }
+  .rp-nav-table td:last-child { text-align: right; font-feature-settings: "tnum" 1; }
+  .rp-ul-summary {
+    background: #FFFEFB;
+    border: 0.5pt solid #DDD7CC;
+    border-radius: 4pt;
+    padding: 8pt 10pt;
+    font-size: 9pt;
+    color: #0A1F3F;
+    line-height: 1.6;
+  }
+  .rp-ul-summary b { color: #9A8043; font-feature-settings: "tnum" 1; }
+  .rp-ul-summary b.green { color: #1F5933; }
+  .rp-disclaimer {
+    margin-top: 6pt;
+    font-size: 7.5pt;
+    color: #7A7368;
+    line-height: 1.5;
+    padding: 5pt 8pt;
+    background: #F5EFDC;
+    border-left: 2pt solid #BFA15F;
+    border-radius: 3pt;
+  }
+  
+  /* === Timeline === */
+  .rp-timeline {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 4pt;
+    align-items: center;
+    margin: 8pt 0;
+  }
+  .rp-tl-checkpoint {
+    text-align: center;
+    background: #FFFEFB;
+    border: 0.5pt solid #DDD7CC;
+    border-radius: 5pt;
+    padding: 8pt;
+  }
+  .rp-tl-checkpoint.highlight {
+    background: linear-gradient(135deg, #F5EFDC, #FAF7F0);
+    border-color: #BFA15F;
+  }
+  .rp-tl-circle {
+    width: 36pt; height: 36pt;
+    border-radius: 50%;
+    background: #FFFEFB;
+    border: 1.5pt solid #0A1F3F;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14pt;
+    font-weight: 700;
+    color: #0A1F3F;
+  }
+  .rp-tl-circle.gold { 
+    background: linear-gradient(135deg, #BFA15F, #9A8043);
+    color: white;
+    border-color: #9A8043;
+  }
+  .rp-tl-label {
+    font-size: 8pt;
+    color: #7A7368;
+    font-weight: 600;
+    margin-top: 4pt;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .rp-tl-info {
+    font-size: 9pt;
+    color: #2C2C2C;
+    margin-top: 4pt;
+    line-height: 1.4;
+  }
+  .rp-tl-info b { color: #0A1F3F; font-size: 10pt; }
+  .rp-tl-info .small { color: #7A7368; font-size: 8pt; }
+  .rp-tl-bar {
+    height: 2pt;
+    background: linear-gradient(90deg, #0A1F3F, #BFA15F);
+    position: relative;
+    margin: 0 4pt;
+  }
+  .rp-tl-bar.gold { background: linear-gradient(90deg, #BFA15F, #9A8043); }
+  .rp-tl-bar span {
+    position: absolute;
+    top: -16pt;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #FFFEFB;
+    border: 0.5pt solid #BFA15F;
+    border-radius: 99pt;
+    padding: 2pt 8pt;
+    font-size: 7.5pt;
+    color: #0A1F3F;
+    font-weight: 600;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+  
+  /* === Action steps === */
+  .rp-action {
+    background: #F5F2ED;
+    border-radius: 6pt;
+    padding: 12pt 16pt;
+  }
+  .rp-steps {
+    margin: 0;
+    padding-left: 18pt;
+    font-size: 10pt;
+    line-height: 1.8;
+    color: #2C2C2C;
+  }
+  .rp-steps li { margin-bottom: 4pt; }
+  .rp-steps li b { color: #0A1F3F; }
+  
+  /* === Contact === */
+  .rp-contact {
+    background: linear-gradient(135deg, #0A1F3F, #051630);
+    color: white;
+    border-radius: 8pt;
+    padding: 14pt 20pt;
+    margin-top: 12pt;
+    border: 1pt solid #BFA15F;
+  }
+  .rp-contact-eyebrow {
+    font-size: 8pt;
+    color: #BFA15F;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .rp-contact-name {
+    font-size: 16pt;
+    font-weight: 700;
+    margin: 4pt 0;
+    color: white;
+  }
+  .rp-contact-info {
+    font-size: 10pt;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 8pt;
+  }
+  .rp-contact-note {
+    font-size: 9pt;
+    color: #BFA15F;
+    font-style: italic;
+    border-top: 0.5pt solid rgba(191,161,95,0.3);
+    padding-top: 6pt;
+    margin-top: 4pt;
+  }
+  
+  /* === Footer === */
+  .rp-foot {
+    position: absolute;
+    bottom: 8mm;
+    left: 14mm;
+    right: 14mm;
+    display: flex;
+    justify-content: space-between;
+    font-size: 7.5pt;
+    color: #7A7368;
+    padding-top: 6pt;
+    border-top: 0.5pt solid #DDD7CC;
+    letter-spacing: 0.04em;
+  }
+  .rp-page { position: relative; min-height: calc(297mm - 24mm - 16mm); }
 }
 
 /* === UL Insight (Phase 7 · Infinite Wealth) === */
 .ul-insight {
-  background: linear-gradient(135deg, #f0f7ff 0%, #fff8e1 100%);
-  border: 2px solid var(--gold);
-  border-radius: 14px;
-  padding: 22px 26px;
-  margin-bottom: 22px;
-  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.18);
+  background: linear-gradient(135deg, var(--navy-pale) 0%, var(--gold-pale) 100%);
+  border: 1px solid var(--gold);
+  border-radius: var(--r-lg);
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-gold);
+  position: relative;
+  overflow: hidden;
+}
+.ul-insight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
 }
 .uli-eyebrow {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  color: var(--gold);
-  letter-spacing: 0.12em;
+  color: var(--gold-dark);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  font-family: var(--font-numeric);
 }
 .uli-title {
-  font-size: 18px;
-  font-weight: 800;
+  font-family: var(--font-thai);
+  font-size: 20px;
+  font-weight: 700;
   color: var(--navy);
-  margin-bottom: 18px;
+  margin-bottom: 22px;
+  letter-spacing: 0;
+  line-height: 1.4;
 }
 .uli-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-bottom: 18px;
+  gap: 16px;
+  margin-bottom: 22px;
 }
 @media (max-width:700px){ .uli-grid { grid-template-columns: 1fr; } }
 .uli-option {
-  background: white;
-  border-radius: 12px;
-  padding: 16px 18px;
-  border: 1.5px solid var(--grey-line);
+  background: var(--pearl);
+  border-radius: var(--r-md);
+  padding: 20px 22px;
+  border: 1px solid var(--grey-line);
+  box-shadow: var(--shadow-xs);
+  transition: all 0.2s;
 }
-.uli-icon { font-size: 26px; margin-bottom: 6px; }
-.uli-opt-title { font-size: 15px; font-weight: 800; color: var(--navy); margin-bottom: 10px; }
-.uli-opt-detail { font-size: 14px; color: #2c3e50; line-height: 1.6; }
-.uli-sub { font-size: 12px; color: var(--grey-text); display: block; margin-top: 4px; }
+.uli-option:hover {
+  border-color: var(--gold);
+  box-shadow: var(--shadow-sm);
+}
+.uli-icon { font-size: 28px; margin-bottom: 8px; }
+.uli-opt-title { 
+  font-family: var(--font-thai);
+  font-size: 15px; 
+  font-weight: 700; 
+  color: var(--navy); 
+  margin-bottom: 12px;
+  letter-spacing: 0;
+}
+.uli-opt-detail { 
+  font-size: 14px; 
+  color: var(--charcoal); 
+  line-height: 1.7;
+}
+.uli-sub { 
+  font-size: 12px; 
+  color: var(--grey-text); 
+  display: block; 
+  margin-top: 6px;
+  letter-spacing: 0.02em;
+}
 
-.uli-nav-rows { margin-top: 8px; }
+.uli-nav-rows { margin-top: 10px; }
 .uli-nav-row {
   display: flex;
   justify-content: space-between;
-  padding: 5px 0;
+  padding: 7px 0;
   font-size: 13px;
-  border-bottom: 1px dashed #f0f4f8;
+  border-bottom: 1px dashed var(--grey-line-soft);
+  letter-spacing: 0.02em;
 }
 .uli-nav-row:last-child { border-bottom: none; }
+.uli-nav-row b {
+  font-family: var(--font-numeric);
+  font-feature-settings: "tnum" 1;
+  font-weight: 700;
+}
 .uli-nav-row.low b { color: var(--orange); }
 .uli-nav-row.mid b { color: var(--navy); }
 .uli-nav-row.high b { color: var(--green-dark); }
 
 .uli-summary {
-  background: white;
-  border-radius: 10px;
-  padding: 12px 16px;
+  background: var(--pearl);
+  border-radius: var(--r-md);
+  padding: 16px 20px;
   border: 1px solid var(--grey-line);
+  box-shadow: var(--shadow-xs);
 }
 .uli-sum-row {
   display: flex;
   justify-content: space-between;
-  padding: 5px 0;
+  padding: 6px 0;
   font-size: 14px;
 }
-.uli-sum-row.green { background: #e8f8ef; padding: 8px 12px; border-radius: 6px; margin: 4px -8px; font-weight: 700; }
+.uli-sum-row b {
+  font-family: var(--font-numeric);
+  font-feature-settings: "tnum" 1;
+  font-weight: 700;
+}
+.uli-sum-row.green { 
+  background: var(--green-pale); 
+  padding: 10px 14px; 
+  border-radius: var(--r-sm); 
+  margin: 6px -10px; 
+  font-weight: 700;
+  border: 1px solid rgba(45,125,74,0.15);
+}
 .uli-sum-row.green b { color: var(--green-dark); }
 
 .uli-disclaimer {
-  margin-top: 12px;
-  font-size: 11.5px;
+  margin-top: 14px;
+  font-size: 11px;
   color: var(--grey-text);
-  line-height: 1.5;
-  padding: 8px 12px;
-  background: #fff8e1;
-  border-radius: 6px;
+  line-height: 1.6;
+  padding: 10px 14px;
+  background: var(--cream);
+  border-radius: var(--r-sm);
   border-left: 3px solid var(--gold);
+  letter-spacing: 0.02em;
 }
 
 /* === WEALTH SUMMARY (Phase 3 footer) === */
 .wealth-summary {
-  background: linear-gradient(180deg, #fafbfc 0%, white 100%);
-  border-radius: 16px;
-  padding: 24px;
-  margin-top: 20px;
-  border: 1.5px solid var(--grey-line);
+  background: linear-gradient(180deg, var(--cream-light) 0%, var(--pearl) 100%);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin-top: 24px;
+  border: 1px solid var(--grey-line);
   box-shadow: var(--shadow-sm);
 }
-.ws-header { margin-bottom: 18px; }
+.ws-header { margin-bottom: 20px; }
 .ws-eyebrow {
   font-size: 11px;
   font-weight: 700;
@@ -2483,23 +4227,33 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   position: relative;
 }
 .timeline-circle {
-  width: 90px; height: 90px;
+  width: 92px; height: 92px;
   border-radius: 50%;
-  background: white;
-  border: 3px solid var(--navy);
+  background: linear-gradient(180deg, var(--pearl) 0%, var(--cream-light) 100%);
+  border: 2px solid var(--navy);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 26px;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
   color: var(--navy);
+  box-shadow: var(--shadow-sm), inset 0 1px 2px rgba(255,255,255,0.5);
+  letter-spacing: -0.02em;
 }
-.timeline-circle .label { font-size: 12px; color: var(--grey-text); font-weight: 500; }
+.timeline-circle .label { 
+  font-family: var(--font-thai);
+  font-size: 11px; 
+  color: var(--grey-text); 
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
 .timeline-bar {
   position: relative;
-  height: 4px;
-  background: var(--navy);
+  height: 2px;
+  background: linear-gradient(90deg, var(--navy) 0%, var(--gold) 100%);
   min-width: 100px;
 }
 .timeline-bar .bar-label {
@@ -2507,20 +4261,22 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   top: -32px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 14px;
+  font-size: 12px;
   color: var(--navy);
   font-weight: 600;
   white-space: nowrap;
-  background: white;
-  padding: 4px 10px;
+  background: var(--pearl);
+  padding: 5px 12px;
   border-radius: 99px;
-  border: 1.5px solid var(--navy);
+  border: 1px solid var(--gold);
+  box-shadow: var(--shadow-xs);
+  letter-spacing: 0.02em;
 }
 .timeline-box {
-  background: white;
-  border: 2px solid var(--navy);
-  border-radius: 10px;
-  padding: 14px 18px;
+  background: var(--pearl);
+  border: 1px solid var(--navy);
+  border-radius: var(--r-md);
+  padding: 16px 20px;
   text-align: center;
   min-width: 180px;
   margin-top: 8px;
@@ -2529,34 +4285,41 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   align-items: center;
   justify-content: center;
   gap: 4px;
+  box-shadow: var(--shadow-xs);
 }
 .timeline-box.red {
-  background: var(--red);
+  background: linear-gradient(180deg, var(--red) 0%, #8B2A1F 100%);
   color: white;
   border-color: var(--red);
+  box-shadow: var(--shadow-sm);
 }
 .timeline-box.gold {
-  background: var(--gold);
+  background: linear-gradient(180deg, var(--gold) 0%, var(--gold-dark) 100%);
   color: var(--navy);
-  border-color: var(--gold);
+  border-color: var(--gold-dark);
+  box-shadow: var(--shadow-gold);
 }
 .timeline-box .b-label { 
-  font-size: 12px; 
+  font-size: 11px; 
   opacity: 0.9; 
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   line-height: 1.2;
 }
 .timeline-box .b-value { 
-  font-size: 24px; 
-  font-weight: 800; 
+  font-family: var(--font-numeric);
+  font-size: 26px; 
+  font-weight: 700; 
   line-height: 1.1;
-  font-feature-settings: "tnum";
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.02em;
 }
 .timeline-box .b-sub { 
   font-size: 12px; 
   opacity: 0.9; 
   line-height: 1.3;
+  letter-spacing: 0.02em;
 }
 .timeline-stack { display: flex; flex-direction: column; gap: 10px; align-items: center; }
 
@@ -2767,7 +4530,9 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(13,31,60,0.6);
+  background: rgba(10,31,63,0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2775,26 +4540,49 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   padding: 20px;
 }
 .modal {
-  background: white;
-  border-radius: 16px;
-  padding: 28px;
-  max-width: 460px;
+  background: var(--pearl);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  max-width: 480px;
   width: 100%;
   box-shadow: var(--shadow-lg);
+  border: 1px solid var(--gold);
+  position: relative;
+  overflow: hidden;
 }
-.modal h3 { color: var(--navy); margin-bottom: 10px; font-size: 22px; }
-.modal p { color: #555; margin-bottom: 18px; font-size: 15px; }
+.modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+}
+.modal h3 { 
+  font-family: var(--font-thai);
+  color: var(--navy); 
+  margin-bottom: 12px; 
+  font-size: 22px;
+  font-weight: 700;
+}
+.modal p { 
+  color: var(--charcoal-light); 
+  margin-bottom: 22px; 
+  font-size: 14px;
+  line-height: 1.7;
+}
 .modal .actions { display: flex; gap: 10px; justify-content: flex-end; }
 
 .toast {
   position: fixed;
-  bottom: 24px;
+  bottom: 28px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--navy);
+  background: linear-gradient(180deg, var(--navy) 0%, #051630 100%);
   color: white;
   padding: 14px 28px;
-  border-radius: 12px;
+  border-radius: var(--r-md);
   box-shadow: var(--shadow-lg);
   font-size: 15px;
   z-index: 999;
@@ -3105,9 +4893,26 @@ function calcRetirement(c) {
   const requiredCorpus = netAnnualNeeded / withdrawalRate;
   
   // Step 4: สินทรัพย์ที่เตรียมไว้แล้ว (ดึงแล้วเท่านั้น)
-  const assetsAmount = g.assetsPulled ? (g.assetsAmount || 0) : 0;
-  // Future value ของสินทรัพย์ที่มี
-  const fvOfAssets = assetsAmount * Math.pow(1 + returnRate, yearsToRetire);
+  // ใช้ per-asset return + DCA + PVD calc
+  let assetsAmount = 0;
+  let fvOfAssets = 0;
+  
+  if (g.assetsPulled) {
+    // ถ้า assets ใส่รายละเอียดมาแล้ว — ใช้ per-asset FV
+    if (c.assets && c.assets.length > 0) {
+      c.assets.forEach(a => {
+        if (a.useForRetirement === false) return;
+        const value = Number(a.value) || 0;
+        assetsAmount += value;
+        fvOfAssets += calcAssetFV(a, yearsToRetire);
+      });
+    } else {
+      // Fallback: ใช้ assetsAmount จาก goal (legacy)
+      assetsAmount = g.assetsAmount || 0;
+      fvOfAssets = assetsAmount * Math.pow(1 + returnRate, yearsToRetire);
+    }
+  }
+  
   const gap = Math.max(0, requiredCorpus - fvOfAssets);
   
   // Step 5: PMT - เงินที่ต้องเก็บเพิ่มต่อปี
@@ -3189,8 +4994,12 @@ function openCustomer(id) {
 }
 
 function goToPhase(n) {
-  currentPhase = n;
   const c = getActive();
+  // Auto-mark current phase as done when navigating away (forward only)
+  if (c && n > currentPhase && !c.phasesDone.includes(currentPhase)) {
+    c.phasesDone.push(currentPhase);
+  }
+  currentPhase = n;
   if (c) {
     c.currentPhase = n;
     saveAndRefresh();
@@ -3549,7 +5358,6 @@ function renderCustomerBanner(c) {
       </div>
       <div class="right-actions">
         <button onclick="goToDashboard()">← Dashboard</button>
-        <button onclick="exportCustomerJSON('${c.id}')">📥 Export</button>
       </div>
     </div>`;
 }
@@ -4416,14 +6224,20 @@ function renderPhase3(c) {
       
       <div class="quick-add-row">
         <span class="quick-add-label">เพิ่มเร็ว:</span>
-        <button class="quick-pill" onclick="quickAddAsset('เงินฝาก / เงินสด')">💵 เงินฝาก/สด</button>
-        <button class="quick-pill" onclick="quickAddAsset('กองทุนรวม')">📈 กองทุนรวม</button>
-        <button class="quick-pill" onclick="quickAddAsset('หุ้น')">📊 หุ้น</button>
-        <button class="quick-pill" onclick="quickAddAsset('LTF / RMF / SSF')">🎯 LTF/RMF/SSF</button>
-        <button class="quick-pill" onclick="quickAddAsset('PVD / กบข.')">🏛️ PVD/กบข.</button>
-        <button class="quick-pill" onclick="quickAddAsset('บ้าน / ที่ดิน')">🏠 บ้าน/ที่ดิน</button>
-        <button class="quick-pill" onclick="quickAddAsset('ทองคำ')">🥇 ทอง</button>
-        <button class="quick-pill" onclick="quickAddAsset('ประกันสะสมทรัพย์')">🛡️ ประกันออม</button>
+        <button class="quick-pill" onclick="quickAddAsset('cash', 'เงินฝาก / เงินสด')">🏦 เงินฝาก/สด</button>
+        <button class="quick-pill" onclick="quickAddAsset('fund', 'กองทุนรวม')">📈 กองทุนรวม</button>
+        <button class="quick-pill" onclick="quickAddAsset('stock', 'หุ้น')">📊 หุ้น</button>
+        <button class="quick-pill" onclick="quickAddAsset('ssf', 'SSF')">🌱 SSF</button>
+        <button class="quick-pill" onclick="quickAddAsset('rmf', 'RMF')">🌳 RMF</button>
+        <button class="quick-pill" onclick="quickAddAsset('thai_esg', 'Thai ESG')">🌿 Thai ESG</button>
+        <button class="quick-pill" onclick="quickAddAsset('thai_esgx', 'Thai ESGX')">🌿 Thai ESGX</button>
+        <button class="quick-pill" onclick="quickAddAsset('pvd', 'PVD')">🏢 PVD</button>
+        <button class="quick-pill" onclick="quickAddAsset('gpf', 'กบข.')">🏛️ กบข.</button>
+        <button class="quick-pill" onclick="quickAddAsset('realestate', 'บ้าน')">🏠 บ้าน</button>
+        <button class="quick-pill" onclick="quickAddAsset('realestate', 'ที่ดิน')">🌳 ที่ดิน</button>
+        <button class="quick-pill" onclick="quickAddAsset('gold', 'ทองคำ')">💎 ทอง</button>
+        <button class="quick-pill" onclick="quickAddAsset('insurance', 'ประกันสะสมทรัพย์')">🛡️ ประกันออม</button>
+        <button class="quick-pill" onclick="quickAddAsset('bond', 'หุ้นกู้/ตราสารหนี้')">📜 หุ้นกู้</button>
       </div>
       
       <div id="assetsList">${renderAssetsList(c)}</div>
@@ -4581,42 +6395,797 @@ function renderWealthSummary(c) {
   `;
 }
 
-function quickAddAsset(name) {
+/* ============================================================
+   PVD / GPF Modal — เครื่องคำนวณ
+   ============================================================ */
+
+function openPVDModal(idx) {
+  const c = getActive();
+  const a = c.assets[idx];
+  if (!a) return;
+  if (!a.pvd) a.pvd = { salaryBase: 0, salaryGrowth: 5, employeePct: 5, employerPct: 5 };
+  const pvd = a.pvd;
+  const yearsToRetire = Math.max(1, (c.goal?.retireAge||60) - (c.goal?.currentAge||30));
+  const years = a.years ?? yearsToRetire;
+  
+  const modal = document.createElement('div');
+  modal.className = 'modal-overlay pvd-modal-overlay';
+  modal.id = 'pvdModal';
+  modal.innerHTML = `
+    <div class="pvd-modal">
+      <div class="pvd-modal-head">
+        <div>
+          <div class="pvd-modal-eyebrow">🏢 PVD CALCULATOR</div>
+          <h3>กองทุนสำรองเลี้ยงชีพ (Provident Fund)</h3>
+          <p class="pvd-modal-sub">นายจ้างสมทบให้ฟรี — คำนวณยอดสะสม + ผลตอบแทน + เงินสมทบจากนายจ้าง</p>
+        </div>
+        <button class="pvd-modal-close" onclick="closePVDModal()">×</button>
+      </div>
+      
+      <div class="pvd-modal-body">
+        <div class="pvd-form-grid">
+          <div class="pvd-field">
+            <label>เงินในกองทุนที่มีตอนนี้</label>
+            <div class="asset-input-suffix">
+              <input type="number" id="pvdM_value" value="${a.value||''}" placeholder="0">
+              <span>฿</span>
+            </div>
+          </div>
+          <div class="pvd-field">
+            <label>ฐานเงินเดือน (ปัจจุบัน)</label>
+            <div class="asset-input-suffix">
+              <input type="number" id="pvdM_salaryBase" value="${pvd.salaryBase||''}" placeholder="0">
+              <span>฿</span>
+            </div>
+          </div>
+          <div class="pvd-field">
+            <label>เงินเดือนเพิ่มต่อปี</label>
+            <div class="asset-input-suffix">
+              <input type="number" step="0.5" id="pvdM_salaryGrowth" value="${pvd.salaryGrowth ?? 5}">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="pvd-field">
+            <label>ส่วนของลูกจ้าง</label>
+            <div class="asset-input-suffix">
+              <input type="number" step="0.5" id="pvdM_employeePct" value="${pvd.employeePct ?? 5}">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="pvd-field">
+            <label>นายจ้างสมทบ</label>
+            <div class="asset-input-suffix">
+              <input type="number" step="0.5" id="pvdM_employerPct" value="${pvd.employerPct ?? 5}">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="pvd-field">
+            <label>ผลตอบแทน/ปี</label>
+            <div class="asset-input-suffix">
+              <input type="number" step="0.5" id="pvdM_returnRate" value="${a.returnRate ?? 5}">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="pvd-field full-width">
+            <label>เกษียณภายใน</label>
+            <div class="asset-input-suffix">
+              <input type="number" step="1" min="1" max="50" id="pvdM_years" value="${years}">
+              <span>ปี</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="pvd-modal-results" id="pvdResults">
+          <!-- Results computed dynamically -->
+        </div>
+      </div>
+      
+      <div class="pvd-modal-foot">
+        <button class="btn-secondary" onclick="closePVDModal()">ยกเลิก</button>
+        <button class="btn-primary" onclick="savePVDModal(${idx})">💾 บันทึก</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  
+  // Setup live calc
+  ['pvdM_value', 'pvdM_salaryBase', 'pvdM_salaryGrowth', 'pvdM_employeePct', 'pvdM_employerPct', 'pvdM_returnRate', 'pvdM_years'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', updatePVDModalResults);
+  });
+  updatePVDModalResults();
+}
+
+function updatePVDModalResults() {
+  const value = Number(document.getElementById('pvdM_value')?.value) || 0;
+  const salaryBase = Number(document.getElementById('pvdM_salaryBase')?.value) || 0;
+  const salaryGrowth = (Number(document.getElementById('pvdM_salaryGrowth')?.value) || 0) / 100;
+  const employeePct = (Number(document.getElementById('pvdM_employeePct')?.value) || 0) / 100;
+  const employerPct = (Number(document.getElementById('pvdM_employerPct')?.value) || 0) / 100;
+  const returnRate = (Number(document.getElementById('pvdM_returnRate')?.value) || 0) / 100;
+  const years = Number(document.getElementById('pvdM_years')?.value) || 1;
+  
+  // Year-by-year calc — track 4 components
+  let bal = value;
+  let salary = salaryBase;
+  let totalEmployeeContrib = 0;
+  let totalEmployerContrib = 0;
+  let totalReturn = 0;
+  
+  for (let yr = 1; yr <= years; yr++) {
+    const empContrib = salary * 12 * employeePct;
+    const erContrib = salary * 12 * employerPct;
+    const interestEarned = bal * returnRate;
+    
+    totalEmployeeContrib += empContrib;
+    totalEmployerContrib += erContrib;
+    totalReturn += interestEarned;
+    
+    bal = bal * (1 + returnRate) + empContrib + erContrib;
+    salary = salary * (1 + salaryGrowth);
+  }
+  
+  const totalAtRetire = Math.round(bal);
+  
+  const results = document.getElementById('pvdResults');
+  if (results) {
+    results.innerHTML = `
+      <div class="pvd-results-title">📊 ผลการคำนวณ ณ ปีเกษียณ</div>
+      <div class="pvd-results-grid">
+        <div class="pvd-result-item">
+          <div class="pvd-result-label">เงินเริ่มต้น</div>
+          <div class="pvd-result-val">${fmt(value)} ฿</div>
+        </div>
+        <div class="pvd-result-item">
+          <div class="pvd-result-label">เงินจากส่วนของลูกจ้าง</div>
+          <div class="pvd-result-val">${fmt(Math.round(totalEmployeeContrib))} ฿</div>
+        </div>
+        <div class="pvd-result-item">
+          <div class="pvd-result-label">เงินสมทบของนายจ้าง</div>
+          <div class="pvd-result-val green">${fmt(Math.round(totalEmployerContrib))} ฿</div>
+        </div>
+        <div class="pvd-result-item">
+          <div class="pvd-result-label">ผลตอบแทนจากการลงทุน</div>
+          <div class="pvd-result-val green">${fmt(Math.round(totalReturn))} ฿</div>
+        </div>
+      </div>
+      <div class="pvd-result-total">
+        <div class="pvd-total-label">💰 รวมยอดเงินวันเกษียณ</div>
+        <div class="pvd-total-val">${fmt(totalAtRetire)} ฿</div>
+      </div>
+    `;
+  }
+}
+
+function savePVDModal(idx) {
+  const c = getActive();
+  const a = c.assets[idx];
+  if (!a) return;
+  
+  a.value = Number(document.getElementById('pvdM_value').value) || 0;
+  a.returnRate = Number(document.getElementById('pvdM_returnRate').value) || 5;
+  a.years = Number(document.getElementById('pvdM_years').value) || 1;
+  if (!a.pvd) a.pvd = {};
+  a.pvd.salaryBase = Number(document.getElementById('pvdM_salaryBase').value) || 0;
+  a.pvd.salaryGrowth = Number(document.getElementById('pvdM_salaryGrowth').value) || 0;
+  a.pvd.employeePct = Number(document.getElementById('pvdM_employeePct').value) || 0;
+  a.pvd.employerPct = Number(document.getElementById('pvdM_employerPct').value) || 0;
+  
+  c.updatedAt = Date.now();
+  saveAndRefresh();
+  closePVDModal();
+  
+  // Re-render the row
+  document.getElementById('assetsList').innerHTML = renderAssetsList(c);
+  showToast('บันทึก PVD แล้ว', 'success');
+}
+
+function closePVDModal() {
+  const m = document.getElementById('pvdModal');
+  if (m) m.remove();
+}
+
+/* ===== กบข. (GPF) Modal — ใช้สูตรราชการจริง ===== */
+
+function openGPFModal(idx) {
+  const c = getActive();
+  const a = c.assets[idx];
+  if (!a) return;
+  if (!a.pvd) a.pvd = { salaryBase: 0, salaryGrowth: 3, employeePct: 3, employerPct: 3 };
+  const pvd = a.pvd;
+  const yearsToRetire = Math.max(1, (c.goal?.retireAge||60) - (c.goal?.currentAge||30));
+  const years = a.years ?? yearsToRetire;
+  const yearsServed = pvd.yearsServed ?? 0;
+  
+  const modal = document.createElement('div');
+  modal.className = 'modal-overlay pvd-modal-overlay';
+  modal.id = 'gpfModal';
+  modal.innerHTML = `
+    <div class="pvd-modal">
+      <div class="pvd-modal-head">
+        <div>
+          <div class="pvd-modal-eyebrow gpf">🏛️ กบข. CALCULATOR</div>
+          <h3>กองทุนบำเหน็จบำนาญข้าราชการ</h3>
+          <p class="pvd-modal-sub">รัฐสมทบให้ตามอัตราที่กำหนด — คำนวณบำเหน็จ · บำนาญ · เงินก้อน กบข.</p>
+        </div>
+        <button class="pvd-modal-close" onclick="closeGPFModal()">×</button>
+      </div>
+      
+      <div class="pvd-modal-body">
+        <div class="gpf-section-title">📋 ส่วนที่ 1 — เงินก้อน กบข. (กองทุน)</div>
+        <div class="pvd-form-grid">
+          <div class="pvd-field">
+            <label>เงินใน กบข. ตอนนี้</label>
+            <div class="asset-input-suffix">
+              <input type="number" id="gpfM_value" value="${a.value||''}" placeholder="0">
+              <span>฿</span>
+            </div>
+          </div>
+          <div class="pvd-field">
+            <label>ฐานเงินเดือนปัจจุบัน</label>
+            <div class="asset-input-suffix">
+              <input type="number" id="gpfM_salaryBase" value="${pvd.salaryBase||''}" placeholder="0">
+              <span>฿</span>
+            </div>
+          </div>
+          <div class="pvd-field">
+            <label>เงินเดือนเพิ่มต่อปี</label>
+            <div class="asset-input-suffix">
+              <input type="number" step="0.5" id="gpfM_salaryGrowth" value="${pvd.salaryGrowth ?? 3}">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="pvd-field">
+            <label>ข้าราชการสะสม (เริ่มที่ 3%)</label>
+            <div class="asset-input-suffix">
+              <input type="number" step="0.5" id="gpfM_employeePct" value="${pvd.employeePct ?? 3}">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="pvd-field">
+            <label>รัฐสมทบ (3%)</label>
+            <div class="asset-input-suffix">
+              <input type="number" step="0.5" id="gpfM_employerPct" value="${pvd.employerPct ?? 3}">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="pvd-field">
+            <label>ผลตอบแทน/ปี</label>
+            <div class="asset-input-suffix">
+              <input type="number" step="0.5" id="gpfM_returnRate" value="${a.returnRate ?? 4}">
+              <span>%</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="gpf-section-title">⏰ ส่วนที่ 2 — บำเหน็จ / บำนาญรายเดือน</div>
+        <div class="pvd-form-grid">
+          <div class="pvd-field">
+            <label>อายุราชการที่มีแล้ว (ปัจจุบัน)</label>
+            <div class="asset-input-suffix">
+              <input type="number" step="1" min="0" id="gpfM_yearsServed" value="${yearsServed}">
+              <span>ปี</span>
+            </div>
+          </div>
+          <div class="pvd-field">
+            <label>เกษียณภายใน</label>
+            <div class="asset-input-suffix">
+              <input type="number" step="1" min="1" max="50" id="gpfM_years" value="${years}">
+              <span>ปี</span>
+            </div>
+          </div>
+        </div>
+        <div class="gpf-formula-note">
+          💡 <b>สูตร กบข.:</b><br>
+          • <b>บำเหน็จ</b> = เงินเดือนสุดท้าย × อายุราชการ (รับครั้งเดียว)<br>
+          • <b>บำนาญ</b> = (เงินเดือนเฉลี่ย 60 เดือนสุดท้าย × อายุราชการ) ÷ 50<br>
+          &nbsp;&nbsp;&nbsp; <b>ขั้นสูงไม่เกิน 70%</b> ของเงินเดือนเฉลี่ย 60 เดือนสุดท้าย
+        </div>
+        
+        <div class="pvd-modal-results" id="gpfResults">
+          <!-- Results computed dynamically -->
+        </div>
+      </div>
+      
+      <div class="pvd-modal-foot">
+        <button class="btn-secondary" onclick="closeGPFModal()">ยกเลิก</button>
+        <button class="btn-primary" onclick="saveGPFModal(${idx})">💾 บันทึก</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  
+  // Setup live calc
+  ['gpfM_value', 'gpfM_salaryBase', 'gpfM_salaryGrowth', 'gpfM_employeePct', 'gpfM_employerPct', 'gpfM_returnRate', 'gpfM_years', 'gpfM_yearsServed'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', updateGPFModalResults);
+  });
+  updateGPFModalResults();
+}
+
+function updateGPFModalResults() {
+  const value = Number(document.getElementById('gpfM_value')?.value) || 0;
+  const salaryBase = Number(document.getElementById('gpfM_salaryBase')?.value) || 0;
+  const salaryGrowth = (Number(document.getElementById('gpfM_salaryGrowth')?.value) || 0) / 100;
+  const employeePct = (Number(document.getElementById('gpfM_employeePct')?.value) || 0) / 100;
+  const employerPct = (Number(document.getElementById('gpfM_employerPct')?.value) || 0) / 100;
+  const returnRate = (Number(document.getElementById('gpfM_returnRate')?.value) || 0) / 100;
+  const years = Number(document.getElementById('gpfM_years')?.value) || 1;
+  const yearsServed = Number(document.getElementById('gpfM_yearsServed')?.value) || 0;
+  
+  // ===== ส่วนที่ 1: เงินก้อน กบข. =====
+  let bal = value;
+  let salary = salaryBase;
+  let totalEmployeeContrib = 0;
+  let totalEmployerContrib = 0;
+  let totalReturn = 0;
+  let salaryHistory = [];
+  
+  for (let yr = 1; yr <= years; yr++) {
+    const empContrib = salary * 12 * employeePct;
+    const erContrib = salary * 12 * employerPct;
+    const interestEarned = bal * returnRate;
+    
+    totalEmployeeContrib += empContrib;
+    totalEmployerContrib += erContrib;
+    totalReturn += interestEarned;
+    
+    bal = bal * (1 + returnRate) + empContrib + erContrib;
+    salaryHistory.push(salary);
+    salary = salary * (1 + salaryGrowth);
+  }
+  
+  const gpfFund = Math.round(bal);
+  
+  // ===== ส่วนที่ 2: บำเหน็จ + บำนาญ =====
+  // เงินเดือนสุดท้าย (เดือนสุดท้ายก่อนเกษียณ)
+  const lastSalary = salaryHistory[salaryHistory.length - 1] || salaryBase;
+  
+  // เงินเดือนเฉลี่ย 60 เดือนสุดท้าย (5 ปีสุดท้าย)
+  const last5years = salaryHistory.slice(-5);
+  const avgLast60 = last5years.length > 0 
+    ? last5years.reduce((s, x) => s + x, 0) / last5years.length 
+    : salaryBase;
+  
+  // อายุราชการรวม
+  const totalYearsService = yearsServed + years;
+  
+  // บำเหน็จ = เงินเดือนสุดท้าย × อายุราชการ
+  const lumpSum = lastSalary * totalYearsService;
+  
+  // บำนาญรายเดือน = (เงินเดือนเฉลี่ย 60 × อายุราชการ) ÷ 50
+  let monthlyPension = (avgLast60 * totalYearsService) / 50;
+  // Cap 70% ของเงินเดือนเฉลี่ย 60 เดือนสุดท้าย
+  const cap = avgLast60 * 0.70;
+  let isCapped = false;
+  if (monthlyPension > cap) {
+    monthlyPension = cap;
+    isCapped = true;
+  }
+  
+  const results = document.getElementById('gpfResults');
+  if (results) {
+    results.innerHTML = `
+      <div class="pvd-results-title">📊 ผลการคำนวณ ณ ปีเกษียณ</div>
+      
+      <div class="gpf-block-title">💼 ส่วนที่ 1 — เงินก้อน กบข.</div>
+      <div class="pvd-results-grid">
+        <div class="pvd-result-item">
+          <div class="pvd-result-label">เงินเริ่มต้น</div>
+          <div class="pvd-result-val">${fmt(value)} ฿</div>
+        </div>
+        <div class="pvd-result-item">
+          <div class="pvd-result-label">ข้าราชการสะสม (รวม)</div>
+          <div class="pvd-result-val">${fmt(Math.round(totalEmployeeContrib))} ฿</div>
+        </div>
+        <div class="pvd-result-item">
+          <div class="pvd-result-label">รัฐสมทบ (รวม)</div>
+          <div class="pvd-result-val green">${fmt(Math.round(totalEmployerContrib))} ฿</div>
+        </div>
+        <div class="pvd-result-item">
+          <div class="pvd-result-label">ผลตอบแทน</div>
+          <div class="pvd-result-val green">${fmt(Math.round(totalReturn))} ฿</div>
+        </div>
+      </div>
+      <div class="pvd-result-total">
+        <div class="pvd-total-label">💰 รวมเงินก้อน กบข. ตอนเกษียณ</div>
+        <div class="pvd-total-val">${fmt(gpfFund)} ฿</div>
+      </div>
+      
+      <div class="gpf-block-title" style="margin-top:18px;">🏛️ ส่วนที่ 2 — บำเหน็จ / บำนาญ (จากรัฐ)</div>
+      <div class="gpf-base-info">
+        เงินเดือนสุดท้าย (ประมาณ): <b>${fmt(Math.round(lastSalary))}</b> ฿/เดือน · 
+        เฉลี่ย 60 เดือนสุดท้าย: <b>${fmt(Math.round(avgLast60))}</b> ฿/เดือน · 
+        อายุราชการรวม: <b>${totalYearsService}</b> ปี
+      </div>
+      <div class="gpf-results-2col">
+        <div class="gpf-option-card">
+          <div class="gpf-opt-icon">💵</div>
+          <div class="gpf-opt-title">เลือก: รับบำเหน็จ (ก้อนเดียว)</div>
+          <div class="gpf-opt-formula">เงินเดือนสุดท้าย × อายุราชการ</div>
+          <div class="gpf-opt-val">${fmt(Math.round(lumpSum))} ฿</div>
+          <div class="gpf-opt-sub">รับครั้งเดียว · ไม่มีรายเดือน</div>
+        </div>
+        <div class="gpf-option-card highlight">
+          <div class="gpf-opt-icon">📅</div>
+          <div class="gpf-opt-title">เลือก: รับบำนาญรายเดือน</div>
+          <div class="gpf-opt-formula">(เฉลี่ย60ด × อายุราชการ) ÷ 50</div>
+          <div class="gpf-opt-val">${fmt(Math.round(monthlyPension))} ฿/เดือน</div>
+          <div class="gpf-opt-sub">${isCapped ? '⚠️ ขั้นสูง 70%' : 'ตลอดชีวิต + บำเหน็จดำรงชีพ'}</div>
+        </div>
+      </div>
+      
+      <div class="gpf-summary-note">
+        🎯 <b>สรุปยามเกษียณ:</b> ลูกค้าจะได้ <b>เงินก้อน ${fmt(gpfFund)} ฿</b> + เลือก <b>${fmt(Math.round(lumpSum))} ฿ ก้อน</b> หรือ <b>${fmt(Math.round(monthlyPension))} ฿/เดือน</b> ตลอดชีวิต
+      </div>
+    `;
+  }
+}
+
+function saveGPFModal(idx) {
+  const c = getActive();
+  const a = c.assets[idx];
+  if (!a) return;
+  
+  a.value = Number(document.getElementById('gpfM_value').value) || 0;
+  a.returnRate = Number(document.getElementById('gpfM_returnRate').value) || 4;
+  a.years = Number(document.getElementById('gpfM_years').value) || 1;
+  if (!a.pvd) a.pvd = {};
+  a.pvd.salaryBase = Number(document.getElementById('gpfM_salaryBase').value) || 0;
+  a.pvd.salaryGrowth = Number(document.getElementById('gpfM_salaryGrowth').value) || 0;
+  a.pvd.employeePct = Number(document.getElementById('gpfM_employeePct').value) || 0;
+  a.pvd.employerPct = Number(document.getElementById('gpfM_employerPct').value) || 0;
+  a.pvd.yearsServed = Number(document.getElementById('gpfM_yearsServed').value) || 0;
+  
+  c.updatedAt = Date.now();
+  saveAndRefresh();
+  closeGPFModal();
+  
+  document.getElementById('assetsList').innerHTML = renderAssetsList(c);
+  showToast('บันทึก กบข. แล้ว', 'success');
+}
+
+function closeGPFModal() {
+  const m = document.getElementById('gpfModal');
+  if (m) m.remove();
+}
+
+function quickAddAsset(type, name) {
   const c = getActive();
   if (!c.assets) c.assets = [];
-  c.assets.push({ id: 'a_'+Date.now(), name: name, value: 0, useForRetirement: true });
+  const cfg = ASSET_TYPES[type] || ASSET_TYPES.other;
+  const newAsset = { 
+    id: 'a_'+Date.now(), 
+    type: type,
+    name: name, 
+    value: 0, 
+    returnRate: cfg.rate,
+    monthlyDCA: 0,
+    useForRetirement: true 
+  };
+  // Init PVD/GPF object if needed
+  if (type === 'pvd' || type === 'gpf') {
+    const defaultPct = type === 'gpf' ? 3 : 5;
+    newAsset.pvd = { salaryBase: 0, salaryGrowth: 5, employeePct: defaultPct, employerPct: defaultPct };
+  }
+  c.assets.push(newAsset);
   saveAndRefresh();
   document.getElementById('assetsList').innerHTML = renderAssetsList(c);
   // Focus on the value field of the new item
   setTimeout(() => {
-    const inputs = document.querySelectorAll('#assetsList input[type="number"]');
-    const last = inputs[inputs.length - 1];
-    if (last) last.focus();
+    const rows = document.querySelectorAll('.asset-row');
+    const last = rows[rows.length - 1];
+    if (last) {
+      const valueInput = last.querySelector('.asset-value');
+      if (valueInput) valueInput.focus();
+    }
   }, 50);
   SFX.pop();
 }
 
+/* ============================================================
+   ASSET TYPES & DEFAULTS (v13 · ขยายให้รองรับ DCA + PVD)
+   ============================================================ */
+const ASSET_TYPES = {
+  cash:        { icon: '🏦', label: 'เงินสด/ฝาก',    rate: 1.5, dca: false, hint: 'ออมทรัพย์ · ฝากประจำ' },
+  gold:        { icon: '💎', label: 'ทอง/ของสะสม',    rate: 4,   dca: false, hint: 'ทองคำแท่ง · เครื่องประดับ' },
+  fund:        { icon: '📈', label: 'กองทุนรวม',      rate: 7,   dca: true,  hint: 'กองทุนหุ้น/ผสม' },
+  ssf:         { icon: '🌱', label: 'SSF',           rate: 7,   dca: true,  hint: 'ลดหย่อนภาษี · ขายได้หลัง 10 ปี' },
+  rmf:         { icon: '🌳', label: 'RMF',           rate: 7,   dca: true,  hint: 'ลดหย่อนภาษี · ขายได้อายุ 55+' },
+  thai_esg:    { icon: '🌿', label: 'Thai ESG',      rate: 7,   dca: true,  hint: 'ลดหย่อนภาษี · ลงทุนยั่งยืน' },
+  thai_esgx:   { icon: '🌿', label: 'Thai ESGX',     rate: 7,   dca: true,  hint: 'ลดหย่อนภาษี · เน้นยั่งยืน' },
+  pvd:         { icon: '🏢', label: 'PVD (กองทุนสำรองฯ)', rate: 5, dca: 'auto', hint: 'นายจ้างสมทบให้ฟรี' },
+  gpf:         { icon: '🏛️', label: 'กบข. (ข้าราชการ)', rate: 4, dca: 'auto', hint: 'รัฐสมทบ · ข้าราชการ' },
+  stock:       { icon: '📊', label: 'หุ้น',          rate: 8,   dca: true,  hint: 'หุ้นรายตัว/ESOP' },
+  bond:        { icon: '📜', label: 'ตราสารหนี้/หุ้นกู้', rate: 3, dca: false, hint: 'หุ้นกู้ · พันธบัตร' },
+  realestate:  { icon: '🏠', label: 'อสังหา/ที่ดิน',  rate: 3,   dca: false, hint: 'capital gain' },
+  insurance:   { icon: '🛡️', label: 'ประกัน Cash Value', rate: 3.5, dca: false, hint: 'มูลค่าเวนคืนกรมธรรม์' },
+  other:       { icon: '📦', label: 'อื่นๆ',         rate: 5,   dca: false, hint: '' }
+};
+
 function renderAssetsList(c) {
   if (!c.assets || c.assets.length === 0) return '<p class="text-grey small">ยังไม่มี — กดปุ่มด้านล่าง</p>';
-  return c.assets.map((a, i) => `
-    <div class="row-grid" style="grid-template-columns: 2fr 1.2fr auto auto">
-      <input type="text" value="${a.name||''}" placeholder="ชื่อสินทรัพย์" 
-             oninput="updateAssetField(${i}, 'name', this.value)">
-      <input type="number" value="${a.value||''}" placeholder="มูลค่า (บาท)" 
-             oninput="updateAssetField(${i}, 'value', Number(this.value)||0)">
-      <label class="use-checkbox">
-        <input type="checkbox" ${a.useForRetirement?'checked':''} 
-               onchange="updateAssetField(${i}, 'useForRetirement', this.checked)">
-        <span>ใช้เกษียณ</span>
-      </label>
-      <button class="remove-btn" onclick="removeAsset(${i})">×</button>
-    </div>`).join('');
+  return c.assets.map((a, i) => renderAssetRow(c, a, i)).join('');
+}
+
+function renderAssetRow(c, a, i) {
+  const typeKey = a.type || 'other';
+  const typeCfg = ASSET_TYPES[typeKey] || ASSET_TYPES.other;
+  const isPVD = typeKey === 'pvd' || typeKey === 'gpf';
+  const supportsDCA = typeCfg.dca === true;
+  const g = c.goal || {};
+  const defaultYears = Math.max(1, (g.retireAge||60) - (g.currentAge||30));
+  const years = a.years ?? defaultYears;
+  
+  // Compute FV inline
+  const principal = Number(a.value) || 0;
+  const hasFV = (principal > 0) || (isPVD && a.pvd?.salaryBase > 0);
+  const fv = hasFV ? calcAssetFV(a, years) : 0;
+  
+  return `
+    <div class="asset-row" data-idx="${i}">
+      <!-- Row 1: type | name | value | ใช้เกษียณ | × -->
+      <div class="asset-row-main">
+        <select class="asset-type-select" onchange="changeAssetType(${i}, this.value)">
+          ${Object.entries(ASSET_TYPES).map(([k, t]) => 
+            `<option value="${k}" ${k===typeKey?'selected':''}>${t.icon} ${t.label}</option>`
+          ).join('')}
+        </select>
+        <input type="text" class="asset-name" value="${a.name||''}" placeholder="ชื่อ (เช่น KBANK · SCBSE)" 
+               oninput="updateAssetField(${i}, 'name', this.value)">
+        <div class="asset-input-suffix value-suffix">
+          <input type="number" class="asset-value" value="${a.value||''}" placeholder="0"
+                 oninput="updateAssetField(${i}, 'value', Number(this.value)||0)">
+          <span>฿</span>
+        </div>
+        <label class="use-checkbox">
+          <input type="checkbox" ${a.useForRetirement?'checked':''} 
+                 onchange="updateAssetField(${i}, 'useForRetirement', this.checked)">
+          <span>ใช้เกษียณ</span>
+        </label>
+        <button class="remove-btn" onclick="removeAsset(${i})" title="ลบ">×</button>
+      </div>
+      
+      <!-- Row 2: รายละเอียด + FV inline -->
+      <div class="asset-row-detail">
+        <div class="asset-detail-cell">
+          <label>ผลตอบแทน/ปี</label>
+          <div class="asset-input-suffix">
+            <input type="number" step="0.5" value="${a.returnRate ?? typeCfg.rate}" 
+                   oninput="updateAssetField(${i}, 'returnRate', Number(this.value)||0)">
+            <span>%</span>
+          </div>
+        </div>
+        ${supportsDCA ? `
+          <div class="asset-detail-cell">
+            <label>เพิ่มทุกเดือน (DCA)</label>
+            <div class="asset-input-suffix">
+              <input type="number" step="500" value="${a.monthlyDCA||''}" placeholder="0"
+                     oninput="updateAssetField(${i}, 'monthlyDCA', Number(this.value)||0)">
+              <span>฿</span>
+            </div>
+          </div>
+        ` : `<div class="asset-detail-cell hidden-cell"></div>`}
+        <div class="asset-detail-cell">
+          <label>ระยะเวลา</label>
+          <div class="asset-input-suffix">
+            <input type="number" step="1" min="1" max="50" value="${years}" 
+                   oninput="updateAssetField(${i}, 'years', Number(this.value)||1)">
+            <span>ปี</span>
+          </div>
+        </div>
+        <div class="asset-detail-cell asset-fv-cell">
+          <label>มูลค่าในอนาคต</label>
+          <div class="asset-fv-inline">
+            ${hasFV ? `<span class="afv-val gold">${fmt(fv)} ฿</span>` : `<span class="afv-empty">—</span>`}
+          </div>
+        </div>
+      </div>
+      
+      ${isPVD ? renderPVDDetail(a, i) : ''}
+    </div>
+  `;
+}
+
+function renderPVDDetail(a, i) {
+  const pvd = a.pvd || {};
+  const isGPF = a.type === 'gpf';
+  const cfg = isGPF
+    ? { icon: '🏛️', title: 'กบข.', sub: 'รัฐสมทบให้ตามอัตราที่กำหนด', empLabel: 'ข้าราชการสมทบ', erLabel: 'รัฐสมทบ', summaryLabel: 'รวมเข้า กบข.' }
+    : { icon: '🏢', title: 'PVD',  sub: 'นายจ้างสมทบให้ฟรี', empLabel: 'ลูกจ้างสมทบ', erLabel: 'นายจ้างสมทบ', summaryLabel: 'รวมเข้า PVD' };
+  
+  const hasData = pvd.salaryBase > 0;
+  const monthlyEmp = hasData ? Math.round(pvd.salaryBase * (pvd.employeePct||0)/100) : 0;
+  const monthlyEr = hasData ? Math.round(pvd.salaryBase * (pvd.employerPct||0)/100) : 0;
+  const monthlyTotal = monthlyEmp + monthlyEr;
+  
+  return `
+    <div class="pvd-detail-card">
+      <div class="pvd-summary-line">
+        <div class="pvd-summary-info">
+          <span class="pvd-icon">${cfg.icon}</span>
+          <div class="pvd-info-text">
+            <div class="pvd-info-title">รายละเอียด ${cfg.title}</div>
+            ${hasData ? `
+              <div class="pvd-info-summary">
+                เงินเดือน <b>${fmt(pvd.salaryBase)}</b> ฿ · 
+                ${cfg.empLabel} ${pvd.employeePct||0}% · 
+                ${cfg.erLabel} ${pvd.employerPct||0}% · 
+                รวม <b>${fmt(monthlyTotal)}</b> ฿/เดือน
+              </div>
+            ` : `
+              <div class="pvd-info-summary missing">⚠️ ยังไม่ได้กรอกข้อมูล — กดเพื่อกรอก</div>
+            `}
+          </div>
+        </div>
+        <button class="pvd-edit-btn" onclick="${isGPF ? `openGPFModal(${i})` : `openPVDModal(${i})`}">
+          ${hasData ? '✏️ แก้ไข' : '📝 กรอกข้อมูล'}
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function renderAssetFV(c, a) {
+  const g = c.goal || {};
+  const defaultYears = Math.max(1, (g.retireAge||60) - (g.currentAge||30));
+  const years = a.years ?? defaultYears;
+  const principal = Number(a.value) || 0;
+  const isPVD = a.type === 'pvd' || a.type === 'gpf';
+  
+  // Don't show FV if no value AND not a PVD/GPF with salary
+  if (principal === 0 && !isPVD) return '';
+  if (isPVD && !a.pvd?.salaryBase) return '';
+  
+  const fv = calcAssetFV(a, years);
+  const growth = fv - principal;
+  const monthlyDCA = Number(a.monthlyDCA) || 0;
+  const totalContrib = monthlyDCA * 12 * years;
+  
+  // เป้าอายุ ถ้าใช้ default years
+  const targetAge = (a.years === undefined) ? (g.retireAge||60) : null;
+  
+  return `
+    <div class="asset-fv-card">
+      <div class="afv-row">
+        <div class="afv-side">
+          <span class="afv-label">ตอนนี้</span>
+          <span class="afv-val">${fmt(principal)} ฿</span>
+        </div>
+        <div class="afv-mid">
+          <span class="afv-arrow">→</span>
+          <span class="afv-meta">${years} ปี · @ ${a.returnRate ?? 0}%</span>
+        </div>
+        <div class="afv-side right">
+          <span class="afv-label">${targetAge ? `อายุ ${targetAge}` : `อีก ${years} ปี`}</span>
+          <span class="afv-val gold">${fmt(fv)} ฿</span>
+          ${growth > 0 && (monthlyDCA > 0 || isPVD) ? `<span class="afv-sub">+${fmt(growth)} ${isPVD ? '(สมทบ)' : `(DCA ${fmt(totalContrib)})`}</span>` : ''}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function calcAssetFV(a, years) {
+  const isPVDOrGPF = a.type === 'pvd' || a.type === 'gpf';
+  if (!a.value && !isPVDOrGPF) return 0;
+  const r = (a.returnRate || 0) / 100;
+  const principal = Number(a.value) || 0;
+  
+  // PVD/กบข.: special compound with monthly contribution + salary growth
+  if (isPVDOrGPF) {
+    return calcPVDFV(a, years);
+  }
+  
+  // Standard: principal × (1+r)^n + DCA annuity
+  const fvPrincipal = principal * Math.pow(1 + r, years);
+  const monthlyDCA = Number(a.monthlyDCA) || 0;
+  
+  if (monthlyDCA <= 0) return Math.round(fvPrincipal);
+  
+  // FVA of monthly DCA — convert to monthly rate
+  const rMonthly = r / 12;
+  const months = years * 12;
+  const fvDCA = rMonthly > 0 
+    ? monthlyDCA * (Math.pow(1 + rMonthly, months) - 1) / rMonthly
+    : monthlyDCA * months;
+  
+  return Math.round(fvPrincipal + fvDCA);
+}
+
+function calcPVDFV(a, years) {
+  const r = (a.returnRate || 5) / 100;
+  const principal = Number(a.value) || 0;
+  const pvd = a.pvd || {};
+  const salaryBase = Number(pvd.salaryBase) || 0;
+  const salaryGrowth = (Number(pvd.salaryGrowth) || 0) / 100;
+  const employeePct = (Number(pvd.employeePct) || 0) / 100;
+  const employerPct = (Number(pvd.employerPct) || 0) / 100;
+  const totalPct = employeePct + employerPct;
+  
+  if (salaryBase <= 0 || totalPct <= 0) {
+    return Math.round(principal * Math.pow(1 + r, years));
+  }
+  
+  // Year-by-year compound
+  let bal = principal;
+  let salary = salaryBase;
+  for (let yr = 1; yr <= years; yr++) {
+    const annualContribution = salary * 12 * totalPct;
+    bal = bal * (1 + r) + annualContribution;
+    salary = salary * (1 + salaryGrowth);
+  }
+  return Math.round(bal);
+}
+
+function changeAssetType(idx, newType) {
+  const c = getActive();
+  if (!c.assets[idx]) return;
+  const cfg = ASSET_TYPES[newType] || ASSET_TYPES.other;
+  c.assets[idx].type = newType;
+  // Reset return to default of new type if not customized
+  c.assets[idx].returnRate = cfg.rate;
+  if ((newType === 'pvd' || newType === 'gpf') && !c.assets[idx].pvd) {
+    // กบข ลูกจ้าง 3% รัฐ 3% (default) · PVD ลูกจ้าง 5% นายจ้าง 5%
+    const defaultPct = newType === 'gpf' ? 3 : 5;
+    c.assets[idx].pvd = { 
+      salaryBase: 0, 
+      salaryGrowth: 5, 
+      employeePct: defaultPct, 
+      employerPct: defaultPct 
+    };
+  }
+  c.updatedAt = Date.now();
+  saveAndRefresh();
+  document.getElementById('assetsList').innerHTML = renderAssetsList(c);
+  SFX.click();
+}
+
+function updatePVDField(idx, field, val) {
+  const c = getActive();
+  if (!c.assets[idx]) return;
+  if (!c.assets[idx].pvd) c.assets[idx].pvd = {};
+  c.assets[idx].pvd[field] = val;
+  c.updatedAt = Date.now();
+  saveAndRefresh();
+  
+  updateAssetFVInline(idx);
+  refreshWealthSummary(c);
+  
+  // Update PVD summary line
+  const row = document.querySelector(`.asset-row[data-idx="${idx}"]`);
+  if (row) {
+    const pvdSummary = row.querySelector('.pvd-info-summary');
+    if (pvdSummary) {
+      const a = c.assets[idx];
+      const pvd = a.pvd;
+      const isGPF = a.type === 'gpf';
+      const empLabel = isGPF ? 'ข้าราชการสมทบ' : 'ลูกจ้างสมทบ';
+      const erLabel = isGPF ? 'รัฐสมทบ' : 'นายจ้างสมทบ';
+      const monthlyTotal = Math.round((pvd.salaryBase||0) * ((pvd.employeePct||0)+(pvd.employerPct||0))/100);
+      if (pvd.salaryBase > 0) {
+        pvdSummary.classList.remove('missing');
+        pvdSummary.innerHTML = `เงินเดือน <b>${fmt(pvd.salaryBase)}</b> ฿ · ${empLabel} ${pvd.employeePct||0}% · ${erLabel} ${pvd.employerPct||0}% · รวม <b>${fmt(monthlyTotal)}</b> ฿/เดือน`;
+      } else {
+        pvdSummary.classList.add('missing');
+        pvdSummary.innerHTML = '⚠️ ยังไม่ได้กรอกข้อมูล — กดเพื่อกรอก';
+      }
+    }
+  }
 }
 
 function addAsset() {
   const c = getActive();
   if (!c.assets) c.assets = [];
-  c.assets.push({ id: 'a_'+Date.now(), name: '', value: 0, useForRetirement: true });
+  c.assets.push({ 
+    id: 'a_'+Date.now(), 
+    type: 'cash',
+    name: '', 
+    value: 0, 
+    returnRate: ASSET_TYPES.cash.rate,
+    monthlyDCA: 0,
+    useForRetirement: true 
+  });
   saveAndRefresh();
   document.getElementById('assetsList').innerHTML = renderAssetsList(c);
   SFX.pop();
@@ -4628,6 +7197,44 @@ function updateAssetField(idx, field, val) {
   c.assets[idx][field] = val;
   c.updatedAt = Date.now();
   saveAndRefresh();
+  
+  // Update FV inline display without re-rendering row (preserves cursor)
+  if (field === 'value' || field === 'returnRate' || field === 'monthlyDCA' || field === 'years' || field === 'useForRetirement') {
+    updateAssetFVInline(idx);
+    refreshWealthSummary(c);
+  }
+}
+
+function updateAssetFVInline(idx) {
+  const c = getActive();
+  const a = c.assets[idx];
+  if (!a) return;
+  const row = document.querySelector(`.asset-row[data-idx="${idx}"]`);
+  if (!row) return;
+  
+  const isPVD = a.type === 'pvd' || a.type === 'gpf';
+  const principal = Number(a.value) || 0;
+  const g = c.goal || {};
+  const defaultYears = Math.max(1, (g.retireAge||60) - (g.currentAge||30));
+  const years = a.years ?? defaultYears;
+  const hasFV = (principal > 0) || (isPVD && a.pvd?.salaryBase > 0);
+  
+  const fvInline = row.querySelector('.asset-fv-inline');
+  if (fvInline) {
+    if (hasFV) {
+      const fv = calcAssetFV(a, years);
+      fvInline.innerHTML = `<span class="afv-val gold">${fmt(fv)} ฿</span>`;
+    } else {
+      fvInline.innerHTML = `<span class="afv-empty">—</span>`;
+    }
+  }
+}
+
+function refreshWealthSummary(c) {
+  const wsContainer = document.querySelector('.wealth-summary');
+  if (wsContainer && typeof renderWealthSummary === 'function') {
+    wsContainer.outerHTML = renderWealthSummary(c);
+  }
 }
 
 function removeAsset(idx) {
@@ -4650,24 +7257,26 @@ function renderCashFlowList(c) {
         <select onchange="updateCashFlowField(${i}, 'type', this.value)" style="padding:8px 10px; border:1px solid var(--grey-line); border-radius:6px; font-size:14px; background:white">
           <option value="">-- ประเภท --</option>
           <option value="rent" ${cf.type==='rent'?'selected':''}>ค่าเช่า</option>
-          <option value="pension" ${cf.type==='pension'?'selected':''}>บำนาญประกัน</option>
-          <option value="govPension" ${cf.type==='govPension'?'selected':''}>บำนาญข้าราชการ</option>
           <option value="dividend" ${cf.type==='dividend'?'selected':''}>เงินปันผล</option>
           <option value="interest" ${cf.type==='interest'?'selected':''}>ดอกเบี้ย</option>
           <option value="royalty" ${cf.type==='royalty'?'selected':''}>ค่าลิขสิทธิ์</option>
-          <option value="salary" ${cf.type==='salary'?'selected':''}>เงินเดือนหลังเกษียณ</option>
+          <option value="salary" ${cf.type==='salary'?'selected':''}>รายได้เสริม</option>
           <option value="other" ${cf.type==='other'?'selected':''}>อื่นๆ</option>
         </select>
-        <input type="text" value="${cf.note||''}" placeholder="รายละเอียด เช่น คอนโดให้เช่า"
+        <input type="text" value="${cf.note||''}" placeholder="รายละเอียด เช่น คอนโด 2 ห้อง · ดอกเบี้ยเงินฝาก"
                oninput="updateCashFlowField(${i}, 'note', this.value)"
                data-preserve-focus="cf-note-${i}">
-        <input type="number" class="bd-amount" value="${cf.monthly||''}" placeholder="บาท/เดือน" 
-               oninput="updateCashFlowField(${i}, 'monthly', Number(this.value)||0)"
-               data-preserve-focus="cf-monthly-${i}">
-        <button type="button" class="bd-flag ${cf.useForRetirement?'active':''}"
-                onclick="toggleCashFlowUse(${i})">
-          ${cf.useForRetirement ? '✓ ใช้เกษียณ' : '✗ ไม่ใช้'}
-        </button>
+        <div class="asset-input-suffix">
+          <input type="number" class="bd-amount" value="${cf.monthly||''}" placeholder="0" 
+                 oninput="updateCashFlowField(${i}, 'monthly', Number(this.value)||0)"
+                 data-preserve-focus="cf-monthly-${i}">
+          <span>฿/ด</span>
+        </div>
+        <label class="use-checkbox">
+          <input type="checkbox" ${cf.useForRetirement?'checked':''} 
+                 onchange="toggleCashFlowUse(${i})">
+          <span>ใช้เกษียณ</span>
+        </label>
         <button type="button" class="bd-remove" onclick="removeCashFlow(${i})">×</button>
       </div>`;
   });
@@ -4676,6 +7285,10 @@ function renderCashFlowList(c) {
     <span class="bd-total regular" id="bd-total-cashflow">${fmt(total)} ฿/เดือน · ${fmt(total*12)} ฿/ปี</span>
   </div>`;
   html += `</div>`;
+  
+  // Hint about pension annuity
+  html += `<div class="cf-hint">💡 <b>หมายเหตุ:</b> "ประกันบำนาญ" และ "บำนาญข้าราชการ (กบข.)" ไม่ต้องใส่ที่นี่ — บันทึกในกล่อง "ประกันบำนาญที่มีอยู่" และ "สินทรัพย์ → กบข." แล้ว ระบบจะดึงไปใช้อัตโนมัติ</div>`;
+  
   return html;
 }
 
@@ -5568,8 +8181,8 @@ function renderPlanSummary(m, disposable, pmtMonthly) {
         </div>
         <div class="ps-cell">
           <div class="ps-label">ต้องเก็บเพิ่ม</div>
-          <div class="ps-val red">${fmt(pmtMonthly)}</div>
-          <div class="ps-sub">บาท/เดือน</div>
+          <div class="ps-val red">${fmt(Math.round(m.annualPMT || 0))}</div>
+          <div class="ps-sub">บาท/ปี · ~${fmt(pmtMonthly)}/เดือน</div>
         </div>
         <div class="ps-cell highlight">
           <div class="ps-label">เงินที่ใช้ได้/ปี</div>
@@ -6167,8 +8780,8 @@ function renderPhase7(c) {
     ${renderBeforeAfter(c, m, ex, ch, totalInsure, saveAnnual)}
     
     <div class="action-buttons">
-      <button class="btn-primary" onclick="exportPDF()">🖨️ พิมพ์ / Save PDF</button>
-      <button class="btn-secondary" onclick="exportCustomerJSON('${c.id}')">📥 Export JSON</button>
+      <button class="btn-action" onclick="savePlan()">💾 บันทึกแผน</button>
+      <button class="btn-primary" onclick="exportPDF()">🖨️ พิมพ์ Report</button>
       <button class="btn-secondary" onclick="goToDashboard()">← กลับ Dashboard</button>
     </div>
     
@@ -6192,7 +8805,7 @@ function renderVisionCard(c, age, retireAge, lifeExp, annualExpense, childrenAtR
       <div class="vc-eyebrow">🌅 ภาพชีวิตตอนเกษียณ</div>
       <div class="vc-narrative">
         <div class="vc-main">
-          ตอนคุณ <b>${age}</b> ปี ตอนนี้ — เกษียณวัย <b>${retireAge}</b> ปี ใช้ชีวิตต่ออีก <b>${lifeExp - retireAge}</b> ปี
+          ตอนนี้คุณอายุ <b>${age}</b> ปี — เกษียณตอนอายุ <b>${retireAge}</b> ปี — ใช้ชีวิตต่ออย่างสุขสบายอีก <b>${lifeExp - retireAge}</b> ปี
         </div>
         ${annualExpense > 0 ? `
           <div class="vc-line">💰 ใช้เงินเดือนละ <b>${fmt(monthlyExpense)}</b> ฿ (${fmt(annualExpense)}/ปี · มูลค่าวันนี้)</div>
@@ -6532,14 +9145,663 @@ function renderBeforeAfter(c, m, ex, ch, totalInsure, saveAnnual) {
   `;
 }
 
-function exportPDF() {
-  showToast('กดปุ่ม "Save as PDF" ในหน้าต่างพิมพ์', 'success');
-  setTimeout(() => window.print(), 300);
+function savePlan() {
+  const c = getActive();
+  if (!c) return;
+  
+  // Mark Phase 7 as done
+  if (!c.phasesDone) c.phasesDone = [];
+  if (!c.phasesDone.includes(7)) c.phasesDone.push(7);
+  
+  // Also mark all earlier phases done (since they reached Phase 7)
+  for (let i = 1; i <= 7; i++) {
+    if (!c.phasesDone.includes(i)) c.phasesDone.push(i);
+  }
+  
+  // Save snapshot timestamp
+  c.planSavedAt = Date.now();
+  c.updatedAt = Date.now();
+  
+  saveAndRefresh();
+  render();
+  SFX.success();
+  showToast('💾 บันทึกแผนเรียบร้อย!', 'success');
 }
 
 function exportPDF() {
-  showToast('กดปุ่ม "Save as PDF" ในหน้าต่างพิมพ์', 'success');
-  setTimeout(() => window.print(), 300);
+  // Build full report HTML and inject into print container
+  const c = getActive();
+  if (!c) return;
+  const reportHtml = buildFullReport(c);
+  
+  // Create print container
+  let printContainer = document.getElementById('printContainer');
+  if (!printContainer) {
+    printContainer = document.createElement('div');
+    printContainer.id = 'printContainer';
+    document.body.appendChild(printContainer);
+  }
+  printContainer.innerHTML = reportHtml;
+  
+  showToast('กำลังเตรียม PDF · กดปุ่ม "Save as PDF" ในหน้าต่างพิมพ์', 'success');
+  setTimeout(() => window.print(), 400);
+}
+
+/* ============================================================
+   FULL REPORT BUILDER — 4-page PDF
+   ============================================================ */
+function buildFullReport(c) {
+  const p = c.profile || {};
+  const g = c.goal || {};
+  const ch = c.choice || {};
+  const m = calcRetirement(c);
+  const today = new Date();
+  const dateStr = `${today.getDate()}/${today.getMonth()+1}/${today.getFullYear()+543}`;
+  const age = g.currentAge || 0;
+  const retireAge = g.retireAge || 60;
+  const lifeExp = g.lifeExpectancy || 90;
+  const yearsRetired = lifeExp - retireAge;
+  const yearsToRetire = retireAge - age;
+  const annualExpense = g.annualExpense || 0;
+  const monthlyExpense = Math.round(annualExpense / 12);
+  
+  // Children at retire age
+  const children = (c.finance?.children || []).filter(ch => ch.age !== undefined).map(ch => ({
+    ...ch,
+    ageAtRetire: ch.age + yearsToRetire
+  }));
+  
+  // Calc premium info
+  const gender = genderKey(c);
+  const actualLifeSum = ch.lifeSum || 0;
+  const lifeProduct = chooseLifeProduct(actualLifeSum);
+  const healthPremium = (ch.healthActive && !ch.healthUseGov) ? calcInsurePremium(ch.healthSum, 'health', age, gender) : 0;
+  const criticalPremium = ch.criticalActive ? calcInsurePremium(ch.criticalSum, 'critical', age, gender) : 0;
+  const lifePremium = ch.lifeActive ? calcInsurePremium(actualLifeSum, lifeProduct, age, gender) : 0;
+  const totalInsure = healthPremium + criticalPremium + lifePremium;
+  
+  // Save commitment
+  const saveAnnual = Math.round(m.annualPMT || 0);
+  const totalCommit = saveAnnual + totalInsure;
+  
+  // Disposable
+  const monthlyIncome = (c.finance?.incomeBreakdown || []).filter(it=>it.regular!==false).reduce((s,it)=>s+(Number(it.amount)||0),0);
+  const monthlyExp = (c.finance?.expenseBreakdown || []).reduce((s,it)=>s+(Number(it.amount)||0),0);
+  const disposable = Math.max(0, (monthlyIncome - monthlyExp) * 12);
+  const pct = disposable > 0 ? Math.round(totalCommit / disposable * 100) : 0;
+  
+  // Cashflow + assets data
+  const cashFlows = (c.cashFlows || []).filter(cf => cf.useForRetirement);
+  const totalCashflow = cashFlows.reduce((s, cf) => s + (Number(cf.monthly)||0), 0);
+  const assets = (c.assets || []).filter(a => a.useForRetirement);
+  const totalAssets = assets.reduce((s, a) => s + (Number(a.value)||0), 0);
+  
+  // Existing insurance
+  const ex = c.insurance || {};
+  
+  return `
+    <div class="report">
+      ${buildPage1(c, p, g, age, retireAge, lifeExp, yearsRetired, yearsToRetire, annualExpense, monthlyExpense, children, dateStr)}
+      ${buildPage2(c, p, monthlyIncome, monthlyExp, disposable, cashFlows, totalCashflow, assets, totalAssets, yearsToRetire, ex)}
+      ${buildPage3(c, m, ch, saveAnnual, totalInsure, totalCommit, pct, disposable, healthPremium, criticalPremium, lifePremium, actualLifeSum, lifeProduct)}
+      ${buildPage4(c, ch, age, retireAge, actualLifeSum, lifePremium, gender, lifeProduct, m, retireAge, lifeExp)}
+    </div>
+  `;
+}
+
+function buildPage1(c, p, g, age, retireAge, lifeExp, yearsRetired, yearsToRetire, annualExpense, monthlyExpense, children, dateStr) {
+  const childrenStory = children.length > 0 
+    ? children.map(ch => `${ch.gender === 'boy' ? 'ลูกชาย' : 'ลูกสาว'}อายุ ${ch.ageAtRetire} ปี (ตอนเกษียณ)`).join(' · ')
+    : 'ไม่มีบุตร';
+  const painPoints = g.painPoints || g.concerns || '';
+  
+  return `
+    <div class="rp-page page-1">
+      <div class="rp-cover-head">
+        <div class="rp-logo-block">
+          <div class="rp-logo">📊</div>
+          <div>
+            <div class="rp-brand-title">เกษียนด้วยกัน</div>
+            <div class="rp-brand-sub">RETIREMENT PLANNING REPORT</div>
+          </div>
+        </div>
+        <div class="rp-meta">
+          <div class="rp-meta-row"><span>วันที่:</span><b>${dateStr}</b></div>
+          <div class="rp-meta-row"><span>ที่ปรึกษา:</span><b>ติส เอกชัย เนียมจิตต์</b></div>
+        </div>
+      </div>
+      
+      <div class="rp-client-card">
+        <div class="rp-eyebrow">ข้อมูลผู้รับคำปรึกษา</div>
+        <h1 class="rp-client-name">${p.name || 'คุณลูกค้า'}</h1>
+        <div class="rp-client-info">
+          <div class="rp-info-item"><span>อายุ</span><b>${age} ปี</b></div>
+          <div class="rp-info-item"><span>เกษียณ</span><b>${retireAge} ปี</b></div>
+          <div class="rp-info-item"><span>อายุขัย</span><b>${lifeExp} ปี</b></div>
+          <div class="rp-info-item"><span>เพศ</span><b>${p.gender || '—'}</b></div>
+        </div>
+      </div>
+      
+      <div class="rp-vision">
+        <div class="rp-eyebrow gold">ภาพชีวิตที่คุณวาดไว้</div>
+        <div class="rp-vision-headline">
+          ตอนนี้คุณอายุ <b>${age}</b> ปี — เกษียณตอนอายุ <b>${retireAge}</b> ปี — ใช้ชีวิตต่ออย่างสุขสบายอีก <b>${yearsRetired}</b> ปี
+        </div>
+        <div class="rp-vision-grid">
+          <div class="rp-vision-cell">
+            <div class="rp-vc-icon">💰</div>
+            <div class="rp-vc-label">ใช้เงินเดือนละ</div>
+            <div class="rp-vc-val">${fmt(monthlyExpense)} ฿</div>
+            <div class="rp-vc-sub">${fmt(annualExpense)}/ปี · มูลค่าวันนี้</div>
+          </div>
+          <div class="rp-vision-cell">
+            <div class="rp-vc-icon">⏰</div>
+            <div class="rp-vc-label">เหลืออีก</div>
+            <div class="rp-vc-val">${yearsToRetire} ปี</div>
+            <div class="rp-vc-sub">ก่อนเกษียณ</div>
+          </div>
+          <div class="rp-vision-cell">
+            <div class="rp-vc-icon">👨‍👩‍👧</div>
+            <div class="rp-vc-label">ครอบครัว</div>
+            <div class="rp-vc-val small">${childrenStory}</div>
+          </div>
+        </div>
+        ${painPoints ? `
+          <div class="rp-pain">
+            <div class="rp-pain-label">💭 สิ่งที่คุณกังวล</div>
+            <div class="rp-pain-text">${painPoints.replace(/\n/g, '<br>')}</div>
+          </div>
+        ` : ''}
+      </div>
+      
+      <div class="rp-toc">
+        <div class="rp-eyebrow">เนื้อหาในรายงาน</div>
+        <div class="rp-toc-grid">
+          <div class="rp-toc-item"><b>หน้า 1</b> · ภาพรวม + ภาพชีวิตเกษียณ</div>
+          <div class="rp-toc-item"><b>หน้า 2</b> · กระแสเงินสด · สินทรัพย์ · ประกัน</div>
+          <div class="rp-toc-item"><b>หน้า 3</b> · แผนเกษียณ · แผนปกป้อง · ก่อน-หลัง</div>
+          <div class="rp-toc-item"><b>หน้า 4</b> · พลังของแผน · Timeline · ติดต่อ</div>
+        </div>
+      </div>
+      
+      <div class="rp-foot">
+        <div>เกษียนด้วยกัน · by ติสคิดให้ · ${dateStr}</div>
+        <div>หน้า 1 / 4</div>
+      </div>
+    </div>
+  `;
+}
+
+function buildPage2(c, p, monthlyIncome, monthlyExp, disposable, cashFlows, totalCashflow, assets, totalAssets, yearsToRetire, ex) {
+  // Income/expense breakdown
+  const incomeItems = (c.finance?.incomeBreakdown || []).filter(it => Number(it.amount) > 0);
+  const expenseItems = (c.finance?.expenseBreakdown || []).filter(it => Number(it.amount) > 0);
+  
+  // Asset rows with FV
+  const assetRows = assets.map(a => {
+    const cfg = ASSET_TYPES[a.type] || ASSET_TYPES.other;
+    const years = a.years ?? yearsToRetire;
+    const fv = calcAssetFV(a, years);
+    const isPVD = a.type === 'pvd' || a.type === 'gpf';
+    return `
+      <tr>
+        <td class="rp-icon-cell">${cfg.icon}</td>
+        <td>
+          <div class="rp-asset-name">${a.name || cfg.label}</div>
+          <div class="rp-asset-type">${cfg.label}${isPVD && a.pvd?.salaryBase ? ` · เงินเดือน ${fmt(a.pvd.salaryBase)} ฿` : ''}${a.monthlyDCA ? ` · DCA ${fmt(a.monthlyDCA)}/ด` : ''}</div>
+        </td>
+        <td class="rp-num">${fmt(a.value || 0)} ฿</td>
+        <td class="rp-num small">@${a.returnRate ?? 0}% × ${years}ปี</td>
+        <td class="rp-num gold"><b>${fmt(fv)} ฿</b></td>
+      </tr>
+    `;
+  }).join('');
+  const totalFV = assets.reduce((s, a) => s + calcAssetFV(a, a.years ?? yearsToRetire), 0);
+  
+  // Existing insurance
+  const insuranceItems = [];
+  if (ex.healthCount > 0) insuranceItems.push({ icon: '🏥', name: 'ประกันสุขภาพ', detail: `${ex.healthCount} กรมธรรม์`, sum: ex.health || 0 });
+  if (ex.criticalCount > 0) insuranceItems.push({ icon: '⚠️', name: 'ประกันโรคร้าย', detail: `${ex.criticalCount} กรมธรรม์`, sum: ex.critical || 0 });
+  if (ex.lifeCount > 0) insuranceItems.push({ icon: '🛡️', name: 'ประกันชีวิต', detail: `${ex.lifeCount} กรมธรรม์`, sum: ex.life || 0 });
+  if (ex.savingsCount > 0) insuranceItems.push({ icon: '💰', name: 'ประกันสะสมทรัพย์', detail: `${ex.savingsCount} กรมธรรม์`, sum: ex.savings || 0 });
+  if (ex.pensionCount > 0) insuranceItems.push({ icon: '👴', name: 'ประกันบำนาญ', detail: `${ex.pensionCount} กรมธรรม์`, sum: ex.pension || 0 });
+  
+  return `
+    <div class="rp-page page-break">
+      <div class="rp-page-header">
+        <h2>📊 สถานะการเงินปัจจุบัน</h2>
+        <p>ภาพรวมรายได้ · ค่าใช้จ่าย · สินทรัพย์ · ประกัน ที่มีอยู่ ณ วันนี้</p>
+      </div>
+      
+      <div class="rp-section">
+        <div class="rp-section-head">💵 กระแสเงินสด/เดือน</div>
+        <div class="rp-cashflow-grid">
+          <div class="rp-cf-col">
+            <div class="rp-cf-title">📈 รายได้</div>
+            ${incomeItems.length > 0 ? incomeItems.map(it => `
+              <div class="rp-cf-row">
+                <span>${it.label || 'รายได้'}</span>
+                <b>${fmt(it.amount)} ฿</b>
+              </div>
+            `).join('') : '<div class="rp-cf-empty">— ไม่มีข้อมูล</div>'}
+            <div class="rp-cf-total">
+              <span>รวม</span>
+              <b class="green">${fmt(monthlyIncome)} ฿/ด</b>
+            </div>
+          </div>
+          <div class="rp-cf-col">
+            <div class="rp-cf-title">📉 รายจ่าย</div>
+            ${expenseItems.length > 0 ? expenseItems.map(it => `
+              <div class="rp-cf-row">
+                <span>${it.label || 'รายจ่าย'}</span>
+                <b>${fmt(it.amount)} ฿</b>
+              </div>
+            `).join('') : '<div class="rp-cf-empty">— ไม่มีข้อมูล</div>'}
+            <div class="rp-cf-total">
+              <span>รวม</span>
+              <b class="red">${fmt(monthlyExp)} ฿/ด</b>
+            </div>
+          </div>
+          <div class="rp-cf-col disposable">
+            <div class="rp-cf-title">💎 เหลือใช้ได้</div>
+            <div class="rp-cf-big">${fmt(monthlyIncome - monthlyExp)} ฿/ด</div>
+            <div class="rp-cf-sub">~${fmt(disposable)} ฿/ปี</div>
+            <div class="rp-cf-note">นี่คืองบสำหรับวางแผนทั้งออม + เบี้ยประกัน</div>
+          </div>
+        </div>
+      </div>
+      
+      ${cashFlows.length > 0 ? `
+        <div class="rp-section">
+          <div class="rp-section-head">💵 รายได้พิเศษหลังเกษียณ (ตั้งใจไว้)</div>
+          <table class="rp-table">
+            <thead>
+              <tr>
+                <th>ประเภท</th>
+                <th>รายละเอียด</th>
+                <th class="rp-num">ต่อเดือน</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${cashFlows.map(cf => `
+                <tr>
+                  <td>${getCashFlowLabel(cf.type)}</td>
+                  <td>${cf.note || '—'}</td>
+                  <td class="rp-num"><b>${fmt(cf.monthly)} ฿</b></td>
+                </tr>
+              `).join('')}
+              <tr class="rp-table-total">
+                <td colspan="2"><b>รวมต่อเดือน</b></td>
+                <td class="rp-num"><b class="gold">${fmt(totalCashflow)} ฿</b></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      ` : ''}
+      
+      <div class="rp-section">
+        <div class="rp-section-head">🏦 สินทรัพย์ที่มีอยู่ (Stock + Future Value)</div>
+        ${assets.length > 0 ? `
+          <table class="rp-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>สินทรัพย์</th>
+                <th class="rp-num">มูลค่าตอนนี้</th>
+                <th class="rp-num small">ผลตอบแทน</th>
+                <th class="rp-num">มูลค่าตอนเกษียณ</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${assetRows}
+              <tr class="rp-table-total">
+                <td colspan="2"><b>รวมสินทรัพย์</b></td>
+                <td class="rp-num"><b>${fmt(totalAssets)} ฿</b></td>
+                <td></td>
+                <td class="rp-num gold"><b>${fmt(totalFV)} ฿</b></td>
+              </tr>
+            </tbody>
+          </table>
+        ` : '<div class="rp-empty">— ยังไม่ได้บันทึกสินทรัพย์</div>'}
+      </div>
+      
+      <div class="rp-section">
+        <div class="rp-section-head">🛡️ ประกันที่ทำไว้แล้ว</div>
+        ${insuranceItems.length > 0 ? `
+          <table class="rp-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>ประเภท</th>
+                <th>รายละเอียด</th>
+                <th class="rp-num">ทุน/มูลค่า</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${insuranceItems.map(it => `
+                <tr>
+                  <td class="rp-icon-cell">${it.icon}</td>
+                  <td>${it.name}</td>
+                  <td class="small">${it.detail}</td>
+                  <td class="rp-num"><b>${fmt(it.sum)} ฿</b></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        ` : '<div class="rp-empty">— ยังไม่มีประกัน</div>'}
+      </div>
+      
+      <div class="rp-foot">
+        <div>${p.name || 'คุณลูกค้า'} · เกษียนด้วยกัน</div>
+        <div>หน้า 2 / 4</div>
+      </div>
+    </div>
+  `;
+}
+
+function getCashFlowLabel(type) {
+  const labels = { rent: 'ค่าเช่า', dividend: 'เงินปันผล', interest: 'ดอกเบี้ย', royalty: 'ค่าลิขสิทธิ์', salary: 'รายได้เสริม', other: 'อื่นๆ' };
+  return labels[type] || type || '—';
+}
+
+function buildPage3(c, m, ch, saveAnnual, totalInsure, totalCommit, pct, disposable, healthPremium, criticalPremium, lifePremium, actualLifeSum, lifeProduct) {
+  const monthlySave = Math.round(saveAnnual / 12);
+  const monthlyInsure = Math.round(totalInsure / 12);
+  const status = pct <= 30 ? { color: 'green', icon: '🟢', text: 'ไหวสบาย' } 
+                : pct <= 50 ? { color: 'gold', icon: '🟡', text: 'พอไหว' }
+                : { color: 'red', icon: '🔴', text: 'ตึงไป' };
+  
+  return `
+    <div class="rp-page page-break">
+      <div class="rp-page-header">
+        <h2>🎯 แผนการเงินที่แนะนำ</h2>
+        <p>สิ่งที่ควรทำเพื่อให้ถึงเป้าหมายเกษียณ + ป้องกันแผนล้ม</p>
+      </div>
+      
+      <div class="rp-plan-grid">
+        <div class="rp-plan-col rp-retire">
+          <div class="rp-plan-eyebrow">ส่วนเกษียณ</div>
+          <div class="rp-plan-title">💰 กองทุนเกษียณ</div>
+          <table class="rp-plan-table">
+            <tr>
+              <td>เป้ากองทุน</td>
+              <td class="rp-num"><b>${fmt(m.requiredCorpus)} ฿</b></td>
+            </tr>
+            <tr>
+              <td>เตรียมไว้ (FV)</td>
+              <td class="rp-num green">${fmt(m.fvOfAssets)} ฿</td>
+            </tr>
+            <tr class="divider">
+              <td>ยังขาดอีก</td>
+              <td class="rp-num ${m.gap > 0 ? 'red' : 'green'}"><b>${fmt(m.gap)} ฿</b></td>
+            </tr>
+            <tr class="highlight">
+              <td>ต้องเก็บเพิ่ม/ปี</td>
+              <td class="rp-num gold"><b>${fmt(saveAnnual)} ฿</b></td>
+            </tr>
+            <tr>
+              <td class="small">เก็บเพิ่ม/เดือน</td>
+              <td class="rp-num small">~${fmt(monthlySave)} ฿</td>
+            </tr>
+          </table>
+          <div class="rp-status ${m.gap > 0 ? 'warning' : 'safe'}">
+            ${m.gap > 0 ? '⚠️ ต้องเก็บเพิ่ม' : '✅ เกษียณตามแผนได้'}
+          </div>
+        </div>
+        
+        <div class="rp-plan-col rp-protect">
+          <div class="rp-plan-eyebrow">ส่วนปกป้อง</div>
+          <div class="rp-plan-title">🛡️ ประกันป้องกันแผน</div>
+          <table class="rp-plan-table">
+            ${ch.healthActive ? `
+              <tr>
+                <td>🏥 สุขภาพ${ch.healthUseGov ? ' (บัตรทอง)' : ''}</td>
+                <td class="rp-num">${ch.healthUseGov ? '<span class="small">ฟรี</span>' : `<b>${fmt(healthPremium)} ฿/ปี</b>`}</td>
+              </tr>
+              <tr class="sub-row">
+                <td class="small">ทุน</td>
+                <td class="rp-num small">${ch.healthUseGov ? '—' : `${fmt(ch.healthSum)} ฿`}</td>
+              </tr>
+            ` : '<tr><td class="small">🏥 สุขภาพ</td><td class="small">— ไม่ทำ</td></tr>'}
+            ${ch.criticalActive ? `
+              <tr>
+                <td>⚠️ โรคร้าย (MPCI+TC)</td>
+                <td class="rp-num"><b>${fmt(criticalPremium)} ฿/ปี</b></td>
+              </tr>
+              <tr class="sub-row">
+                <td class="small">ทุน</td>
+                <td class="rp-num small">${fmt(ch.criticalSum)} ฿</td>
+              </tr>
+            ` : '<tr><td class="small">⚠️ โรคร้าย</td><td class="small">— ไม่ทำ</td></tr>'}
+            ${ch.lifeActive && actualLifeSum > 0 ? `
+              <tr>
+                <td>🛡️ ชีวิต (${lifeProduct === 'lifeUL' ? 'Infinite Wealth' : '20 Pay Life'})</td>
+                <td class="rp-num"><b>${fmt(lifePremium)} ฿/ปี</b></td>
+              </tr>
+              <tr class="sub-row">
+                <td class="small">ทุน</td>
+                <td class="rp-num small">${fmt(actualLifeSum)} ฿</td>
+              </tr>
+            ` : '<tr><td class="small">🛡️ ชีวิต</td><td class="small">— ไม่ทำ</td></tr>'}
+            <tr class="highlight">
+              <td>เบี้ยรวม/ปี</td>
+              <td class="rp-num gold"><b>${fmt(totalInsure)} ฿</b></td>
+            </tr>
+            <tr>
+              <td class="small">เบี้ย/เดือน</td>
+              <td class="rp-num small">~${fmt(monthlyInsure)} ฿</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      
+      <div class="rp-section rp-commit">
+        <div class="rp-section-head">📋 สิ่งที่ต้องทำต่อปี</div>
+        <div class="rp-commit-flex">
+          <div class="rp-commit-item">
+            <div class="rp-c-label">เก็บกองทุน</div>
+            <div class="rp-c-val">${fmt(saveAnnual)} ฿</div>
+          </div>
+          <div class="rp-commit-op">+</div>
+          <div class="rp-commit-item">
+            <div class="rp-c-label">เบี้ยประกัน</div>
+            <div class="rp-c-val">${fmt(totalInsure)} ฿</div>
+          </div>
+          <div class="rp-commit-op">=</div>
+          <div class="rp-commit-item rp-commit-total">
+            <div class="rp-c-label">รวม COMMITMENT</div>
+            <div class="rp-c-val gold">${fmt(totalCommit)} ฿/ปี</div>
+            <div class="rp-c-sub">~${fmt(Math.round(totalCommit/12))} ฿/เดือน</div>
+          </div>
+        </div>
+        <div class="rp-commit-bar">
+          <span>${pct}% ของเงินที่ใช้ได้ (${fmt(disposable)} ฿/ปี)</span>
+          <span class="rp-status-pill ${status.color}">${status.icon} ${status.text}</span>
+        </div>
+      </div>
+      
+      <div class="rp-section">
+        <div class="rp-section-head">⚖️ ก่อน-หลัง · เห็น IMPACT</div>
+        <table class="rp-ba-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>📍 ก่อนทำแผน</th>
+              <th>✨ หลังทำแผน</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>เป้าเกษียณ</td>
+              <td class="${m.gap > 0 ? 'red' : 'green'}">${m.gap > 0 ? '⚠️ ขาด ' + fmt(m.gap) : '✅ ครบ'}</td>
+              <td class="green"><b>✅ ครบตามเป้า</b></td>
+            </tr>
+            <tr>
+              <td>ฐานปกป้อง</td>
+              <td>${[ch.healthActive, ch.criticalActive, ch.lifeActive].filter(x=>x).length}/3</td>
+              <td class="green"><b>3/3</b></td>
+            </tr>
+            <tr>
+              <td>ทุนชีวิต</td>
+              <td class="rp-num">—</td>
+              <td class="rp-num gold"><b>${fmt(actualLifeSum)} ฿</b></td>
+            </tr>
+            <tr>
+              <td>เก็บเพิ่ม/ปี</td>
+              <td class="small">—</td>
+              <td class="rp-num gold"><b>${fmt(saveAnnual)} ฿</b></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="rp-foot">
+        <div>${(c.profile?.name) || 'คุณลูกค้า'} · เกษียนด้วยกัน</div>
+        <div>หน้า 3 / 4</div>
+      </div>
+    </div>
+  `;
+}
+
+function buildPage4(c, ch, age, retireAge, actualLifeSum, lifePremium, gender, lifeProduct, m, retireAg, lifeExp) {
+  const isUL = lifeProduct === 'lifeUL' && actualLifeSum >= 15_000_000;
+  const yearsRetired = lifeExp - retireAge;
+  
+  // Build NAV preview if UL
+  let ulInsightHtml = '';
+  if (isUL && ch.lifeActive) {
+    const yearsToRetire = retireAge - age;
+    const yearsPaid = Math.min(yearsToRetire, 20);
+    const totalPaid = lifePremium * yearsPaid;
+    const yearsAfterPaid = Math.max(0, yearsToRetire - 20);
+    
+    const estimateNAV = (returnRate) => {
+      const r = returnRate / 100;
+      let nav = 0;
+      const investRatio = 0.85;
+      for (let yr = 1; yr <= yearsPaid; yr++) {
+        nav = (nav + lifePremium * investRatio) * (1 + r);
+      }
+      for (let yr = 1; yr <= yearsAfterPaid; yr++) {
+        nav = nav * (1 + r);
+      }
+      return Math.round(nav);
+    };
+    
+    const navLow = estimateNAV(-1);
+    const navMid = estimateNAV(2);
+    const navHigh = estimateNAV(5);
+    
+    ulInsightHtml = `
+      <div class="rp-section rp-ul">
+        <div class="rp-section-head">⭐ พลังของ AIA Infinite Wealth (Unit-Linked)</div>
+        <div class="rp-ul-tagline">ตอนเกษียณอายุ ${retireAge} ปี · คุณจะมี <b>2 ทางเลือก</b></div>
+        <div class="rp-ul-grid">
+          <div class="rp-ul-opt">
+            <div class="rp-ul-opt-icon">🛡️</div>
+            <div class="rp-ul-opt-title">ทางที่ 1 · เก็บคุ้มครอง</div>
+            <div class="rp-ul-opt-detail">
+              ทุน <b>${fmt(actualLifeSum)} ฿</b> ตลอดชีวิต<br>
+              <span class="small">→ ครอบครัวได้ ${fmt(actualLifeSum)} ฿ ถ้าวันใดไม่อยู่ (Legacy)</span>
+            </div>
+          </div>
+          <div class="rp-ul-opt">
+            <div class="rp-ul-opt-icon">💰</div>
+            <div class="rp-ul-opt-title">ทางที่ 2 · ถอนเงินก้อน</div>
+            <div class="rp-ul-opt-detail">
+              <table class="rp-nav-table">
+                <tr><td>Return -1%</td><td class="rp-num"><b>${fmt(navLow)} ฿</b></td></tr>
+                <tr><td>Return  2%</td><td class="rp-num"><b>${fmt(navMid)} ฿</b></td></tr>
+                <tr><td>Return  5%</td><td class="rp-num"><b>${fmt(navHigh)} ฿</b></td></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="rp-ul-summary">
+          จ่ายเบี้ย 20 ปี: <b>${fmt(totalPaid)}</b> ฿ · NAV ที่เกษียณ (กลาง 2%): <b class="green">${fmt(navMid)}</b> ฿ · คุ้มครอง <b>${fmt(actualLifeSum)}</b> ฿ ตลอดชีวิต
+        </div>
+        <div class="rp-disclaimer">
+          ⚠️ NAV เป็นการประมาณการ · ผลจริงขึ้นกับกองทุนที่เลือก · ผลที่ผ่านมาไม่ใช่ตัวบ่งชี้อนาคต
+        </div>
+      </div>
+    `;
+  }
+  
+  // Timeline 25 yrs
+  const monthlyExp = Math.round((c.goal?.annualExpense || 0) / 12);
+  const inflated = Math.round((c.goal?.annualExpense || 0) * Math.pow(1.03, retireAge - age));
+  const monthlyInflated = Math.round(inflated / 12);
+  
+  return `
+    <div class="rp-page page-break">
+      <div class="rp-page-header">
+        <h2>📅 พลังของแผน + Timeline ชีวิต</h2>
+        <p>เห็นภาพชีวิตคุณตั้งแต่วันนี้ จนเกษียณ และตลอด 25 ปีหลังเกษียณ</p>
+      </div>
+      
+      ${ulInsightHtml}
+      
+      <div class="rp-section">
+        <div class="rp-section-head">📅 Timeline ชีวิตเกษียณของคุณ</div>
+        <div class="rp-timeline">
+          <div class="rp-tl-checkpoint">
+            <div class="rp-tl-circle">${age}</div>
+            <div class="rp-tl-label">อายุปัจจุบัน</div>
+            <div class="rp-tl-info">
+              <b>${fmt(monthlyExp)} ฿/เดือน</b><br>
+              <span class="small">เริ่มออม + ทำประกัน</span>
+            </div>
+          </div>
+          <div class="rp-tl-bar"><span>${retireAge - age} ปี · เก็บสะสม</span></div>
+          <div class="rp-tl-checkpoint highlight">
+            <div class="rp-tl-circle gold">${retireAge}</div>
+            <div class="rp-tl-label">เกษียณ</div>
+            <div class="rp-tl-info">
+              <b>${fmt(m.requiredCorpus)} ฿</b><br>
+              <span class="small">เป้ากองทุนพร้อม</span>
+            </div>
+          </div>
+          <div class="rp-tl-bar gold"><span>${yearsRetired} ปี · ใช้ชีวิต</span></div>
+          <div class="rp-tl-checkpoint">
+            <div class="rp-tl-circle">${lifeExp}</div>
+            <div class="rp-tl-label">อายุขัย</div>
+            <div class="rp-tl-info">
+              <b>${fmt(monthlyInflated)} ฿/เดือน</b><br>
+              <span class="small">มูลค่าจริง · เงินเฟ้อ 3%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="rp-section rp-action">
+        <div class="rp-section-head">📌 ขั้นตอนถัดไป</div>
+        <ol class="rp-steps">
+          <li><b>ทบทวนแผน</b> — อ่าน report นี้กับคู่ชีวิต/ครอบครัว · ตรวจสอบความเข้าใจ</li>
+          <li><b>เริ่มทำส่วนปกป้อง</b> — Health + โรคร้าย + ทุนชีวิต ก่อน (เพราะถ้าวันนึงเจ็บป่วย แผนจะล้ม)</li>
+          <li><b>เริ่มออม</b> — ${fmt(Math.round((m.annualPMT||0)/12))} ฿/เดือน เข้ากองทุน · DCA สม่ำเสมอ</li>
+          <li><b>ทบทวนทุก 6 เดือน</b> — ปรับแผนตามสถานการณ์จริง · ติดตามผล</li>
+        </ol>
+      </div>
+      
+      <div class="rp-contact">
+        <div class="rp-contact-eyebrow">ที่ปรึกษาการเงิน</div>
+        <div class="rp-contact-name">ติส เอกชัย เนียมจิตต์</div>
+        <div class="rp-contact-info">
+          <span>📞 084-000-4454</span> · 
+          <span>💬 LINE: Tizake</span> · 
+          <span>📧 ติสคิดให้</span>
+        </div>
+        <div class="rp-contact-note">
+          "ฟรี · ไม่มีค่าใช้จ่าย · ไม่บังคับซื้อ — ลูกค้าตัดสินใจเอง"
+        </div>
+      </div>
+      
+      <div class="rp-foot">
+        <div>${(c.profile?.name) || 'คุณลูกค้า'} · เกษียนด้วยกัน</div>
+        <div>หน้า 4 / 4</div>
+      </div>
+    </div>
+  `;
 }
 
 /* ============================================================
